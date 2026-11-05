@@ -1,0 +1,57 @@
+# This file contains actions that should be run on documentation
+
+name: Documentation and Notes Checks
+on: 
+    push:
+        branches: [main]
+    pull_request:
+    workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+    puml_changes:
+        runs-on: ubuntu-latest
+        outputs:
+            plantuml: ${{ steps.filter.outputs.plantuml }}
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                ref: ${{ github.head_ref || github.ref_name }}
+            - uses: dorny/paths-filter@v4
+              id: filter
+              with:
+                filters: |
+                  plantuml:
+                    - '**/*.puml'
+    render_plantuml:
+        needs: puml_changes
+        runs-on: ubuntu-latest
+        if: needs.puml_changes.outputs.plantuml == 'true'
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v4
+              with:
+                ref: ${{ github.head_ref || github.ref_name }}
+            - name: Set up Java
+              uses: actions/setup-java@v4
+              with:
+                distribution: temurin
+                java-version: '21'
+            - name: Install Graphviz
+              run: sudo apt-get update && sudo apt-get install -y graphviz
+            - name: Download PlantUML
+              run: curl -fsSL -o plantUML.jar https://github.com/plantuml/plantuml/releases/download/v1.2026.8/plantuml-1.2026.8.jar
+            - name: Render puml
+              run: java -jar plantUML.jar -svg "plantUML/*.puml" --output-dir "rendered"
+            - name: Commit Rendered Diagrams
+              run: |
+                git config --global user.name "${{ github.actor }}"
+                git config --global user.email "${{ github.actor}}@users.noreply.github.com"
+                git add plantUML/rendered/*
+                git commit -m "ci: render plantUML [skip ci]"
+                git push
+
+    
