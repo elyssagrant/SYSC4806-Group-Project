@@ -2,11 +2,14 @@
 class Survey{
 Integer id
 String title
+Boolean isOpen
+ArrayList<Question> questions
 Integer getId()
 void setId(Integer id)
 String getTitle()
 void setTitle(String title)
-ArrayList<Question> questions
+Boolean getIsOpen()
+void setIsOpen(Boolean isOpen)
 ArrayList<Question> getQuestions()
 void setQuestions(ArrayList<Question>)
 void addQuestion(Question question)
