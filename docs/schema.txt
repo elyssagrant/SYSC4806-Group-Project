@@ -1,0 +1,65 @@
+paths:
+  /createForm:
+    "name of the form":
+    responses:
+    application/json
+      "200":
+        id: Id of the survey assigned by the controller
+      Any other code:
+        "message": I'll print this message on the frontend
+  /addToForm:
+    parameters:
+        query: id
+    application/json:
+        "questions" {
+            {
+            "type:" {NumberRange, Text, MultipleChoice}
+            <whatever fields correspond to the type go here - examples below>
+            }
+            {
+                "type": Text,
+                "questionText":
+            }
+            {
+                "type": NumberRange
+                "questionText":
+                "upperBound":
+                "lowerBound":
+            }
+            {
+                "type": MultipleChoice,
+                "questionText":
+            }
+        }
+    responses:
+    application/json
+      "200": no information needed
+      Any other code:
+        "message": I'll print this message on the frontend
+        AND/OR
+        "id of the question (the index in the same order that the questions arrived in)": "message detailing problem with the question"
+    /viewForm
+        "name or id of the form"
+        responses:
+            The form with the same format above
+            "name":
+            "questions" {
+                {
+                "type:" {NumberRange, Text, MultipleChoice}
+                <whatever fields correspond to the type go here - examples below>
+                }
+                {
+                    "type": Text,
+                    "questionText":
+                }
+                {
+                    "type": NumberRange
+                    "questionText":
+                    "upperBound":
+                    "lowerBound":
+                }
+                {
+                    "type": MultipleChoice,
+                    "questionText":
+                }
+            }
