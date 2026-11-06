@@ -1,5 +1,5 @@
 paths:
-  /createForm:
+  POST /createForm:
     "name of the form":
     responses:
     application/json
@@ -7,7 +7,7 @@ paths:
         id: Id of the survey assigned by the controller
       Any other code:
         "message": I'll print this message on the frontend
-  /addToForm:
+  POST /addToForm:
     parameters:
         query: id
     application/json:
@@ -29,6 +29,7 @@ paths:
             {
                 "type": MultipleChoice,
                 "questionText":
+                "choices": []
             }
         }
     responses:
@@ -38,7 +39,7 @@ paths:
         "message": I'll print this message on the frontend
         AND/OR
         "id of the question (the index in the same order that the questions arrived in)": "message detailing problem with the question"
-    /viewForm
+    GET /viewForm
         "name or id of the form"
         responses:
             The form with the same format above
@@ -61,5 +62,6 @@ paths:
                 {
                     "type": MultipleChoice,
                     "questionText":
+                    "choices": []
                 }
             }
