@@ -1,8 +1,10 @@
 package sysc4806.project.survey.responses;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+@Entity
 public class TextResponse {
 
     @Id
