@@ -1,0 +1,116 @@
+@startuml
+class Survey{
+- Integer id
+- String title
+- Boolean isOpen
+- ArrayList<Question> questions
++ Integer getId()
++ void setId(Integer id)
++ String getTitle()
++ void setTitle(String title)
++ Boolean getIsOpen()
++ void setIsOpen(Boolean isOpen)
++ ArrayList<Question> getQuestions()
++ void setQuestions(ArrayList<Question>)
++ void addQuestion(Question question)
+}
+
+interface Question {
+    - Integer id
+    + Integer getId()
+    + void setId()
+}
+
+class TextQuestion implements Question {
+- String questionText
+- ArrayList<TextResponse> responses
++ String getQuestionText()
++ ArrayList<TextResponse> getResponses()
++ void setResponses(ArrayList<TextResponse>)
++ boolean addResponse(String response)
+}
+
+class NumberRangeQuestion implements Question{
+- Integer lowerBound
+- Integer upperBound
+- String questionText
+- ArrayList<NumberRangeResponse> responses
++ Integer getLowerBound()
++ void setLowerBound(Integer lowerBound)
++ Integer getUpperBound()
++ void setUpperBound(Integer upperBound)
++ ArrayList<NumberRangeResponse> getResponses()
++ void setResponses(ArrayList<NumberRangeResponse> responses)
++ boolean addResponse(NumberRangeResponse response)
++ boolean withinRange(Integer value)
+}
+
+class MultipleChoiceQuestion implements Question{
+- String questionText
+- ArrayList<String> choices
+- ArrayList<MultipleChoiceResponse> responses
++ String getQuestion()
++ void setQuestion(String question)
++ ArrayList<String> getChoices()
++ void setChoices(ArrayList<String> choices)
++ ArrayList<MultipleChoiceResponse> getResponses()
++ void setResponses(ArrayList<MultipleChoiceResponse>)
++ void addResponse(MultipleChoiceResponse response)
+}
+
+class TextResponse {
+- Integer id
+- String response
++ Integer getId()
++ void setId(Integer id)
++ String getResponse()
++ void setResponse(String response)
+}
+
+class NumberRangeResponse{
+- Integer id
+- Integer response
++ Integer getId()
++ void setId(Integer id)
++ Integer getResponse()
++ void setResponse(Integer response)
+}
+
+class MultipleChoiceResponse {
+- Integer id
+- Integer response
++ Integer getId()
++ void setId(Integer id)
++ Integer getResponse()
++ void setResponse(Integer response)
+}
+
+class surveyResponseController {
++ openNewSurvey(Integer id, Model model)
++ submitResponse(Integer id, Model model)
+}
+
+class surveyCreationController {
++ createNewSurvey(Model model)
++ addQuestionToSurvey(Question question, Model model)
++ deleteSurvey(Integer id, Model model)
++ deleteQuestion(Question question, Model model)
+}
+
+class Main {
++ void main(String[] args)
+}
+
+interface CrudRepository {
+
+}
+
+interface SurveyRepository implements CrudRepository {
+
+}
+
+Survey *-- Question
+TextQuestion o-- TextResponse
+NumberRangeQuestion o-- NumberRangeResponse
+MultipleChoiceQuestion o-- MultipleChoiceResponse
+@enduml
