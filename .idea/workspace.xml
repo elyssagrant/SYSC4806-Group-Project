@@ -5,22 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/Survey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/MultipleChoiceQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/NumberRangeQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/Question.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/TextQuestion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/workflows/maven-build.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/MultipleChoiceResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/NumberRangeResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/TextResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/responses/MultipleChoiceResponseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/responses/NumberRangeResponseTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/responses/TextResponseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plantUML/java-class-diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/plantUML/java-class-diagram.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/rabby/OneDrive/Documents/Carleton Fall 2026/SYSC 4806-A/Mini Survey Monkey/SYSC4806-Group-Project" value="3LtMhKoAc3sDIA0VYf7wHEuGPJK" />
+    </persistenceIdMap>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -32,28 +39,45 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="jkhalife/messages" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "elyssagrant"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;elyssagrant&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/elyssagrant/SYSC4806-Group-Project.git",
-    "accountId": "e94944ca-e13e-46f9-8533-5692e1571180"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/elyssagrant/SYSC4806-Group-Project.git&quot;,
+    &quot;accountId&quot;: &quot;a8d371aa-d52e-431e-96a6-d44a6fb60266&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4,
-  "fromUser": false
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3LYKjm1MLC3Duy5hwJZSGuuUmj2" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="ensembleEnabled" value="false" />
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -68,21 +92,42 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "setup-essentials",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "#17 on Merging jkhalife/messages",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rabby/OneDrive/Documents/Carleton Fall 2026/SYSC 4806-A/Mini Survey Monkey/SYSC4806-Group-Project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/Elyss/OneDrive/Documents/School/Software Validation/Labs/Lab 3/SYSC4806-Group-Project/untitled/src/main/java/Unknown/Main.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="miniSurveyMonkey.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="sysc4806.project.Main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
       </set>
     </attachedChunks>
   </component>
@@ -93,6 +138,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1793625698624</updated>
+      <workItem from="1794267836077" duration="1116000" />
+      <workItem from="1794269030620" duration="693000" />
     </task>
     <servers />
   </component>

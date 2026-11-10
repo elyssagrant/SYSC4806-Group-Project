@@ -101,6 +101,14 @@ class Main {
 + void main(String[] args)
 }
 
+interface CrudRepository {
+
+}
+
+interface SurveyRepository implements CrudRepository {
+
+}
+
 Survey *-- Question
 TextQuestion o-- TextResponse
 NumberRangeQuestion o-- NumberRangeResponse
