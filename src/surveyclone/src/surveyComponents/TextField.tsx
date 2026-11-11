@@ -1,5 +1,5 @@
 import { TextQuestion } from "../types";
-import { FieldProps } from "./QuestionField";
+import { FieldProps } from "./componentTypes";
 
 
 export default function TextField(props: FieldProps<TextQuestion>) {
@@ -12,6 +12,7 @@ export default function TextField(props: FieldProps<TextQuestion>) {
                     <input
                     type="text"
                     value={question.questionText}
+                    placeholder="Question goes here"
                     onChange={e => props.onChange({ ...question, questionText: e.target.value })}
                     />
                 </label>

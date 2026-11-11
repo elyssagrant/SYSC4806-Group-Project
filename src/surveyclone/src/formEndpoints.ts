@@ -24,8 +24,8 @@ export async function createForm(name: string): Promise<string> {
             throw new Error(`Http failure: ${response.status} with message: ${data.message}`)
         }
 
-        if (!data.name) { throw new Error('Error: Name is null.') }
-        return data.name
+        if (!data.id) { throw new Error('Error: id is null.') }
+        return data.id
 
     } catch (err) {
         throw new Error("Error parsing json")
