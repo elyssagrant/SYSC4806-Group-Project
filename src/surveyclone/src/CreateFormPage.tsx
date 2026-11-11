@@ -2,7 +2,7 @@ import { useState } from "react"
 import { newQuestion, QUESTION_TYPES } from "./surveyComponents/componentTypes";
 import { Question } from './types';
 import QuestionField from "./surveyComponents/QuestionField";
-import { createForm } from "./formEndpoints";
+import { addToForm, createForm, getId, storeId } from "./formEndpoints";
 
 export default function CreateFormPage() {
     const [name, setName] = useState('');
@@ -21,10 +21,10 @@ export default function CreateFormPage() {
         setQuestions(q => q.map((q,i) => (i == index ? update: q)));
     }
 
-    function submitForm() {
+    async function submitForm() {
         try {
-            const id = createForm(name);
-            document.cookie = `id=${id}`;
+            const id = await createForm(name);
+            storeId(id);
         } catch(err: any) {
             setMessage(err.message);
             setFormSubmitError(true);
@@ -33,7 +33,20 @@ export default function CreateFormPage() {
         setSubmittedForm(true);
     }
 
-    function addToForm() {
+
+    function submitFormAddition() {
+        try {
+            const id = getId();
+            if (id) {
+                addToForm(id, questions);
+            } else {
+                setMessage("You have not created a form yet!")
+                setFormSubmitError(true)
+            }
+        } catch(err: any) {
+            setMessage(err.message)
+            setQuestionErrors({})
+        }
     }
 
     return (
@@ -74,9 +87,8 @@ export default function CreateFormPage() {
                             </option>
                         ))}
                     </select>
-                    {/* <QuestionField mode="edit" question = {q} onChange={updated => updateQuestion(0, updated)}></QuestionField> */}
                 <button type="button" onClick={addQuestion}>Add</button>
-                <button type="submit" onClick={addToForm}>Submit</button>
+                <button type="submit" onClick={submitFormAddition}>Submit</button>
             </div>
             )}
         </div>

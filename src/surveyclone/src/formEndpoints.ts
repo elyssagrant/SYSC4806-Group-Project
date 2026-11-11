@@ -5,6 +5,21 @@
 
 import { Form, Question } from "./types"
 
+export function getId(): string | null {
+    const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+        if (cookie.startsWith("id=")) {
+            return decodeURIComponent(cookie.substring(3))
+        }
+    }
+    return null;
+}
+
+export function storeId(id: string) {
+    document.cookie = `id=${id}`;
+}
+
+
 /**
  * Sends the create form request. Takes a name (of the form)
  * and returns an id (of the form)
