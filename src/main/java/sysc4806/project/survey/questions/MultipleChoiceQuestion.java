@@ -13,7 +13,7 @@ public class MultipleChoiceQuestion extends Question {
 
 
     private ArrayList<MultipleChoiceResponse> responses;
-    private ArrayList<String> answerOptions;
+    private ArrayList<String> choices;
     private String questionText;
 
     @Id
@@ -24,13 +24,13 @@ public class MultipleChoiceQuestion extends Question {
 
     public MultipleChoiceQuestion(){
         responses = new ArrayList<>();
-        answerOptions = new ArrayList<>();
+        choices = new ArrayList<>();
         questionText = "";
     }
 
     public MultipleChoiceQuestion(String questionText){
         responses = new ArrayList<>();
-        answerOptions = new ArrayList<>();
+        choices = new ArrayList<>();
         this.questionText = questionText;
     }
 
@@ -48,8 +48,8 @@ public class MultipleChoiceQuestion extends Question {
         return responses.get(index);
     }
 
-    public ArrayList<String> getAnswerOptions(){
-        return answerOptions;
+    public ArrayList<String> getChoices(){
+        return choices;
     }
 
     public Integer getId(){
@@ -66,8 +66,8 @@ public class MultipleChoiceQuestion extends Question {
         this.questionText = newQuestionText;
     }
 
-    public void setAnswerOptions(ArrayList<String> newAnswerOptions){
-        this.answerOptions = newAnswerOptions;
+    public void setChoices(ArrayList<String> newChoices){
+        this.choices = newChoices;
     }
 
     public void setId(Integer newId){
