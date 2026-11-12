@@ -47,10 +47,6 @@ public class NumberRangeQuestion extends Question {
         return responses;
     }
 
-    public NumberRangeResponse getResponseFromIndex(int index){
-        return responses.get(index);
-    }
-
     public Integer getLowerBound(){
         return lowerBound;
     }
