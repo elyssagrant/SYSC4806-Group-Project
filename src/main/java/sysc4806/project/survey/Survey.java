@@ -19,47 +19,64 @@ public class Survey {
 
     private Boolean isOpen;
 
-    // NOTE: Question being an interface is preventing JPA from saving it to the database. 
-    // The way I understand this works is that we need to use @OneToMany to make it so a
-    // survey holds multiple questions, but we can't do that because Question is an interface
-    // instead of an abstract class. Currently @Transient makes so no questions persist in the
-    // database.
-    @Transient 
-    private ArrayList<Question> questions = new ArrayList<>();
+    private ArrayList<Question> questions;
+
+    public Survey(){
+        questions = new ArrayList<>();
+        isOpen = false;
+        title = "";
+    }
+
+    public Survey(String title){
+        questions = new ArrayList<>();
+        isOpen = false;
+        this.title = title;
+    }
+
+    // *** GETTERS ***
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Boolean getIsOpen() {
         return isOpen;
-    }
-
-    public void setIsOpen(Boolean isOpen) {
-        this.isOpen = isOpen;
     }
 
     public ArrayList<Question> getQuestions() {
         return questions;
     }
 
+    public Question getQuestionFromIndex(int index){
+        return questions.get(index);
+    }
+
+    // *** SETTERS ***
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIsOpen(Boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
     public void setQuestions(ArrayList<Question> questions) {
         this.questions = questions;
     }
 
+    // *** ADDITIONAL METHODS ***
+
     public void addQuestion(Question question) {
         this.questions.add(question);
     }
+
 }
