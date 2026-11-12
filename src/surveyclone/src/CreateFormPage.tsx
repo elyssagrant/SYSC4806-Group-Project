@@ -43,9 +43,14 @@ export default function CreateFormPage() {
                 setMessage("You have not created a form yet!")
                 setFormSubmitError(true)
             }
-        } catch(err: any) {
-            setMessage(err.message)
+            setName("");
+            setQuestions([])
+            setQuestionErrors({});
+            setSubmittedForm(false);
+            setFormSubmitError(false);
             setQuestionErrors({})
+        } catch(err: any) {
+            setMessage(err.message);
         }
     }
 

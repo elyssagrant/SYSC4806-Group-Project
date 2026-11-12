@@ -10,6 +10,7 @@ import sysc4806.project.survey.Survey;
 import sysc4806.project.survey.SurveyRepository;
 import sysc4806.project.survey.questions.Question;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,17 +40,19 @@ public class SurveyCreationController {
             @RequestParam(name = "name", required = true) String name,
             Model model ){
         Map<String,String> body;
+        int id;
         try {
             Survey survey = new Survey();
             survey.setTitle(name);
             survey.setIsOpen(true);
             survey = surveyRepo.save(survey);
             model.addAttribute("survey", survey);
-            body = Map.of("id", Integer.toString(survey.getId()));
+            id = survey.getId();
+            body = Map.of("id", Integer.toString(id));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }
-        return ResponseEntity.ok(body);
+        return ResponseEntity.created(URI.create("/surveycreation/" + id)).body(body);
     }
 
     // Add a question to the survey with the given ID
@@ -78,7 +81,7 @@ public class SurveyCreationController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(URI.create("/surveycreation/" + id)).body(null);
     }
 
     // Delete a survey with the given ID

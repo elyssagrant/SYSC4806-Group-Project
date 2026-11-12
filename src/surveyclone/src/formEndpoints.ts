@@ -95,7 +95,7 @@ export async function addToForm(id: string, questions: Question[]): Promise<void
     try {
         const status = await response.status;
         switch (status) {
-            case 200:
+            case 201:
                 break;
             default:
                 const data = await response.json()
