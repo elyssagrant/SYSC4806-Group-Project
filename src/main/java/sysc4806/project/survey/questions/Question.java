@@ -1,6 +1,6 @@
 package sysc4806.project.survey.questions;
 
-public interface Question {
-    Integer getId();
-    void setId(Integer id);
+public abstract class Question {
+    public abstract Integer getId();
+    public abstract void setId(Integer id);
 }
