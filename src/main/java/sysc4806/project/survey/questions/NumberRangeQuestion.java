@@ -4,45 +4,94 @@ import sysc4806.project.survey.responses.NumberRangeResponse;
 
 import java.util.ArrayList;
 
-public class NumberRangeQuestion implements Question {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
-    private int id;
+@Entity
+public class NumberRangeQuestion extends Question {
 
-    private int lowerBound;
-    private int upperBound;
-    private String questionText;
     private ArrayList<NumberRangeResponse> responses;
+    private String questionText;
 
-    NumberRangeQuestion(int id, int lowerBound, int upperBound, String questionText) {
-        this.id = id;
-        this.lowerBound = lowerBound;
-        this.upperBound = upperBound;
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    private Integer lowerBound;
+    private Integer upperBound;
+
+    //*** Constructors ***
+
+    public NumberRangeQuestion(){
+        responses = new ArrayList<>();
+        lowerBound = 0;
+        upperBound = 0;
+        questionText = "";
+    }
+
+    public NumberRangeQuestion(String questionText){
+        responses = new ArrayList<>();
+        lowerBound = 0;
+        upperBound = 0;
         this.questionText = questionText;
-        this.responses = new ArrayList<>();
     }
 
-    boolean addResponse(NumberRangeResponse response) {
-        this.responses.add(response);
-        //TODO: Validation goes here? - idk
+    // *** Getters ***
 
-        return true;
+    public String getQuestionText(){
+        return questionText;
     }
 
-    boolean withinRange(int value) {
-        return value <= this.upperBound && value >= this.lowerBound;
+    public ArrayList<NumberRangeResponse> getResponses(){
+        return responses;
     }
 
-    // Interface
-    public int getId() {return this.id;}
-    public void setId(int id) {this.id = id;}
+    public Integer getLowerBound(){
+        return lowerBound;
+    }
 
-    // Getters
-    public int getLowerBound() {return this.lowerBound;}
-    public int getUpperBound() {return this.upperBound;}
-    public String getQuestionText() {return this.questionText;}
+    public Integer getUpperBound(){
+        return upperBound;
+    }
 
-    // Setters
-    public void setLowerBound(int lowerBound) {this.lowerBound = lowerBound;}
-    public void setUpperBound(int upperBound) {this.upperBound = upperBound;}
-    public void setQuestionText(String questionText) {this.questionText = questionText;}
+    public Integer getId(){
+        return this.id;
+    }
+
+    // *** Setters ***
+
+    public void setResponses(ArrayList<NumberRangeResponse> newResponses){
+        this.responses = newResponses;
+    }
+
+    public void setQuestionText(String newQuestionText){
+        this.questionText = newQuestionText;
+    }
+
+    public void setId(Integer newId){
+        this.id = newId;
+    }
+
+    public void setUpperBound(Integer newUpperBound){
+        this.upperBound = newUpperBound;
+    }
+
+    public void setLowerBound(Integer newLowerBound){
+        this.lowerBound = newLowerBound;
+    }
+
+    // *** Additional Methods ***
+
+    public void addResponse(NumberRangeResponse response){
+        responses.add(response);
+    }
+
+    public boolean withinRange(Integer number){
+        if (number>=this.lowerBound && number<=this.upperBound){
+            return true;
+        }
+        return false;
+    }
+
 }

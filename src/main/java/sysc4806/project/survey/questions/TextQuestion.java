@@ -4,11 +4,20 @@ import sysc4806.project.survey.responses.TextResponse;
 
 import java.util.*;
 
-public class TextQuestion implements Question {
 
-    private int id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
+public class TextQuestion extends Question {
+
     private ArrayList<TextResponse> responses;
     private String questionText;
+
+    @Id
+    @GeneratedValue
+    private Integer id;
 
     //*** Constructors ***
 
@@ -22,10 +31,6 @@ public class TextQuestion implements Question {
         this.questionText = questionText;
     }
 
-    // *** Interface ***
-    public int getId() {return id;}
-    public void setId(int id) {this.id = id;}
-
     // *** Getters ***
 
     public String getQuestionText(){
@@ -36,8 +41,8 @@ public class TextQuestion implements Question {
         return responses;
     }
 
-    public TextResponse getResponseFromIndex(int index){
-        return responses.get(index);
+    public Integer getId(){
+        return this.id;
     }
 
     // *** Setters ***
@@ -48,6 +53,10 @@ public class TextQuestion implements Question {
 
     public void setQuestionText(String newQuestionText){
         this.questionText = newQuestionText;
+    }
+
+    public void setId(Integer newId){
+        this.id = newId;
     }
 
     // *** Additional Methods ***

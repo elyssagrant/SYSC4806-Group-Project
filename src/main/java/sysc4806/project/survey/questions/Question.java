@@ -1,6 +1,5 @@
 package sysc4806.project.survey.questions;
 
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -14,7 +13,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = TextQuestion.class, name = "Text"),
         @JsonSubTypes.Type(value = MultipleChoiceQuestion.class, name = "MultipleChoice")
 })
-public interface Question {
-    int getId();
-    void setId(int id);
+public abstract class Question {
+    public abstract Integer getId();
+    public abstract void setId(Integer id);
+
 }
