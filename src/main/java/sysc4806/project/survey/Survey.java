@@ -51,10 +51,6 @@ public class Survey {
         return questions;
     }
 
-    public Question getQuestionFromIndex(int index){
-        return questions.get(index);
-    }
-
     // *** SETTERS ***
 
     public void setId(Integer id) {
