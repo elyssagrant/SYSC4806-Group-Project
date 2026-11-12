@@ -1,11 +1,14 @@
 package sysc4806.project;
 
+import sysc4806.project.survey.responses.TextResponse;
+
 import java.util.*;
 
 public class TextQuestion implements Question{
 
     private ArrayList<TextResponse> responses;
     private String questionText;
+    private Integer id;
 
     //*** Constructors ***
 
@@ -33,6 +36,10 @@ public class TextQuestion implements Question{
         return responses.get(index);
     }
 
+    public Integer getId(){
+        return this.id;
+    }
+
     // *** Setters ***
 
     public void setResponses(ArrayList<TextResponse> newResponses){
@@ -41,6 +48,10 @@ public class TextQuestion implements Question{
 
     public void setQuestionText(String newQuestionText){
         this.questionText = newQuestionText;
+    }
+
+    public void setId(Integer newId){
+        this.id = newId;
     }
 
     // *** Additional Methods ***

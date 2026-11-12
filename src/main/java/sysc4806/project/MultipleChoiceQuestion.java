@@ -1,22 +1,28 @@
 package sysc4806.project;
 
-import java.util.ArrayList;
+import sysc4806.project.survey.responses.MultipleChoiceResponse;
+
+import java.util.*;
 
 public class MultipleChoiceQuestion implements Question{
 
 
     private ArrayList<MultipleChoiceResponse> responses;
+    private ArrayList<String> answerOptions;
     private String questionText;
+    private Integer id;
 
     //*** Constructors ***
 
     public MultipleChoiceQuestion(){
         responses = new ArrayList<>();
+        answerOptions = new ArrayList<>();
         questionText = "";
     }
 
     public MultipleChoiceQuestion(String questionText){
         responses = new ArrayList<>();
+        answerOptions = new ArrayList<>();
         this.questionText = questionText;
     }
 
@@ -34,6 +40,14 @@ public class MultipleChoiceQuestion implements Question{
         return responses.get(index);
     }
 
+    public ArrayList<String> getAnswerOptions(){
+        return answerOptions;
+    }
+
+    public Integer getId(){
+        return this.id;
+    }
+
     // *** Setters ***
 
     public void setResponses(ArrayList<MultipleChoiceResponse> newResponses){
@@ -42,6 +56,14 @@ public class MultipleChoiceQuestion implements Question{
 
     public void setQuestionText(String newQuestionText){
         this.questionText = newQuestionText;
+    }
+
+    public void setAnswerOptions(ArrayList<String> newAnswerOptions){
+        this.answerOptions = newAnswerOptions;
+    }
+
+    public void setId(Integer newId){
+        this.id = newId;
     }
 
     // *** Additional Methods ***
