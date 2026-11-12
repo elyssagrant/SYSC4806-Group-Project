@@ -4,6 +4,7 @@ import sysc4806.project.survey.responses.TextResponse;
 
 import java.util.*;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -63,5 +64,4 @@ public class TextQuestion extends Question {
     public void addResponse(TextResponse response){
         responses.add(response);
     }
-
 }

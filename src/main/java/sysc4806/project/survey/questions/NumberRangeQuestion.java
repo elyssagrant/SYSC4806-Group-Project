@@ -37,6 +37,12 @@ public class NumberRangeQuestion extends Question {
         this.questionText = questionText;
     }
 
+    public NumberRangeQuestion(String questionText, int upperBound, int lowerBound) {
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
+        this.questionText = questionText;
+    }
+
     // *** Getters ***
 
     public String getQuestionText(){

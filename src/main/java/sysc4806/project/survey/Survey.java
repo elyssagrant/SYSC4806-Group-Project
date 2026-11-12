@@ -2,9 +2,11 @@ package sysc4806.project.survey;
 
 import java.util.ArrayList;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Transient;
 import sysc4806.project.survey.questions.Question;
 
@@ -19,6 +21,8 @@ public class Survey {
 
     private Boolean isOpen;
 
+    @Lob
+    @Column(name = "QUESTIONS")
     private ArrayList<Question> questions;
 
     public Survey(){

@@ -2,6 +2,7 @@ package sysc4806.project.survey.questions;
 
 import sysc4806.project.survey.responses.MultipleChoiceResponse;
 
+
 import java.util.*;
 
 import jakarta.persistence.Entity;
@@ -10,7 +11,6 @@ import jakarta.persistence.Id;
 
 @Entity
 public class MultipleChoiceQuestion extends Question {
-
 
     private ArrayList<MultipleChoiceResponse> responses;
     private ArrayList<String> choices;
@@ -75,6 +75,4 @@ public class MultipleChoiceQuestion extends Question {
     public void addResponse(MultipleChoiceResponse response){
         responses.add(response);
     }
-
-
 }
