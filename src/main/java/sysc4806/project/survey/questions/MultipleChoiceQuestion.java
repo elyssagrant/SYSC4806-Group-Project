@@ -44,10 +44,6 @@ public class MultipleChoiceQuestion extends Question {
         return responses;
     }
 
-    public MultipleChoiceResponse getResponseFromIndex(int index){
-        return responses.get(index);
-    }
-
     public ArrayList<String> getChoices(){
         return choices;
     }
