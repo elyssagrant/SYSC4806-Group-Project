@@ -108,9 +108,36 @@ interface CrudRepository {
 interface SurveyRepository implements CrudRepository {
 
 }
+abstract class ChartGenerator {
++ {static} final int CHART_HEIGHT = 600
++ {static} final int CHART_WIDTH = 600
++ {abstract} byte[] generateChart(Integer surveyId, Integer questionId)
+}
+
+class HistogramGenerator implements ChartGenerator{
+- {static} final int NUM_CATEGORIES = 3
+- String title
+- DefaultCategoryDataset dataset
+- SurveyRepository surveyRepository
++ HistogramGenerator(SurveyRepository surveyRepository)
+- ArrayList<int[]> getSubRanges(int min, int max)
+- void extractChartDetails(Integer surveyId, Integer questionId)
++ byte[] generateChart(Integer surveyId, Integer questionId)
+}
+
+class PieChartGenerator implements ChartGenerator{
+- String title
+- DefaultPieDataset<String> dataset
+- SurveyRepository surveyRepository
++ PieChartGenerator(SurveyRepository surveyRepository)
+- void extractChartDetails(Integer surveyId, Integer questionId)
++ byte[] generateChart(Integer surveyId, Integer questionId)
+}
 
 Survey *-- Question
 TextQuestion o-- TextResponse
 NumberRangeQuestion o-- NumberRangeResponse
 MultipleChoiceQuestion o-- MultipleChoiceResponse
+HistogramGenerator o-- SurveyRepository
+PieChartGenerator o-- SurveyRepository
 @enduml
