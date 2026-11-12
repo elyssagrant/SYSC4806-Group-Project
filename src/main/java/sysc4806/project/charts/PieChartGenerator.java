@@ -18,7 +18,7 @@ import java.util.Map;
 public class PieChartGenerator extends ChartGenerator{
 
     private String title;
-    private DefaultPieDataset<String> dataset;
+    private final DefaultPieDataset<String> dataset;
     private final SurveyRepository surveyRepository;
 
     public PieChartGenerator(SurveyRepository surveyRepository) {

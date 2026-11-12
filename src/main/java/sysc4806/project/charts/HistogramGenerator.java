@@ -9,13 +9,16 @@ import sysc4806.project.survey.responses.NumberRangeResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
+/**
+ * Renders a histogram representation of responses for number
+ * in range style questions
+ */
 public class HistogramGenerator extends ChartGenerator {
 
     private static final int NUM_CATEGORIES = 3;
     private String title;
-    private DefaultCategoryDataset dataset;
+    private final DefaultCategoryDataset dataset;
     private final SurveyRepository surveyRepository;
 
     public HistogramGenerator(SurveyRepository surveyRepository) {
@@ -30,7 +33,7 @@ public class HistogramGenerator extends ChartGenerator {
      * remainder values will be added to beginning sub-range.
      * @param min The lower bound of the total range
      * @param max The upper bound of the total range
-     * @return a list of sub-ranges
+     * @return a list of sub-ranges as int arrays in the format {lower sub-bound, upper sub-bound}
      */
     public ArrayList<int[]> getSubRanges(int min, int max) {
         ArrayList<int[]> subRanges = new ArrayList<int[]>();
@@ -55,7 +58,9 @@ public class HistogramGenerator extends ChartGenerator {
 
     /**
      * Analyzes information from question entry in survey repo to
-     * extract histogram title and range frequencies.
+     * extract histogram title and sub-ranges.
+     * @param surveyId The survey of interest's ID
+     * @param questionId The question of interest's ID
      */
     private void extractChartDetails(Integer surveyId, Integer questionId) {
 
@@ -118,14 +123,14 @@ public class HistogramGenerator extends ChartGenerator {
         // Get dataset for chart
         extractChartDetails(surveyId, questionId);
 
-        //Generate chart
+        // Generate chart
         JFreeChart chart = ChartFactory.createBarChart(
                 this. title,
                 "Sub-Range",
                 "Count",
                 this.dataset);
 
-        //Convert to PNG
+        // Convert to PNG
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         try {
