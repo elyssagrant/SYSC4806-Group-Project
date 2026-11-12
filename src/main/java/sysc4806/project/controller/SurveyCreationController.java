@@ -1,22 +1,29 @@
 package sysc4806.project.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import sysc4806.project.survey.Survey;
 import sysc4806.project.survey.SurveyRepository;
 import sysc4806.project.survey.questions.Question;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Controller
 @RequestMapping("/surveycreation")
 public class SurveyCreationController {
+
+//    // The reason this class exists is because the json
+//    // format of the schema contains a "type" value, which lets us cast
+//    //
+//    public static TypedQuestion {
+//
+//    }
 
     // Survey repository for database access
     private final SurveyRepository surveyRepo;
@@ -26,40 +33,45 @@ public class SurveyCreationController {
         this.surveyRepo = surveyRepo;
     }
 
-    // Show the survey creation page
-    @GetMapping
-        public String showCreationPage() {
-        return "SurveyCreation";
-    }
-
     // Create a new survey with the given title
     @PostMapping
-    public String createNewSurvey(@RequestParam String title, Model model){
-        Survey survey = new Survey();
-        survey.setTitle(title);
-        survey.setIsOpen(true);
-
-        survey = surveyRepo.save(survey);
-
-        model.addAttribute("survey", survey);
-        return "SurveyCreation";
+    public ResponseEntity<Map<String,String>> createNewSurvey(
+            @RequestParam(name = "name", required = true) String name,
+            Model model ){
+        Map<String,String> body;
+        try {
+            Survey survey = new Survey();
+            survey.setTitle(name);
+            survey.setIsOpen(true);
+            survey = surveyRepo.save(survey);
+            model.addAttribute("survey", survey);
+            body = Map.of("id", Integer.toString(survey.getId()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok(body);
     }
 
     // Add a question to the survey with the given ID
-    //
-    // IMPORTANT NOTE: while testing on my local system, I was not able to save any
-    // Question objects to the database. I asked AI, and it explained that this is because
-    // Question.java is an interface, and JPA cannot save interfaces to the database. It
-    // suggested we should turn Question into an abstract class rather than an interface.
-    // Want to discuss this potential change with group. Would also need to add a switch case
-    // between question types.
     @PostMapping("/{id}/questions")
-    public String addQuestionToSurvey(@PathVariable Integer id, @ModelAttribute Question question, Model model) {
-        Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database
-        survey.addQuestion(question);                           // add question to survey
+    @ResponseBody
+    public ResponseEntity<Void> addQuestionToSurvey(
+            @PathVariable Integer id,
+            @RequestBody Question[] questions,
+            Model model ) {
+
+        Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database //TODO: Fix throw case
+
+
+
+        // Add question(s) to survey
+        for  (Question question : questions) {
+            survey.addQuestion(question);
+        }
+
         surveyRepo.save(survey);                                // save change
         model.addAttribute("survey", survey);
-        return "SurveyCreation";
+        return ResponseEntity.ok().build();
     }
 
     // Delete a survey with the given ID

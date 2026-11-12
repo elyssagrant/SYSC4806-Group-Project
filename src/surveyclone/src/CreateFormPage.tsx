@@ -10,8 +10,8 @@ export default function CreateFormPage() {
     const [questions, setQuestions] = useState<Question[]>([]);
     const [submittedForm, setSubmittedForm] = useState(false);
     const [formSubmitError, setFormSubmitError] = useState(false);
-    const [questionErrors, setQuestionErrors] = useState<Record<number, string>>({})
-    const [message, setMessage] = useState<string | null>(null)
+    const [questionErrors, setQuestionErrors] = useState<Record<number, string>>({});
+    const [message, setMessage] = useState<string | null>(null);
 
     function addQuestion() {
         setQuestions([...questions, newQuestion(selectedType)]);

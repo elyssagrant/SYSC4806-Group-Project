@@ -1,10 +1,13 @@
-package sysc4806.project;
+package sysc4806.project.survey.questions;
+
+import sysc4806.project.survey.responses.MultipleChoiceResponse;
 
 import java.util.ArrayList;
 
-public class MultipleChoiceQuestion implements Question{
+public class MultipleChoiceQuestion implements Question {
 
 
+    private int id;
     private ArrayList<MultipleChoiceResponse> responses;
     private String questionText;
 
@@ -19,6 +22,12 @@ public class MultipleChoiceQuestion implements Question{
         responses = new ArrayList<>();
         this.questionText = questionText;
     }
+
+    // *** Interface ***
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {}
 
     // *** Getters ***
 
@@ -49,6 +58,4 @@ public class MultipleChoiceQuestion implements Question{
     public void addResponse(MultipleChoiceResponse response){
         responses.add(response);
     }
-
-
 }

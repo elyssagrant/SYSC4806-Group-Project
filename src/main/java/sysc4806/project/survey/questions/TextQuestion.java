@@ -1,9 +1,12 @@
-package sysc4806.project;
+package sysc4806.project.survey.questions;
+
+import sysc4806.project.survey.responses.TextResponse;
 
 import java.util.*;
 
-public class TextQuestion implements Question{
+public class TextQuestion implements Question {
 
+    private int id;
     private ArrayList<TextResponse> responses;
     private String questionText;
 
@@ -18,6 +21,10 @@ public class TextQuestion implements Question{
         responses = new ArrayList<>();
         this.questionText = questionText;
     }
+
+    // *** Interface ***
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
 
     // *** Getters ***
 
@@ -48,5 +55,4 @@ public class TextQuestion implements Question{
     public void addResponse(TextResponse response){
         responses.add(response);
     }
-
 }

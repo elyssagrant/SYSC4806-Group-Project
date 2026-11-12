@@ -29,7 +29,7 @@ export async function createForm(name: string): Promise<string> {
     const params = new URLSearchParams({
         name: name
     })
-    const response = await fetch('/createForm?${params}', {
+    const response = await fetch(`/surveycreation?${params}`, {
         method: 'POST',
     })
 
@@ -89,19 +89,24 @@ export async function addToForm(id: string, questions: Question[]): Promise<void
         id: id
     })
 
-    const response = await fetch('/addToForm?${params}', {
+    const response = await fetch(`/surveycreation/${id}/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ questions })
+        body: JSON.stringify(questions)
     })
 
     try {
-        const data = await response.json()
-        if (!response.ok) {
-            throw new Error(`Http failure: ${response.status} with message: ${data.message}`)
+        const status = await response.status;
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const data = await response.json()
+                throw new Error(`Http failure: ${response.status} with message: ${data.message}`)
+                break;
         }
-    } catch (err) {
-        throw new Error("Error parsing json")
+    } catch (err: any) {
+        throw new Error("Error parsing json: " + err.message)
     }
 
 }
