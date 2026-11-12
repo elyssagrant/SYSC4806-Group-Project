@@ -18,23 +18,22 @@ public class NumberRangeQuestion extends Question {
     @GeneratedValue
     private Integer id;
 
-    private int[] range;
-
-    private final int MAXRANGEARRAYSIZE = 2;
-    private final int UPPERBOUNDINDEX = 1;
-    private final int LOWERBOUNDINDEX = 0;
+    private Integer lowerBound;
+    private Integer upperBound;
 
     //*** Constructors ***
 
     public NumberRangeQuestion(){
         responses = new ArrayList<>();
-        range = new int[MAXRANGEARRAYSIZE];
+        lowerBound = 0;
+        upperBound = 0;
         questionText = "";
     }
 
     public NumberRangeQuestion(String questionText){
         responses = new ArrayList<>();
-        range = new int[MAXRANGEARRAYSIZE];
+        lowerBound = 0;
+        upperBound = 0;
         this.questionText = questionText;
     }
 
@@ -52,12 +51,12 @@ public class NumberRangeQuestion extends Question {
         return responses.get(index);
     }
 
-    public int getLowerBound(){
-        return range[LOWERBOUNDINDEX];
+    public Integer getLowerBound(){
+        return lowerBound;
     }
 
-    public int getUpperBound(){
-        return range[UPPERBOUNDINDEX];
+    public Integer getUpperBound(){
+        return upperBound;
     }
 
     public Integer getId(){
@@ -78,12 +77,12 @@ public class NumberRangeQuestion extends Question {
         this.id = newId;
     }
 
-    public void setUpperBound(int newUpperBound){
-        this.range[UPPERBOUNDINDEX] = newUpperBound;
+    public void setUpperBound(Integer newUpperBound){
+        this.upperBound = newUpperBound;
     }
 
-    public void setLowerBound(int newLowerBound){
-        this.range[LOWERBOUNDINDEX] = newLowerBound;
+    public void setLowerBound(Integer newLowerBound){
+        this.lowerBound = newLowerBound;
     }
 
     // *** Additional Methods ***
