@@ -1,10 +1,10 @@
-package sysc4806.project;
+package sysc4806.project.survey.questions;
 
 import sysc4806.project.survey.responses.NumberRangeResponse;
 
 import java.util.ArrayList;
 
-public class NumberRangeQuestion implements Question{
+public class NumberRangeQuestion implements Question {
 
     private ArrayList<NumberRangeResponse> responses;
     private String questionText;

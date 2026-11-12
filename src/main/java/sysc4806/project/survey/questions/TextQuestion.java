@@ -1,10 +1,10 @@
-package sysc4806.project;
+package sysc4806.project.survey.questions;
 
 import sysc4806.project.survey.responses.TextResponse;
 
 import java.util.*;
 
-public class TextQuestion implements Question{
+public class TextQuestion implements Question {
 
     private ArrayList<TextResponse> responses;
     private String questionText;

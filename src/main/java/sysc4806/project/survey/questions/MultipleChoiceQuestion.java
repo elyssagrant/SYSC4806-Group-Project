@@ -1,10 +1,10 @@
-package sysc4806.project;
+package sysc4806.project.survey.questions;
 
 import sysc4806.project.survey.responses.MultipleChoiceResponse;
 
 import java.util.*;
 
-public class MultipleChoiceQuestion implements Question{
+public class MultipleChoiceQuestion implements Question {
 
 
     private ArrayList<MultipleChoiceResponse> responses;

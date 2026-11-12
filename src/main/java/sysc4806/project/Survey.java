@@ -1,5 +1,7 @@
 package sysc4806.project;
 
+import sysc4806.project.survey.questions.Question;
+
 import java.util.*;
 
 public class Survey {
