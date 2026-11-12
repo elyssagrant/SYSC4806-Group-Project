@@ -40,10 +40,6 @@ public class TextQuestion extends Question {
         return responses;
     }
 
-    public TextResponse getResponseFromIndex(int index){
-        return responses.get(index);
-    }
-
     public Integer getId(){
         return this.id;
     }
