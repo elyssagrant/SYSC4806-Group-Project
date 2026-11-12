@@ -48,6 +48,8 @@ export async function createForm(name: string): Promise<string> {
 }
 
 
+// This was supposed to allow us to specify specific errors with specific questions submitted when creating the form,
+// Not implemented on the backend yet.
 export class FormRequestError extends Error {
     // The actual return code
     status: number
@@ -62,33 +64,28 @@ export class FormRequestError extends Error {
     }
 }
 
-//Extracts all the component numbers with errors on them
-async function formError(response: Response): Promise<FormRequestError> {
-    try {
-        const data = await response.json()
-        const questionErrors: Record<number, string> = {}
+// async function formError(response: Response): Promise<FormRequestError> {
+//     try {
+//         const data = await response.json()
+//         const questionErrors: Record<number, string> = {}
 
-        if (data) {
-            for (const [key, value] of Object.entries(data)) {
-                if (typeof value === 'string') {
-                    questionErrors[Number(key)] = value
-                }
-            }
-        }
+//         if (data) {
+//             for (const [key, value] of Object.entries(data)) {
+//                 if (typeof value === 'string') {
+//                     questionErrors[Number(key)] = value
+//                 }
+//             }
+//         }
 
 
-        const message = data?.message ?? `Http failure: ${response.status}`
-        return new FormRequestError(response.status, message, questionErrors)
-    } catch (err) {
-        throw new Error("Error parsing json")
-    }
-}
+//         const message = data?.message ?? `Http failure: ${response.status}`
+//         return new FormRequestError(response.status, message, questionErrors)
+//     } catch (err) {
+//         throw new Error("Error parsing json")
+//     }
+// }
 
 export async function addToForm(id: string, questions: Question[]): Promise<void> {
-    const params = new URLSearchParams({
-        id: id
-    })
-
     const response = await fetch(`/surveycreation/${id}/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -103,7 +100,6 @@ export async function addToForm(id: string, questions: Question[]): Promise<void
             default:
                 const data = await response.json()
                 throw new Error(`Http failure: ${response.status} with message: ${data.message}`)
-                break;
         }
     } catch (err: any) {
         throw new Error("Error parsing json: " + err.message)
@@ -112,8 +108,7 @@ export async function addToForm(id: string, questions: Question[]): Promise<void
 }
 
 export async function viewForm(id: string): Promise<Form> {
-    const params = new URLSearchParams({ id })
-    const response = await fetch(`/viewForm?${params}`)
+    const response = await fetch(`/survey/${id}`)
     const data = await response.json()
 
     if (!response.ok) throw new Error(`There was a problem viewing this form: ${data.message}`)

@@ -22,15 +22,17 @@ export default function ViewForm() {
         } catch (err: any) {
             setErrorMessage("There was an error retrieving the form: " + err.message)
             setFetchError(true)
+            return;
         }
+        setConfirmId(true)
     }
 
     function updateAnswer(index: number) {
         // setQuestions(q => q.map((q,i) => (i == index ? answer: q)));
     }
 
-    function submitAnswer() {
-    }
+    // function submitAnswer() {
+    // }
 
     function resetForm() {
         setName("");
@@ -40,7 +42,6 @@ export default function ViewForm() {
         setFetchError(false);
         setId("");
     }
-
 
 
     useEffect(() => {
@@ -54,11 +55,9 @@ export default function ViewForm() {
     
     return (
         <>
-        { id ? (
-            
-            // {questions.length == 0 && <p>No questions have been created yet. Please pick a question type and press Add</p>}
+        { confirmId ? (
             <>
-            <h1 className="formTitle">${name}</h1>
+            <h1 className="formTitle">{name}</h1>
             {questions.map((q, i) => (
                 <div>
                     <span>

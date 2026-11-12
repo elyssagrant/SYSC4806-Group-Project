@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Range } from "react-range";
 import { FieldProps } from "./componentTypes";
 import { NumberRangeQuestion } from "../types";
@@ -6,9 +5,8 @@ import { NumberRangeQuestion } from "../types";
 export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>) {
     const { question } = props;
     const { lowerBound, upperBound } = question;
-    const validRange = upperBound > lowerBound;
 
-    if (props.mode == 'edit') {
+    if (props.mode === 'edit') {
         return (
             <div className="formField">
                 <label className="questionInput">
@@ -53,12 +51,44 @@ export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>)
                         values={[value]}
                         onChange={(newValues) => props.onAnswer(newValues[0])}
                         renderTrack={({ props, children }) => (
-                            <div {...props} style={{ ...props.style, height: "6px", backgroundColor: "#ccc" }}>
+                            <div
+                            {...props}
+                            style={{
+                                ...props.style,
+                                height: "6px",
+                                width: "10%",
+                                backgroundColor: "#ccc",
+                                position: "relative",
+                            }}
+                            >
                             {children}
                             </div>
                         )}
                         renderThumb={({ props }) => (
-                            <div {...props} style={{ ...props.style, height: "24px", width: "24px", backgroundColor: "#999" }} />
+                            <div
+                            {...props}
+                            style={{
+                                ...props.style,
+                                height: "42px",
+                                width: "42px",
+                                backgroundColor: "#999",
+                            }}
+                            />
+                        )}
+                        // This draws labels beneath the range
+                        renderMark={({ props, index }) => (
+                            <div
+                            {...props}
+                            style={{
+                                ...props.style,
+                                position: "absolute",
+                                bottom: "-30px", 
+                                textAlign: "center",
+                                width: "20px", 
+                            }}
+                            >
+                            {[value][index]} {/* Display the value at this mark index */}
+                            </div>
                         )}
                     
                     />

@@ -5,7 +5,7 @@ import { FieldProps } from "./componentTypes";
 export default function TextField(props: FieldProps<TextQuestion>) {
     const { question } = props;
 
-    if (props.mode == 'edit') {
+    if (props.mode === 'edit') {
         return (
             <div className="formfield">
                 <label className="questionInput">
@@ -21,7 +21,7 @@ export default function TextField(props: FieldProps<TextQuestion>) {
     } else {
         return (
             <div className="formfield">
-                    <p className="questionLabel"></p>
+                    <p className="questionLabel">{question.questionText}</p>
                     <textarea
                     rows={3}
                     value={typeof props.value === 'string' ? props.value : ''}

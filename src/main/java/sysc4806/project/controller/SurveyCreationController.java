@@ -59,18 +59,25 @@ public class SurveyCreationController {
             @PathVariable Integer id,
             @RequestBody Question[] questions,
             Model model ) {
+        try {
+            Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database
+            try {
+                // Add question(s) to survey
+                for  (Question question : questions) {
+                    survey.addQuestion(question);
+                }
 
-        Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database //TODO: Fix throw case
-
-
-
-        // Add question(s) to survey
-        for  (Question question : questions) {
-            survey.addQuestion(question);
+                surveyRepo.save(survey);                                // save change
+                model.addAttribute("survey", survey);
+            } catch (Exception e) {
+                System.out.println("There was a problem: " + e);
+                return ResponseEntity.internalServerError().build();
+            }
+        } catch (Exception e) {
+            System.out.println("There was a problem: " + e);
+            return ResponseEntity.notFound().build();
         }
 
-        surveyRepo.save(survey);                                // save change
-        model.addAttribute("survey", survey);
         return ResponseEntity.ok().build();
     }
 

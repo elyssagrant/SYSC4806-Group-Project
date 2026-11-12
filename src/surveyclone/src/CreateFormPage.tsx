@@ -18,7 +18,7 @@ export default function CreateFormPage() {
     }
 
     function updateQuestion(index: number, update: Question) {
-        setQuestions(q => q.map((q,i) => (i == index ? update: q)));
+        setQuestions(q => q.map((q,i) => (i === index ? update: q)));
     }
 
     async function submitForm() {
@@ -64,11 +64,12 @@ export default function CreateFormPage() {
                     ></input>
                 </label>
                 <button type="submit" onClick={submitForm}>Submit</button>
+                {formSubmitError && <p>{message}</p>}
             </div>
             ) : ( 
             <div>
                 <div>
-                    {questions.length == 0 && <p>No questions have been created yet. Please pick a question type and press Add</p>}
+                    {questions.length === 0 && <p>No questions have been created yet. Please pick a question type and press Add</p>}
 
                     {questions.map((q, i) => (
                         <div>
@@ -76,6 +77,7 @@ export default function CreateFormPage() {
                                 Question {i + 1}
                             </span>
                             <QuestionField mode="edit" question = {q} onChange={updated => updateQuestion(i, updated)}></QuestionField>
+                            {questionErrors[i] && <p>{questionErrors[i]}</p>}
                         </div>
 
                     ))}

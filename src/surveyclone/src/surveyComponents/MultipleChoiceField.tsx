@@ -7,11 +7,11 @@ export default function MultipleChoiceField( props: FieldProps<MultipleChoiceQue
     const { question } = props;
     const groupName = useId();
 
-    if (props.mode == 'edit') {
+    if (props.mode === 'edit') {
         const { onChange } = props;
 
         const updateChoice = (index: number, text: string) => {
-            onChange({...question, choices: question.choices.map((choice, i) => (i == index ? text : choice))});
+            onChange({...question, choices: question.choices.map((choice, i) => (i === index ? text : choice))});
         }
 
         const addChoice = () =>  {
@@ -44,6 +44,7 @@ export default function MultipleChoiceField( props: FieldProps<MultipleChoiceQue
                             </label>
                         ))
                     }
+                    <button type="button" onClick={(() => addChoice())}>Add Choice</button>
                 </label>
 
             </div>
@@ -57,12 +58,14 @@ export default function MultipleChoiceField( props: FieldProps<MultipleChoiceQue
                 <p className="questionLabel">{question.questionText}</p>
                 { question.choices.map((choice, i) => (
                     <label className="multipleChoiceOption">
+                        {choice}
                         <input
                             type="radio"
                             name={groupName}
                             value={choice}
                             checked={value === choice}
                             onChange={() => onAnswer(choice)}
+                            
                         />
                     </label>
                 ))
