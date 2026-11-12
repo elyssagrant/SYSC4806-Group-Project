@@ -1,0 +1,200 @@
+Index: src/main/java/sysc4806/project/MultipleChoiceQuestion.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sysc4806.project;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class MultipleChoiceQuestion implements Question{\r\n\r\n\r\n    private ArrayList<MultipleChoiceResponse> responses;\r\n    private String questionText;\r\n\r\n    //*** Constructors ***\r\n\r\n    public MultipleChoiceQuestion(){\r\n        responses = new ArrayList<>();\r\n        questionText = \"\";\r\n    }\r\n\r\n    public MultipleChoiceQuestion(String questionText){\r\n        responses = new ArrayList<>();\r\n        this.questionText = questionText;\r\n    }\r\n\r\n    // *** Getters ***\r\n\r\n    public String getQuestionText(){\r\n        return questionText;\r\n    }\r\n\r\n    public ArrayList<MultipleChoiceResponse> getResponses(){\r\n        return responses;\r\n    }\r\n\r\n    public MultipleChoiceResponse getResponseFromIndex(int index){\r\n        return responses.get(index);\r\n    }\r\n\r\n    // *** Setters ***\r\n\r\n    public void setResponses(ArrayList<MultipleChoiceResponse> newResponses){\r\n        this.responses = newResponses;\r\n    }\r\n\r\n    public void setQuestionText(String newQuestionText){\r\n        this.questionText = newQuestionText;\r\n    }\r\n\r\n    // *** Additional Methods ***\r\n\r\n    public void addResponse(MultipleChoiceResponse response){\r\n        responses.add(response);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/sysc4806/project/MultipleChoiceQuestion.java b/src/main/java/sysc4806/project/MultipleChoiceQuestion.java
+--- a/src/main/java/sysc4806/project/MultipleChoiceQuestion.java	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ b/src/main/java/sysc4806/project/MultipleChoiceQuestion.java	(date 1794448337087)
+@@ -1,5 +1,7 @@
+ package sysc4806.project;
+ 
++import sysc4806.project.survey.responses.MultipleChoiceResponse;
++
+ import java.util.ArrayList;
+ 
+ public class MultipleChoiceQuestion implements Question{
+Index: src/main/java/sysc4806/project/TextQuestion.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sysc4806.project;\r\n\r\nimport java.util.*;\r\n\r\npublic class TextQuestion implements Question{\r\n\r\n    private ArrayList<TextResponse> responses;\r\n    private String questionText;\r\n\r\n    //*** Constructors ***\r\n\r\n    public TextQuestion(){\r\n        responses = new ArrayList<>();\r\n        questionText = \"\";\r\n    }\r\n\r\n    public TextQuestion(String questionText){\r\n        responses = new ArrayList<>();\r\n        this.questionText = questionText;\r\n    }\r\n\r\n    // *** Getters ***\r\n\r\n    public String getQuestionText(){\r\n        return questionText;\r\n    }\r\n\r\n    public ArrayList<TextResponse> getResponses(){\r\n        return responses;\r\n    }\r\n\r\n    public TextResponse getResponseFromIndex(int index){\r\n        return responses.get(index);\r\n    }\r\n\r\n    // *** Setters ***\r\n\r\n    public void setResponses(ArrayList<TextResponse> newResponses){\r\n        this.responses = newResponses;\r\n    }\r\n\r\n    public void setQuestionText(String newQuestionText){\r\n        this.questionText = newQuestionText;\r\n    }\r\n\r\n    // *** Additional Methods ***\r\n\r\n    public void addResponse(TextResponse response){\r\n        responses.add(response);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/sysc4806/project/TextQuestion.java b/src/main/java/sysc4806/project/TextQuestion.java
+--- a/src/main/java/sysc4806/project/TextQuestion.java	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ b/src/main/java/sysc4806/project/TextQuestion.java	(date 1794448337087)
+@@ -1,5 +1,7 @@
+ package sysc4806.project;
+ 
++import sysc4806.project.survey.responses.TextResponse;
++
+ import java.util.*;
+ 
+ public class TextQuestion implements Question{
+Index: src/main/java/sysc4806/project/Survey.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package sysc4806.project;\r\n\r\npublic class Survey {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/sysc4806/project/Survey.java b/src/main/java/sysc4806/project/Survey.java
+--- a/src/main/java/sysc4806/project/Survey.java	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ b/src/main/java/sysc4806/project/Survey.java	(date 1794448337087)
+@@ -1,4 +1,5 @@
+ package sysc4806.project;
+ 
+ public class Survey {
++
+ }
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ /dev/null	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/SYSC4806-Group-Project.iml" filepath="$PROJECT_DIR$/.idea/SYSC4806-Group-Project.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: src/main/java/sysc4806/project/NumberRangeResponse.java
+===================================================================
+diff --git a/src/main/java/sysc4806/project/NumberRangeResponse.java b/src/main/java/sysc4806/project/NumberRangeResponse.java
+deleted file mode 100644
+--- a/src/main/java/sysc4806/project/NumberRangeResponse.java	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ /dev/null	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
+@@ -1,4 +0,0 @@
+-package sysc4806.project;
+-
+-public class NumberRangeResponse {
+-}
+Index: src/main/java/sysc4806/project/TextResponse.java
+===================================================================
+diff --git a/src/main/java/sysc4806/project/TextResponse.java b/src/main/java/sysc4806/project/TextResponse.java
+deleted file mode 100644
+--- a/src/main/java/sysc4806/project/TextResponse.java	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ /dev/null	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
+@@ -1,4 +0,0 @@
+-package sysc4806.project;
+-
+-public class TextResponse {
+-}
+Index: src/main/java/sysc4806/project/MultipleChoiceResponse.java
+===================================================================
+diff --git a/src/main/java/sysc4806/project/MultipleChoiceResponse.java b/src/main/java/sysc4806/project/MultipleChoiceResponse.java
+deleted file mode 100644
+--- a/src/main/java/sysc4806/project/MultipleChoiceResponse.java	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ /dev/null	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
+@@ -1,4 +0,0 @@
+-package sysc4806.project;
+-
+-public class MultipleChoiceResponse {
+-}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"25db4258-eb8d-495a-8f5b-d00c31cab968\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/.gitignore\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/compiler.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/pom.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/sysc4806/project/Main.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/sysc4806/project/survey/Survey.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/MultipleChoiceQuestion.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/NumberRangeQuestion.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/Question.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/TextQuestion.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\r\n  \"lastFilter\": {\r\n    \"state\": \"OPEN\",\r\n    \"assignee\": \"elyssagrant\"\r\n  }\r\n}]]></component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/elyssagrant/SYSC4806-Group-Project.git\",\r\n    \"accountId\": \"e94944ca-e13e-46f9-8533-5692e1571180\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProjectColorInfo\"><![CDATA[{\r\n  \"associatedIndex\": 4,\r\n  \"fromUser\": false\r\n}]]></component>\r\n  <component name=\"ProjectId\" id=\"3LYKjm1MLC3Duy5hwJZSGuuUmj2\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"RunOnceActivity.typescript.service.memoryLimit.init\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"Spring Boot.Main.executor\": \"Run\",\r\n    \"codeWithMe.voiceChat.enabledByDefault\": \"false\",\r\n    \"git-widget-placeholder\": \"setup-essentials\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"onboarding.tips.debug.path\": \"C:/Users/Elyss/OneDrive/Documents/School/Software Validation/Labs/Lab 3/SYSC4806-Group-Project/untitled/src/main/java/Unknown/Main.java\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.0\",\r\n    \"settings.editor.selected.configurable\": \"reference.settings.project.maven.repository.indices\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"25db4258-eb8d-495a-8f5b-d00c31cab968\" name=\"Changes\" comment=\"\" />\r\n      <created>1793625698624</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1793625698624</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/untitled/src/main/java/Unknown/Main.java</url>\r\n          <line>13</line>\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ddf458c82079d27be4e1bc72ffbfc0561708474b)
++++ b/.idea/workspace.xml	(date 1794448337085)
+@@ -5,17 +5,14 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/Main.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/Survey.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/MultipleChoiceQuestion.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/NumberRangeQuestion.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/Question.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/TextQuestion.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/MultipleChoiceQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/MultipleChoiceQuestion.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/MultipleChoiceResponse.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/NumberRangeResponse.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/Survey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/Survey.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/TextQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/TextQuestion.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/TextResponse.java" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -37,22 +34,22 @@
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+-  "lastFilter": {
+-    "state": "OPEN",
+-    "assignee": "elyssagrant"
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;elyssagrant&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="GithubPullRequestsUISettings"><![CDATA[{
+   "selectedUrlAndAccountId": {
+     "url": "https://github.com/elyssagrant/SYSC4806-Group-Project.git",
+-    "accountId": "e94944ca-e13e-46f9-8533-5692e1571180"
++    "accountId": "e13fa64f-a0f6-4ca0-b94a-aa88e30d508a"
+   }
+ }]]></component>
+-  <component name="ProjectColorInfo"><![CDATA[{
+-  "associatedIndex": 4,
+-  "fromUser": false
+-}]]></component>
++  <component name="ProjectColorInfo">{
++  &quot;associatedIndex&quot;: 4,
++  &quot;fromUser&quot;: false
++}</component>
+   <component name="ProjectId" id="3LYKjm1MLC3Duy5hwJZSGuuUmj2" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+@@ -63,12 +60,12 @@
+     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "ModuleVcsDetector.initialDetectionPerformed": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+     "RunOnceActivity.git.unshallow": "true",
+     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "Spring Boot.Main.executor": "Run",
+     "codeWithMe.voiceChat.enabledByDefault": "false",
+-    "git-widget-placeholder": "setup-essentials",
++    "git-widget-placeholder": "JackBranch",
+     "kotlin-language-version-configured": "true",
+     "nodejs_package_manager_path": "npm",
+     "onboarding.tips.debug.path": "C:/Users/Elyss/OneDrive/Documents/School/Software Validation/Labs/Lab 3/SYSC4806-Group-Project/untitled/src/main/java/Unknown/Main.java",
+@@ -78,14 +75,6 @@
+     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+   }
+ }]]></component>
+-  <component name="SharedIndexes">
+-    <attachedChunks>
+-      <set>
+-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
+-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+-      </set>
+-    </attachedChunks>
+-  </component>
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+       <changelist id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="" />

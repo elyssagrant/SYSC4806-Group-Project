@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/Survey.java" afterDir="false" />
+    <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="Backend Skeleton formatting changes">
       <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/MultipleChoiceQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/NumberRangeQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/Question.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/questions/TextQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,22 +29,22 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "elyssagrant"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;elyssagrant&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/elyssagrant/SYSC4806-Group-Project.git",
-    "accountId": "e94944ca-e13e-46f9-8533-5692e1571180"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/elyssagrant/SYSC4806-Group-Project.git&quot;,
+    &quot;accountId&quot;: &quot;e13fa64f-a0f6-4ca0-b94a-aa88e30d508a&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4,
-  "fromUser": false
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3LYKjm1MLC3Duy5hwJZSGuuUmj2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -63,12 +55,12 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "setup-essentials",
+    "git-widget-placeholder": "projectMain",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/Elyss/OneDrive/Documents/School/Software Validation/Labs/Lab 3/SYSC4806-Group-Project/untitled/src/main/java/Unknown/Main.java",
@@ -78,14 +70,6 @@
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="" />
@@ -94,10 +78,32 @@
       <option name="presentableId" value="Default" />
       <updated>1793625698624</updated>
     </task>
+    <task id="LOCAL-00001" summary="Backend Skeleton">
+      <option name="closed" value="true" />
+      <created>1794449608941</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1794449608941</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Backend Skeleton formatting changes">
+      <option name="closed" value="true" />
+      <created>1794450037102</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1794450037102</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Backend Skeleton" />
+    <MESSAGE value="Backend Skeleton formatting changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Backend Skeleton formatting changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
