@@ -87,4 +87,11 @@ public class NumberRangeQuestion extends Question {
         responses.add(response);
     }
 
+    public boolean withinRange(Integer number){
+        if (number>=this.lowerBound && number<=this.upperBound){
+            return true;
+        }
+        return false;
+    }
+
 }
