@@ -3,6 +3,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
+import sysc4806.project.survey.Survey;
+import sysc4806.project.survey.SurveyRepository;
+import sysc4806.project.survey.questions.MultipleChoiceQuestion;
+import sysc4806.project.survey.questions.Question;
 import sysc4806.project.survey.responses.MultipleChoiceResponse;
 
 import java.io.ByteArrayOutputStream;
@@ -39,22 +43,22 @@ public class PieChartGenerator extends ChartGenerator{
 
         // Get question of interest from survey
         MultipleChoiceQuestion question = null;
-        for (MultipleChoiceQuestion q : survey.getQuestions()) {
+        for (Question q : survey.getQuestions()) {
             if (q.getId() == questionId) {
-                question = q;
+                question = (MultipleChoiceQuestion) q;
                 break;
             }
         }
 
         // Create dataset of responses
         if(question != null) {
-            this.title = question.getQuestion();
+            this.title = question.getQuestionText();
 
             // Count instances of each response
             ArrayList<MultipleChoiceResponse> responses = question.getResponses();
             HashMap<String, Integer> responseCount = new HashMap<>();
             for (MultipleChoiceResponse r : responses) {
-                responseCount.put(r.getResponse(), responseCount.getOrDefault(r.getResponse(), 0) + 1);
+                responseCount.put(r.getResponse().toString(), responseCount.getOrDefault(r.getResponse(), 0) + 1);
             }
 
             // Add responses and corresponding counts to dataset

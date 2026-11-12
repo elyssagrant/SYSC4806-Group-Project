@@ -4,6 +4,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
+import sysc4806.project.survey.Survey;
+import sysc4806.project.survey.SurveyRepository;
+import sysc4806.project.survey.questions.NumberRangeQuestion;
+import sysc4806.project.survey.questions.Question;
 import sysc4806.project.survey.responses.NumberRangeResponse;
 
 import java.io.ByteArrayOutputStream;
@@ -70,16 +74,16 @@ public class HistogramGenerator extends ChartGenerator {
 
         // Get question of interest from survey
         NumberRangeQuestion question = null;
-        for (NumberRangeQuestion q : survey.getQuestions()) {
+        for (Question q : survey.getQuestions()) {
             if (q.getId() == questionId) {
-                question = q;
+                question = (NumberRangeQuestion) q;
                 break;
             }
         }
 
         // Create dataset of responses
         if(question != null) {
-            this.title = question.getQuestion();
+            this.title = question.getQuestionText();
 
             // Break data range into sub-ranges
             ArrayList<int[]> subRanges = this.getSubRanges(question.getLowerBound(),
