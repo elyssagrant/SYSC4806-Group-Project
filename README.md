@@ -10,6 +10,8 @@ Create Survey-creation Frontend (https://github.com/elyssagrant/SYSC4806-Group-P
 Create persistable entities (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/4, https://github.com/elyssagrant/SYSC4806-Group-Project/issues/5, https://github.com/elyssagrant/SYSC4806-Group-Project/issues/8): In progress
 Survey creation Controllers (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/14): In Review
 
+## Model Class Diagram
+![uml_class_diagram.png](plantUML/rendered/java-class-diagram.svg)
 
 ## Persistable Database Schema
 ![img.png](temp_database_schema.png)
