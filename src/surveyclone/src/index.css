@@ -5,9 +5,70 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: cornflowerblue;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
+
+input[type=text] {
+  border-radius: 20px;
+  border: 1px solid #FFFF;
+  color: black;
+  width: 250px;
+  height: 30px;
+  margin: 8px;
+}
+
+input[type=number] {
+  border-radius: 20px;
+  border: 1px solid #FFFF;
+  color: black;
+  width: 250px;
+  height: 30px;
+  margin: 8px;
+}
+
+input[type=radio] {
+  border: 1px solid #FFFF;
+}
+
+button {
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid cornflowerblue;
+  background-color: cornflowerblue;
+  color: white;
+  margin: 10px;
+}
+
+select {
+  border-radius: 5px;
+  border: 1px solid #FFFF;
+  color: black;
+  margin: 10px;
+}
+
+.formNameContainer {
+  margin: auto;
+  width: 50vw;
+  vertical-align: center;
+  border-radius: 20px;
+  background-color: lightblue;
+  padding: 2% 5%;
+}
+
+.singleQuestionContainer {
+  margin-bottom: 40px;
+}
+
+.questionNumber {
+  font-size: 20px;
+}
+
+.formTitle {
+  font-size: 50px;
+}
+

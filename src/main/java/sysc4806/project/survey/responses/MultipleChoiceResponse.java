@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class MultipleChoiceResponse {
+public class MultipleChoiceResponse extends Response{
 
     @Id
     @GeneratedValue
