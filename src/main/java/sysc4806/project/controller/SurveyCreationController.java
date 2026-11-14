@@ -1,31 +1,27 @@
 package sysc4806.project.controller;
 
-import org.springframework.http.HttpStatus;
+import java.net.URI;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import sysc4806.project.survey.Survey;
 import sysc4806.project.survey.SurveyRepository;
 import sysc4806.project.survey.questions.Question;
 
-import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
-
 
 @Controller
 @RequestMapping("/surveycreation")
 public class SurveyCreationController {
-
-//    // The reason this class exists is because the json
-//    // format of the schema contains a "type" value, which lets us cast
-//    //
-//    public static TypedQuestion {
-//
-//    }
-
+    
     // Survey repository for database access
     private final SurveyRepository surveyRepo;
 
@@ -50,6 +46,7 @@ public class SurveyCreationController {
             id = survey.getId();
             body = Map.of("id", Integer.toString(id));
         } catch (Exception e) {
+            System.out.println("There was an error creating the form: " + e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
         return ResponseEntity.created(URI.create("/surveycreation/" + id)).body(body);
@@ -73,11 +70,11 @@ public class SurveyCreationController {
                 surveyRepo.save(survey);                                // save change
                 model.addAttribute("survey", survey);
             } catch (Exception e) {
-                System.out.println("There was a problem: " + e);
+                System.out.println("There was a problem: " + e.getMessage());
                 return ResponseEntity.internalServerError().build();
             }
         } catch (Exception e) {
-            System.out.println("There was a problem: " + e);
+            System.out.println("There was a problem: " + e.getMessage());
             return ResponseEntity.notFound().build();
         }
 

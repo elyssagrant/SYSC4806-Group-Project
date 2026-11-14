@@ -11,9 +11,6 @@ import sysc4806.project.survey.Survey;
 import sysc4806.project.survey.SurveyRepository;
 import sysc4806.project.survey.questions.Question;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 
 @Controller
@@ -41,6 +38,7 @@ public class SurveyResponseController {
             Question[] questions = survey.getQuestions().toArray(new Question[0]);
             response = new SerializedSurvey(survey.getTitle(), questions);
         } catch (Exception e) {
+            System.out.println("There was an error sending the survey: " + e.getMessage());
             return ResponseEntity.notFound().build();
         }
 
