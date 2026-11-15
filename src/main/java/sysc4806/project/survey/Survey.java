@@ -22,6 +22,9 @@ public class Survey {
 
     private Boolean isOpen;
 
+    // This value is used to guard against invalid edits.
+    private int version;
+
 
     /**
         This makes sure that all questions inside this list are persisted, and that if the survey gets removed,
@@ -36,6 +39,7 @@ public class Survey {
         questions = new ArrayList<>();
         isOpen = false;
         title = "";
+        version = 0;
     }
 
     public Survey(String title){
@@ -62,6 +66,10 @@ public class Survey {
         return questions;
     }
 
+    public int getVersion() {
+        return version;
+    }
+
     // *** SETTERS ***
 
     public void setId(Integer id) {
@@ -84,6 +92,15 @@ public class Survey {
 
     public void addQuestion(Question question) {
         this.questions.add(question);
+    }
+
+    public void replaceQuestion(Question question) {
+        this.questions.replaceAll(q -> q.getId() == question.getId() ? question : q);
+    }
+
+    // Should be called on making an edit to the survey.
+    public void incrementVersion() {
+        this.version++;
     }
 
 }

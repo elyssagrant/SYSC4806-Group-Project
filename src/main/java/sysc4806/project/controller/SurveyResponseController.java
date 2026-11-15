@@ -18,7 +18,7 @@ import sysc4806.project.survey.questions.Question;
 public class SurveyResponseController {
 
     //Need to use a record since when serializing a normal map<string,string> doesn't work for the questions array
-    public record SerializedSurvey(String name, Question[] questions) {}
+    public record SerializedSurvey(String name, int version, Question[] questions) {}
 
     // Survey repository for database access
     private final SurveyRepository surveyRepo;
@@ -36,7 +36,7 @@ public class SurveyResponseController {
             Survey survey = surveyRepo.findById(id).orElseThrow(); // load survey from database
             model.addAttribute("survey", survey);
             Question[] questions = survey.getQuestions().toArray(new Question[0]);
-            response = new SerializedSurvey(survey.getTitle(), questions);
+            response = new SerializedSurvey(survey.getTitle(), survey.getVersion(), questions);
         } catch (Exception e) {
             System.out.println("There was an error sending the survey: " + e.getMessage());
             return ResponseEntity.notFound().build();

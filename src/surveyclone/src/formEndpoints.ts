@@ -30,7 +30,7 @@ export async function createForm(name: string): Promise<string> {
     const params = new URLSearchParams({
         name: name
     })
-    const response = await fetch(`/surveycreation?${params}`, {
+    const response = await fetch(`/survey?${params}`, {
         method: 'POST',
     })
 
@@ -101,7 +101,7 @@ export async function saveToForm(id: string, questions: Question[], remoteQuesti
     //TODO: Check for swapped questions (potential feature for swapping the order of questions milestone 3)
 
 
-    const response = await fetch(`/surveycreation/${id}/questions`, {
+    const response = await fetch(`/survey/${id}/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
