@@ -83,7 +83,7 @@ public class SurveyCreationController {
                 }
                 // Delete questions(s) from survey
                 for (Question question : changes.remove()) {
-                    //TODO: Delete functionality from issue #26 goes here
+                        survey.deleteQuestion(question);
                     try {
                         //survey.deleteQuestion(question)
                     } catch (Exception e) {
@@ -120,7 +120,13 @@ public class SurveyCreationController {
     public ResponseEntity<Map<String, String>> deleteSurvey(
             @PathVariable Integer id,
             Model model) {
-        //TODO: Delete survey here
+        try {
+            Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database
+            surveyRepo.delete(survey);
+        } catch (Exception e) {
+            System.out.println("There was a problem: " + e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.noContent().build();
     }
 }

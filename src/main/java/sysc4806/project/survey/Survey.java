@@ -98,6 +98,10 @@ public class Survey {
         this.questions.replaceAll(q -> q.getId() == question.getId() ? question : q);
     }
 
+    public void deleteQuestion(Question question) {
+        this.questions.remove(question);
+    }
+
     // Should be called on making an edit to the survey.
     public void incrementVersion() {
         this.version++;
