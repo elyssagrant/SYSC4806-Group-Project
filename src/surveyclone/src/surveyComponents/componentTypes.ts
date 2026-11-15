@@ -20,14 +20,16 @@ export const QUESTION_TYPES: {
     ]
 
 // Return the default values for a given question
+let tempId = -1;
 export function newQuestion(type: Question['type'], index: number): Question {
+    const id = tempId--;
     switch (type) {
         case 'Text':
-            return { type, id: index, questionText: '' };
+            return { type, id: id, questionText: '' };
         case 'NumberRange':
-            return { type, id: index, questionText: '', lowerBound: 0, upperBound: 5 };
+            return { type, id: id, questionText: '', lowerBound: 0, upperBound: 5 };
         case 'MultipleChoice':
-            return { type, id: index, questionText: '', choices: ['', ''] };
+            return { type, id: id, questionText: '', choices: ['', ''] };
     }
 }
 
@@ -42,6 +44,9 @@ export function checkQuestion(question: Question): string | null {
         case 'NumberRange':
             if (Number.isNaN(question.lowerBound) || Number.isNaN(question.upperBound)) {
                 return 'One or more bounds provided were not a number';
+            }
+            if (question.lowerBound >= question.upperBound) {
+                return 'Lower bound must be less than upper bound';
             }
             return null;
         case 'MultipleChoice':

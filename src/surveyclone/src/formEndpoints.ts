@@ -34,18 +34,13 @@ export async function createForm(name: string): Promise<string> {
         method: 'POST',
     })
 
-    try {
-        const data = await response.json()
-        if (!response.ok) {
-            throw new Error(`Http failure: ${response.status} with message: ${data.message}`)
-        }
-
-        if (!data.id) { throw new Error('Error: id is null.') }
-        return data.id
-
-    } catch (err) {
-        throw new Error("Error parsing json")
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+        throw new Error(`${data.message}`)
     }
+
+    if (!data.id) { throw new Error('Error: id is null.') }
+    return data.id
 }
 
 
@@ -67,26 +62,26 @@ export class FormRequestError extends Error {
 
 async function formError(response: Response): Promise<FormRequestError> {
     try {
-        const data = await response.json()
+        const data = await response.json().catch(() => ({}));
         const questionErrors: Record<number, string> = {}
 
         if (data) {
             for (const [key, value] of Object.entries(data)) {
-                if (typeof value === 'string') {
+                if (key !== 'message' && typeof value === 'string') {
                     questionErrors[Number(key)] = value
                 }
             }
         }
 
 
-        const message = data?.message ?? `Http failure: ${response.status}`
+        const message = data.message;
         return new FormRequestError(response.status, message, questionErrors)
     } catch (err) {
         throw new Error("Error parsing json")
     }
 }
 
-export async function saveToForm(id: string, questions: Question[], remoteQuestions: Question[]): Promise<void> {
+export async function saveToForm(id: string, version: number,  questions: Question[], remoteQuestions: Question[]): Promise<void> {
     const questionMap = new Set(questions.map(q => q.id));
     const remoteQuestionMap = new Map<number, Question>(
         remoteQuestions.map(item => [item.id, item])
@@ -105,6 +100,7 @@ export async function saveToForm(id: string, questions: Question[], remoteQuesti
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+            version: version,
             add: addedQuestions,
             edit: editedQuestions,
             delete: deletedQuestions,
@@ -115,7 +111,7 @@ export async function saveToForm(id: string, questions: Question[], remoteQuesti
         const status = await response.status;
         switch (status) {
             case 201:
-                break;
+                return;
             // Error with the form fields
             case 422:
                 throw await formError(response);
@@ -124,18 +120,17 @@ export async function saveToForm(id: string, questions: Question[], remoteQuesti
             //TODO Better version control (milestone 3, optional)
             case 409:
             default:
-                const data = await response.json()
-                throw new Error(`Http failure: ${response.status} with message: ${data.message}`)
+                const data = await response.json().catch(() => ({}));
+                throw new Error(`${data.message}`)
         }
     } catch (err: any) {
-        throw new Error("Error parsing json: " + err.message)
+        throw new Error(err.message)
     }
-
 }
 
 export async function viewForm(id: string): Promise<Form> {
     const response = await fetch(`/survey/${id}`)
-    const data = await response.json()
+    const data = await response.json().catch(() => ({}));
 
     if (!response.ok) throw new Error(`There was a problem viewing this form: ${data.message}`)
 
@@ -146,7 +141,7 @@ export async function viewForm(id: string): Promise<Form> {
 }
 
 export async function deleteForm(id: string): Promise<void> {
-    const response = await fetch('/survey/${id}', {
+    const response = await fetch(`/survey/${id}`, {
         method: 'DELETE'
     })
 
@@ -156,10 +151,10 @@ export async function deleteForm(id: string): Promise<void> {
             case 204:
                 break;
             default:
-                const data = await response.json()
-                throw new Error(`Http failure: ${response.status} with message: ${data.message}`)
+                const data = await response.json().catch(() => ({}));
+                throw new Error(`${data.message}`)
         }
     } catch (err: any) {
-        throw new Error("Error parsing json: " + err.message)
+        throw new Error(err.message)
     }
 }

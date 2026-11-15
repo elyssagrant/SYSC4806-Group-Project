@@ -2,6 +2,7 @@ package sysc4806.project.survey;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -94,12 +95,23 @@ public class Survey {
         this.questions.add(question);
     }
 
+    // The reason I have to replace each field individually is because 
+    // doing a create and delete at the same time throws errors
     public void replaceQuestion(Question question) {
-        this.questions.replaceAll(q -> q.getId() == question.getId() ? question : q);
+        Question replacedQuestion = this.questions.stream()
+        .filter(q -> Objects.equals(q.getId(), question.getId()))
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("No question with id " + question.getId() + "in survey " + this.id));
+        replacedQuestion.copy(question);
     }
 
     public void deleteQuestion(Question question) {
-        this.questions.remove(question);
+        this.questions.stream()
+                .filter(q -> Objects.equals(q.getId(), question.getId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No question with id " + question.getId() + "in survey " + this.id));
+        this.questions.removeIf(q -> Objects.equals(q.getId(), question.getId()));
     }
 
     // Should be called on making an edit to the survey.

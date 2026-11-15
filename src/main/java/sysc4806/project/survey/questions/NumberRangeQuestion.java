@@ -108,4 +108,13 @@ public class NumberRangeQuestion extends Question {
         return false;
     }
 
+    public void copy(Question question) {
+        if (!(question instanceof NumberRangeQuestion nr)) {
+            throw new IllegalArgumentException(
+                    "Expected NumberRangeQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setQuestionText(nr.getQuestionText());
+        this.setLowerBound(nr.getLowerBound());
+        this.setUpperBound(nr.getUpperBound());
+    }
 }

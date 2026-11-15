@@ -1,9 +1,12 @@
 package sysc4806.project.controller;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,7 @@ public class SurveyCreationController {
 
     // Match the format of the /questions request
     public record QuestionChanges(
+        int version,
         List<Question> add,
         List<Question> edit,
         @JsonProperty ("delete") List<Question> remove
@@ -44,8 +48,7 @@ public class SurveyCreationController {
     // Create a new survey with the given title
     @PostMapping
     public ResponseEntity<Map<String,String>> createNewSurvey(
-            @RequestParam(name = "name", required = true) String name,
-            Model model ){
+            @RequestParam(name = "name", required = true) String name){
         Map<String,String> body;
         int id;
         try {
@@ -53,7 +56,6 @@ public class SurveyCreationController {
             survey.setTitle(name);
             survey.setIsOpen(true);
             survey = surveyRepo.save(survey);
-            model.addAttribute("survey", survey);
             id = survey.getId();
             body = Map.of("id", Integer.toString(id));
         } catch (Exception e) {
@@ -68,47 +70,57 @@ public class SurveyCreationController {
     @ResponseBody
     public ResponseEntity<Map<String, String>> addQuestionToSurvey(
             @PathVariable Integer id,
-            @RequestBody QuestionChanges changes,
-            Model model ) {
+            @RequestBody QuestionChanges changes) {
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database
+
+            // Validate version - if the numbers are not the same, then the edit is invalid
+            if (survey.getVersion() != changes.version()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "Invalid form version: An edit may have already been made during this session."));
+            }
+
+
             try {
+                Map<String,String> questionErrors = new HashMap<>();
                 // Add question(s) to survey
                 for (Question question : changes.add()) {
-                    try {
-                        survey.addQuestion(question);
-                    } catch (Exception e) {
-                        System.out.println("Problem with added question: " + e.getMessage());
+                    String message = SurveyEditValidator.checkQuestion(question);
+                    if (message != null) {
+                        questionErrors.put(String.valueOf(question.getId()), message);
+                        continue;
                     }
+                    question.setId(null);
+                    survey.addQuestion(question);
                 }
                 // Delete questions(s) from survey
                 for (Question question : changes.remove()) {
-                        survey.deleteQuestion(question);
-                    try {
-                        //survey.deleteQuestion(question)
-                    } catch (Exception e) {
-                        System.out.println("Problem with added question: " + e.getMessage());
-                    }
+                    survey.deleteQuestion(question);
                 }
                 // Edit question(s) from survey (basically a replace operation)
                 for (Question question: changes.edit()) {
-                    try {
-                        survey.replaceQuestion(question);
-                    } catch (Exception e) {
-                        System.out.println("Problem with edited question: " + e.getMessage());
+                    String message = SurveyEditValidator.checkQuestion(question);
+                    if (message != null) {
+                        questionErrors.put(String.valueOf(question.getId()), message);
+                        continue;
                     }
+                    survey.replaceQuestion(question);
                 }
+
+                // If there were any errors with the fields, return them here
+                if (!questionErrors.isEmpty()) {
+                    questionErrors.put("message", "Some of the edits submitted were invalid");
+                    return ResponseEntity.unprocessableContent().body(questionErrors);
+                }
+
                 // Increment survey version before saving
                 survey.incrementVersion();
-                
                 surveyRepo.save(survey);                                // save change
-                model.addAttribute("survey", survey);
             } catch (Exception e) {
-                System.out.println("There was a problem: " + e.getMessage());
+                System.out.println("There was a problem: " + e.getMessage() + " trace: " + e.getStackTrace() + "cause: "+ e.getCause());
                 return ResponseEntity.internalServerError().build();
             }
         } catch (Exception e) {
-            System.out.println("There was a problem: " + e.getMessage());
+            System.out.println("There was a problem: " + e.getMessage() + " trace: " + e.getStackTrace() + "cause: " + e.getCause());
             return ResponseEntity.notFound().build();
         }
 
@@ -118,14 +130,13 @@ public class SurveyCreationController {
     // Delete a survey with the given ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteSurvey(
-            @PathVariable Integer id,
-            Model model) {
+            @PathVariable Integer id) {
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database
             surveyRepo.delete(survey);
         } catch (Exception e) {
             System.out.println("There was a problem: " + e.getMessage());
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Survey does not exist"));
         }
         return ResponseEntity.noContent().build();
     }

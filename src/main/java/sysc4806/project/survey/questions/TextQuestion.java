@@ -70,4 +70,12 @@ public class TextQuestion extends Question {
     public void addResponse(TextResponse response){
         responses.add(response);
     }
+
+    public void copy(Question question) {
+        if (!(question instanceof TextQuestion t)) {
+            throw new IllegalArgumentException(
+                    "Expected MultipleChoiceQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setQuestionText(t.getQuestionText());
+    }
 }

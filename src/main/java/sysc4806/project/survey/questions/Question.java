@@ -32,5 +32,6 @@ public abstract class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public abstract Integer getId();
     public abstract void setId(Integer id);
+    public abstract void copy(Question question);
 
 }

@@ -1,6 +1,7 @@
 package sysc4806.project.survey.questions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -16,7 +17,8 @@ public class MultipleChoiceQuestion extends Question {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "response_id")
-    private ArrayList<MultipleChoiceResponse> responses;
+    private List<MultipleChoiceResponse> responses;
+
 
     private ArrayList<String> choices;
     private String questionText;
@@ -45,7 +47,7 @@ public class MultipleChoiceQuestion extends Question {
         return questionText;
     }
 
-    public ArrayList<MultipleChoiceResponse> getResponses(){
+    public List<MultipleChoiceResponse> getResponses(){
         return responses;
     }
 
@@ -79,5 +81,14 @@ public class MultipleChoiceQuestion extends Question {
 
     public void addResponse(MultipleChoiceResponse response){
         responses.add(response);
+    }
+
+    public void copy(Question question) {
+        if (!(question instanceof MultipleChoiceQuestion mc)) {
+            throw new IllegalArgumentException(
+                    "Expected MultipleChoiceQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setChoices(mc.getChoices());
+        this.setQuestionText(mc.getQuestionText());
     }
 }

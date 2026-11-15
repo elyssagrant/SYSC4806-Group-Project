@@ -23,6 +23,7 @@ export default function CreateFormPage() {
     // The list of questions on the remote end.
     // compared and used to compile a list of operations when saving
     const [remoteQuestions, setRemoteQuestions] = useState<Question[]>([]);
+    const [version, setVersion] = useState(0);
     // Current questions in editing session
     const [questions, setQuestions] = useState<Question[]>([]);
     const [questionErrors, setQuestionErrors] = useState<Record<number, string>>({});
@@ -42,6 +43,8 @@ export default function CreateFormPage() {
                 const form: Form = await viewForm(id); 
                 setName(form.name);
                 setRemoteQuestions(form.questions);  
+                setQuestions(form.questions);
+                setVersion(form.version)
                 storeId(id);
             } catch (err: any) {
                 setMessage("There was an error retrieving the form: " + err.message)
@@ -58,6 +61,7 @@ export default function CreateFormPage() {
         try {
             const id = await createForm(name);
             storeId(id);
+            setId(id);
         } catch(err: any) {
             setMessage(err.message);
             setFormSubmitError(true);
@@ -75,22 +79,22 @@ export default function CreateFormPage() {
     }
 
     function deleteQuestion(index: number) {
-        setQuestions(q => q.splice(index,1));
+        setQuestions(q => q.filter((_, i) => i !== index));
     }
 
-    function saveForm() {
+    async function saveForm() {
         resetErrors();
         // First check all questions in the list
-        let errorsFound = false;
+        const errors: Record<number, string> = {};
         questions.forEach((question, index) => {
             let error = checkQuestion(question)
             if (error) {
-                questionErrors[index] = error;
-                errorsFound = true;
+                errors[question.id] = error;
             }
         })
-        if (errorsFound) {
+        if (Object.keys(errors).length > 0) {
             setFormSubmitError(true);
+            setQuestionErrors(errors);
             setMessage("Some questions are invalid. Please fix before saving again.");
             return;
         }
@@ -100,13 +104,15 @@ export default function CreateFormPage() {
         try {
             const id = getId();
             if (id) {
-                saveToForm(id, questions, remoteQuestions);
+                await saveToForm(id, version, questions, remoteQuestions);
             } else {
                 setMessage("You have not created a form yet!")
                 setFormSubmitError(true)
                 return;
             }
-
+            // Because all questions are assigned an id on the back-end. that means we need to refetch the form.
+            setSelectedEditType(EDIT_TYPES.Edit);
+            await getOrDeleteForm();
         } catch(error: any) {
             if (error instanceof FormRequestError) {
                 setQuestionErrors(error.questionErrors);
@@ -140,7 +146,7 @@ export default function CreateFormPage() {
             { !submittedForm ? (
             <div>
                 <h1>Form Creation</h1>
-                <p>Enter the name to create a form, or specify the ID of one to edit.</p>
+                <p>Enter the name to create a form, or specify the ID of one to edit/delete.</p>
                 <select value={selectedEditType} onChange={e => setSelectedEditType(e.target.value as EDIT_TYPES)}>
                     {(Object.values(EDIT_TYPES) as EDIT_TYPES[]).map(t => (
                     <option key={t} value={t}>
@@ -191,7 +197,7 @@ export default function CreateFormPage() {
                             </span>
                             <QuestionField mode="edit" question = {q} onChange={updated => updateQuestion(i, updated)}></QuestionField>
                             <button type="button" onClick={() => deleteQuestion(i)}>Delete</button>
-                            {questionErrors[i] && <p>{questionErrors[i]}</p>}
+                            {questionErrors[q.id] && <p>{questionErrors[q.id]}</p>}
                         </div>
 
                     ))}
