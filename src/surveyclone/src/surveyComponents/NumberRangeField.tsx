@@ -39,7 +39,6 @@ export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>)
             </div>
         )
     } else {
-        const value = typeof props.value === 'number' ? props.value : lowerBound
         const sliderChange = (value: string) => {
             setSliderValue(value)
             props.onAnswer(value);
