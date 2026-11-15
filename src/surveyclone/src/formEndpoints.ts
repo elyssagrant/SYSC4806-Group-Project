@@ -146,7 +146,7 @@ export async function viewForm(id: string): Promise<Form> {
 }
 
 export async function deleteForm(id: string): Promise<void> {
-    const response = await fetch('/survey/${id}/delete', {
+    const response = await fetch('/survey/${id}', {
         method: 'DELETE'
     })
 
