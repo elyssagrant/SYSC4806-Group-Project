@@ -66,7 +66,7 @@ public class SurveyCreationController {
     // Add a question to the survey with the given ID
     @PostMapping("/{id}/questions")
     @ResponseBody
-    public ResponseEntity<Void> addQuestionToSurvey(
+    public ResponseEntity<Map<String, String>> addQuestionToSurvey(
             @PathVariable Integer id,
             @RequestBody QuestionChanges changes,
             Model model ) {
@@ -75,16 +75,28 @@ public class SurveyCreationController {
             try {
                 // Add question(s) to survey
                 for (Question question : changes.add()) {
-                    survey.addQuestion(question);
+                    try {
+                        survey.addQuestion(question);
+                    } catch (Exception e) {
+                        System.out.println("Problem with added question: " + e.getMessage());
+                    }
                 }
                 // Delete questions(s) from survey
                 for (Question question : changes.remove()) {
                     //TODO: Delete functionality from issue #26 goes here
-                    //survey.deleteQuestion(question)
+                    try {
+                        //survey.deleteQuestion(question)
+                    } catch (Exception e) {
+                        System.out.println("Problem with added question: " + e.getMessage());
+                    }
                 }
                 // Edit question(s) from survey (basically a replace operation)
                 for (Question question: changes.edit()) {
-                    survey.replaceQuestion(question);
+                    try {
+                        survey.replaceQuestion(question);
+                    } catch (Exception e) {
+                        System.out.println("Problem with edited question: " + e.getMessage());
+                    }
                 }
                 // Increment survey version before saving
                 survey.incrementVersion();
@@ -103,18 +115,12 @@ public class SurveyCreationController {
         return ResponseEntity.created(URI.create("/surveycreation/" + id)).body(null);
     }
 
-    @DeleteMapping("/{id}/")
-
     // Delete a survey with the given ID
-    public String deleteSurvey(Integer id, Model model) {
-        // Not for Milestone 1
-        return null;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> deleteSurvey(
+            @PathVariable Integer id,
+            Model model) {
+        //TODO: Delete survey here
+        return ResponseEntity.noContent().build();
     }
-
-    // Delete a question from the survey with the given ID
-    public String deleteQuestion(Question question, Model model) {
-        // Not for Milestone 1
-        return null;
-    }
-
 }
