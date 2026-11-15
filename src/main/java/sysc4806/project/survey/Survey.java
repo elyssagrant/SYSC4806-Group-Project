@@ -28,7 +28,7 @@ public class Survey {
         so do the owned questions.
         The join column adds a foreign key to the questions
     */
-    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "survey_id")
     private List<Question> questions;
 
