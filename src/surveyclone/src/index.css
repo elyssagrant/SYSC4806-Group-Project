@@ -1,3 +1,10 @@
+:root {
+  --White: #FFFF;
+  --Black: black;
+  --MidBlue: cornflowerblue;
+  --BabyBlue: lightblue;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,7 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: cornflowerblue;
+  background-color: var(--MidBlue);
 }
 
 code {
@@ -15,8 +22,8 @@ code {
 
 input[type=text] {
   border-radius: 20px;
-  border: 1px solid #FFFF;
-  color: black;
+  border: 1px solid var(--White);
+  color: var(--Black);
   width: 250px;
   height: 30px;
   margin: 8px;
@@ -24,30 +31,30 @@ input[type=text] {
 
 input[type=number] {
   border-radius: 20px;
-  border: 1px solid #FFFF;
-  color: black;
+  border: 1px solid var(--White);
+  color: var(--Black);
   width: 250px;
   height: 30px;
   margin: 8px;
 }
 
 input[type=radio] {
-  border: 1px solid #FFFF;
+  border: 1px solid var(--White);
 }
 
 button {
   font-size: 14px;
   border-radius: 5px;
-  border: 1px solid cornflowerblue;
-  background-color: cornflowerblue;
+  border: 1px solid var(--MidBlue);
+  background-color: var(--MidBlue);
   color: white;
   margin: 10px;
 }
 
 select {
   border-radius: 5px;
-  border: 1px solid #FFFF;
-  color: black;
+  border: 1px solid var(--White);
+  color: var(--Black);
   margin: 10px;
 }
 
@@ -56,7 +63,7 @@ select {
   width: 50vw;
   vertical-align: center;
   border-radius: 20px;
-  background-color: lightblue;
+  background-color: var(--BabyBlue);
   padding: 2% 5%;
 }
 
