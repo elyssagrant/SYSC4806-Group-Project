@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="docs: add public and private markers for class UML,">
+    <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/surveyclone/src/LandingPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/surveyclone/src/images/barGraph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/controller/SurveyCreationControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/controller/SurveyCreationControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/surveyclone/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/surveyclone/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/surveyclone/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
