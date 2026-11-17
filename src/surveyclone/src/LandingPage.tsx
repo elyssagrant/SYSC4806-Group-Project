@@ -1,9 +1,6 @@
-import {useState} from "react";
 import barGraph from './images/barGraph.png'
 
 export default function LandingPage() {
-    const [id, setId] = useState('');
-
     return (
        <div>
            <h1 className="TopHeader">Multiple Choice? Unlimited Choice.</h1>
