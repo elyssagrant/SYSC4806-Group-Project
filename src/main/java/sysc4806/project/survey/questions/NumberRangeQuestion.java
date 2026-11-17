@@ -1,17 +1,24 @@
 package sysc4806.project.survey.questions;
 
-import sysc4806.project.survey.responses.NumberRangeResponse;
-
 import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import sysc4806.project.survey.responses.NumberRangeResponse;
 
 @Entity
 public class NumberRangeQuestion extends Question {
 
-    private ArrayList<NumberRangeResponse> responses;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "response_id")
+    private List<NumberRangeResponse> responses;
+
     private String questionText;
 
     @Id
@@ -49,7 +56,7 @@ public class NumberRangeQuestion extends Question {
         return questionText;
     }
 
-    public ArrayList<NumberRangeResponse> getResponses(){
+    public List<NumberRangeResponse> getResponses(){
         return responses;
     }
 

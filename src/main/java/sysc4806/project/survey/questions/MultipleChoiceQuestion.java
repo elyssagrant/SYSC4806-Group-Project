@@ -1,18 +1,22 @@
 package sysc4806.project.survey.questions;
 
-import sysc4806.project.survey.responses.MultipleChoiceResponse;
+import java.util.ArrayList;
 
-
-import java.util.*;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import sysc4806.project.survey.responses.MultipleChoiceResponse;
 
 @Entity
 public class MultipleChoiceQuestion extends Question {
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "response_id")
     private ArrayList<MultipleChoiceResponse> responses;
+
     private ArrayList<String> choices;
     private String questionText;
 
