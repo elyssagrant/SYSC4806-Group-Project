@@ -1,4 +1,7 @@
 # SYSC4806-Group-Project
+## Azure Deployment
+Domain link: sysc4806-group-16-project-hmace8gzfwbrhagx.norwayeast-01.azurewebsites.net
+
 This repository contains the Group Project for SYSC 4806, Software Engineering Lab. 
 The team will be implementing the Mini-SurveyMonkey concept, with Spring Feature Toggling.
 
@@ -14,5 +17,3 @@ Survey creation Controllers (https://github.com/elyssagrant/SYSC4806-Group-Proje
 ## Persistable Database Schema
 ![img.png](temp_database_schema.png)
 
-## Azure Deployment
-Domain link: sysc4806-group-16-project-hmace8gzfwbrhagx.norwayeast-01.azurewebsites.net

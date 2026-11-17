@@ -5,20 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/surveyclone/src/LandingPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/surveyclone/src/images/barGraph.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyResponseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyResponseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/MultipleChoiceResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/MultipleChoiceResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/NumberRangeResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/NumberRangeResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/TextResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/TextResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/surveyclone/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/surveyclone/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/surveyclone/src/CreateFormPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/CreateFormPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/surveyclone/src/ViewForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/ViewForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/surveyclone/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/surveyclone/src/surveyComponents/MultipleChoiceField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/surveyComponents/MultipleChoiceField.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/surveyclone/src/surveyComponents/surveyComponents.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/surveyclone/src/surveyComponents/surveyComponents.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,8 +70,11 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.Main.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "elyssa/add-css",
+    "git-widget-placeholder": "elyssa/add-banner",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/Elyss/OneDrive/Documents/School/Software Validation/Labs/Lab 3/SYSC4806-Group-Project/untitled/src/main/java/Unknown/Main.java",
     "project.structure.last.edited": "Modules",
