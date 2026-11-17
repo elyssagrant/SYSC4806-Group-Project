@@ -56,7 +56,7 @@ public class SurveyResponseController {
         return null;
     }
 
-    // Not for Milestone 1
+    // Submit responses for a survey with a given id
     @PostMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Void> submitResponse(@PathVariable Integer id,
@@ -66,7 +66,10 @@ public class SurveyResponseController {
                                                Model model) {
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow();
-
+            /*
+            This code looks at each question in the stored survey and maps the provided response to the
+            question type. Done to avoid having a
+             */
             int textIndex = 0;
             int numberIndex = 0;
             int mcqIndex = 0;
