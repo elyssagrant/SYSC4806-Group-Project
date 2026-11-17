@@ -58,3 +58,8 @@ paths:
                     "questionText":
                     "choices": []
                 }
+  POST /survey/{id}
+    application/json
+        "200":
+          id: Id of the survey assigned by the controller
+        For each filled out question:
