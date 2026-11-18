@@ -49,6 +49,7 @@ export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>)
                 <p className="questionLabel">{question.questionText}</p>
                 <div className="numberRange">
                     <label>
+                        <span className="label-min">{lowerBound}</span>
                         <input
                             type="range"
                             min={lowerBound}
@@ -57,6 +58,7 @@ export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>)
                             value={sliderValue}
                             onChange={(newValues) => sliderChange(newValues.target.value)}
                         />
+                        <span className="label-max">{upperBound}</span>
                         <div className="slider-value-display">{sliderValue}</div>
                     </label>
                 </div>

@@ -3,38 +3,52 @@ paths:
     "name of the form":
     responses:
     application/json
-      "200":
+      "201":
         id: Id of the survey assigned by the controller
       Any other code:
         "message": I'll print this message on the frontend
   POST /surveycreation/{id}/questions:
     application/json:
+          {
+            add: {
+              {
+                  "type": MultipleChoice,
+                   "id": num
+                  "questionText":
+                  "choices": []
+              }
             {
-            "type:" {NumberRange, Text, MultipleChoice}
-            <whatever fields correspond to the type go here - examples below>
-            }
-            {
+                "id": num
                 "type": Text,
                 "questionText":
             }
-            {
+
+            }
+            edit: {
+              {
+                "id": num
                 "type": NumberRange
                 "questionText":
                 "upperBound":
                 "lowerBound":
             }
-            {
-                "type": MultipleChoice,
-                "questionText":
-                "choices": []
             }
+            delete: {
+              {
+                "type:" {NumberRange, Text, MultipleChoice}
+                <whatever fields correspond to the type go here - examples below>
+              }
+            }
+          }
     responses:
     application/json
-      "200": no information needed
+      "201": no information needed
+      "422": specific error with a specific question
+        "id of the question (the index in the same order that the questions arrived in)": "message detailing problem with the question"
+      "409": version control error specifically
+        "message": I'll print this message on the frontend and potentially do a "rebase" or reset
       Any other code:
         "message": I'll print this message on the frontend
-        AND/OR
-        "id of the question (the index in the same order that the questions arrived in)": "message detailing problem with the question"
     GET /survey/{id}
         responses:
             The form with the same format above
@@ -58,3 +72,10 @@ paths:
                     "questionText":
                     "choices": []
                 }
+    DELETE /survey/{id}
+      responses:
+        "204" no info needed
+        Any other code:
+          "message": I'll print this message on the frontend
+
+

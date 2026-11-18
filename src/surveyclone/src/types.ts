@@ -9,11 +9,13 @@ import NumberRangeField from './surveyComponents/NumberRangeField';
 
 export interface TextQuestion {
     type: 'Text'
+    id: number
     questionText: string
 }
 
 export interface NumberRangeQuestion {
     type: 'NumberRange'
+    id: number
     questionText: string
     lowerBound: number
     upperBound: number
@@ -21,6 +23,7 @@ export interface NumberRangeQuestion {
 
 export interface MultipleChoiceQuestion {
     type: 'MultipleChoice'
+    id: number
     questionText: string
     choices: string[]
 }
@@ -29,6 +32,7 @@ export type Question = MultipleChoiceQuestion | NumberRangeQuestion | TextQuesti
 
 export interface Form {
     name: string
+    version: number
     questions: Question[]
 }
 

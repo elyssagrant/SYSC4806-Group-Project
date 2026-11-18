@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -21,7 +22,7 @@ public class TextQuestion extends Question {
     private String questionText;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     //*** Constructors ***
@@ -68,5 +69,13 @@ public class TextQuestion extends Question {
 
     public void addResponse(TextResponse response){
         responses.add(response);
+    }
+
+    public void copy(Question question) {
+        if (!(question instanceof TextQuestion t)) {
+            throw new IllegalArgumentException(
+                    "Expected MultipleChoiceQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setQuestionText(t.getQuestionText());
     }
 }
