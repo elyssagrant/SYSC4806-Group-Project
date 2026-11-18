@@ -1,11 +1,15 @@
 package sysc4806.project.survey.questions;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 @Entity
 // This is supposed to allow querying from the Question type.
@@ -23,10 +27,11 @@ import jakarta.persistence.*;
         @JsonSubTypes.Type(value = TextQuestion.class, name = "Text"),
         @JsonSubTypes.Type(value = MultipleChoiceQuestion.class, name = "MultipleChoice")
 })
-public abstract class Question implements Serializable {
+public abstract class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public abstract Integer getId();
     public abstract void setId(Integer id);
+    public abstract void copy(Question question);
 
 }

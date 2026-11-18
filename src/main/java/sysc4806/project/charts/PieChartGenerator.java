@@ -55,7 +55,7 @@ public class PieChartGenerator extends ChartGenerator{
             this.title = question.getQuestionText();
 
             // Count instances of each response
-            ArrayList<MultipleChoiceResponse> responses = question.getResponses();
+            ArrayList<MultipleChoiceResponse> responses =  new ArrayList<>(question.getResponses());
             HashMap<String, Integer> responseCount = new HashMap<>();
             for (MultipleChoiceResponse r : responses) {
                 responseCount.put(r.getResponse().toString(), responseCount.getOrDefault(r.getResponse(), 0) + 1);

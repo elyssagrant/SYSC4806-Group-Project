@@ -1,22 +1,28 @@
 package sysc4806.project.survey.questions;
 
-import sysc4806.project.survey.responses.TextResponse;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
-
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import sysc4806.project.survey.responses.TextResponse;
 
 @Entity
 public class TextQuestion extends Question {
 
-    private ArrayList<TextResponse> responses;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "response_id")
+    private List<TextResponse> responses;
+
     private String questionText;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     //*** Constructors ***
@@ -37,7 +43,7 @@ public class TextQuestion extends Question {
         return questionText;
     }
 
-    public ArrayList<TextResponse> getResponses(){
+    public List<TextResponse> getResponses(){
         return responses;
     }
 
@@ -63,5 +69,13 @@ public class TextQuestion extends Question {
 
     public void addResponse(TextResponse response){
         responses.add(response);
+    }
+
+    public void copy(Question question) {
+        if (!(question instanceof TextQuestion t)) {
+            throw new IllegalArgumentException(
+                    "Expected MultipleChoiceQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setQuestionText(t.getQuestionText());
     }
 }

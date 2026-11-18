@@ -34,4 +34,7 @@ hs_err_pid*
 replay_pid*
 
 target
-.idea
+# For IntelliJ specific settings
+.idea 
+# For VSCode related settigns
+.vscode

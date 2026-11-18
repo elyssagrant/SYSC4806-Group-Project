@@ -1,23 +1,30 @@
 package sysc4806.project.survey.questions;
 
-import sysc4806.project.survey.responses.MultipleChoiceResponse;
+import java.util.ArrayList;
+import java.util.List;
 
-
-import java.util.*;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import sysc4806.project.survey.responses.MultipleChoiceResponse;
 
 @Entity
 public class MultipleChoiceQuestion extends Question {
 
-    private ArrayList<MultipleChoiceResponse> responses;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "response_id")
+    private List<MultipleChoiceResponse> responses;
+
+
     private ArrayList<String> choices;
     private String questionText;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     //*** Constructors ***
@@ -40,7 +47,7 @@ public class MultipleChoiceQuestion extends Question {
         return questionText;
     }
 
-    public ArrayList<MultipleChoiceResponse> getResponses(){
+    public List<MultipleChoiceResponse> getResponses(){
         return responses;
     }
 
@@ -74,5 +81,14 @@ public class MultipleChoiceQuestion extends Question {
 
     public void addResponse(MultipleChoiceResponse response){
         responses.add(response);
+    }
+
+    public void copy(Question question) {
+        if (!(question instanceof MultipleChoiceQuestion mc)) {
+            throw new IllegalArgumentException(
+                    "Expected MultipleChoiceQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setChoices(mc.getChoices());
+        this.setQuestionText(mc.getQuestionText());
     }
 }

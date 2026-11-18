@@ -13,7 +13,6 @@ export default function ViewForm() {
     const [questions, setQuestions] = useState<Question[]>([]);
 
     async function getForm() {
-
         try {
             const form: Form = await viewForm(id); 
             setName(form.name);

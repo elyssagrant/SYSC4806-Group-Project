@@ -1,18 +1,19 @@
 package sysc4806.project.charts;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
+
 import sysc4806.project.survey.Survey;
 import sysc4806.project.survey.SurveyRepository;
 import sysc4806.project.survey.questions.NumberRangeQuestion;
 import sysc4806.project.survey.questions.Question;
 import sysc4806.project.survey.responses.NumberRangeResponse;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Renders a histogram representation of responses for number
@@ -90,8 +91,8 @@ public class HistogramGenerator extends ChartGenerator {
                     question.getUpperBound());
 
             // Add count each response value within each subrange
-            ArrayList<NumberRangeResponse> responses = question.getResponses();
-            ArrayList<Integer> responseCount = new ArrayList<Integer>();
+            ArrayList<NumberRangeResponse> responses = new ArrayList<>(question.getResponses());
+            ArrayList<Integer> responseCount = new ArrayList<>();
 
             for (int[] sr : subRanges) {
                 int count = 0;
