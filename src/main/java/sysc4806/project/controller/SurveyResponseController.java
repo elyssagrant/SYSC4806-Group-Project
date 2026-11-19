@@ -1,5 +1,6 @@
 package sysc4806.project.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +14,11 @@ import sysc4806.project.survey.questions.Question;
 import sysc4806.project.survey.questions.TextQuestion;
 import sysc4806.project.survey.responses.MultipleChoiceResponse;
 import sysc4806.project.survey.responses.NumberRangeResponse;
+import sysc4806.project.survey.responses.Response;
 import sysc4806.project.survey.responses.TextResponse;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -23,6 +27,8 @@ public class SurveyResponseController {
 
     //Need to use a record since when serializing a normal map<string,string> doesn't work for the questions array
     public record SerializedSurvey(String name, int version, Question[] questions) {}
+
+    public record ResponseRecord(int version, Response[] responses){}
 
     // Survey repository for database access
     private final SurveyRepository surveyRepo;
@@ -39,7 +45,7 @@ public class SurveyResponseController {
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow(); // load survey from database
             model.addAttribute("survey", survey);
-            Question[] questions = survey.getQuestions().toArray(new Question[0]);
+            Question[] questions = survey.getQuestions().values().toArray(new Question[0]);
             response = new SerializedSurvey(survey.getTitle(), survey.getVersion(), questions);
         } catch (Exception e) {
             System.out.println("There was an error sending the survey: " + e.getMessage());
@@ -57,41 +63,53 @@ public class SurveyResponseController {
     // Submit responses for a survey with a given id
     @PostMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Void> submitResponse(@PathVariable Integer id,
-                                               @RequestBody TextResponse[] textResponses,
-                                               @RequestBody NumberRangeResponse[] numberResponses,
-                                               @RequestBody MultipleChoiceResponse[] mcqResponses,
+    public ResponseEntity<Map<String, String>> submitResponse(@PathVariable Integer id,
+                                               @RequestBody ResponseRecord responses,
                                                Model model) {
+        Map<Question, String> errors = new HashMap<>();
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow();
-            /*
-            This code looks at each question in the stored survey and maps the provided response to the
-            question type. Done to avoid having a
-             */
-            int textIndex = 0;
-            int numberIndex = 0;
-            int mcqIndex = 0;
 
-            for(int i = 0; i < survey.getQuestions().size(); i++) {
-                Question question = survey.getQuestions().get(i);
-                if (question instanceof TextQuestion textQ) {
-                    textQ.addResponse(textResponses[textIndex]);
-                    textIndex ++;
-                }
-                else if (question instanceof NumberRangeQuestion rangeQ) {
-                    rangeQ.addResponse(numberResponses[numberIndex]);
-                    numberIndex ++;
-                }
-                else if (question instanceof MultipleChoiceQuestion multiChoiceQ) {
-                    multiChoiceQ.addResponse(mcqResponses[mcqIndex]);
-                    mcqIndex ++;
-                }
+            // Validate version - if the numbers are not the same, then the edit is invalid
+            if (survey.getVersion() != responses.version()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "Invalid form version: An edit may have already been made during this session."));
             }
 
+            for(Response response: responses.responses()) {
+                /*
+                 * The id of the response needs to be null when saved. The response's given Id will thus
+                 * be the ID of the question it belongs to.
+                 */
+                Question question = survey.getQuestions().get(response.getId());
+                response.setId(null);
+
+                //Check to ensure the response is well-formed
+                String error = SurveyEditValidator.checkResponse(question, response);
+                if(error != null) {
+                    errors.put(question, error);
+                    continue;
+                }
+
+                //Add the response to the question
+                if (question instanceof TextQuestion) {
+                    ((TextQuestion) question).addResponse((TextResponse) response);
+                } else if (question instanceof NumberRangeQuestion) {
+                    ((NumberRangeQuestion) question).addResponse((NumberRangeResponse) response);
+                } else if (question instanceof MultipleChoiceQuestion) {
+                    ((MultipleChoiceQuestion) question).addResponse((MultipleChoiceResponse) response);
+                } else {
+                    throw new IllegalArgumentException("No suitable question format found");
+                }
+            }
+            //Save the survey with the new responses
             surveyRepo.save(survey);
-        }catch (Exception e) {
+        }catch (ClassCastException e) {
+            return ResponseEntity.unprocessableContent().body(Map.of("message", "Invalid response format provided for the given survey"));
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.accepted().body(null);
     }
 }
+
+

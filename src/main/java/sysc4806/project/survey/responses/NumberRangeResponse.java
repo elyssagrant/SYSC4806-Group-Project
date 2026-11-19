@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class NumberRangeResponse extends Response{
+public class NumberRangeResponse implements Response {
 
     @Id
     @GeneratedValue
