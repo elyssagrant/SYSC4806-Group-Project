@@ -1,3 +1,10 @@
+:root {
+  --White: #FFFF;
+  --Black: black;
+  --MidBlue: cornflowerblue;
+  --BabyBlue: lightblue;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +12,70 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--MidBlue);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
+
+input[type=text] {
+  border-radius: 20px;
+  border: 1px solid var(--White);
+  color: var(--Black);
+  width: 250px;
+  height: 30px;
+  margin: 8px;
+}
+
+input[type=number] {
+  border-radius: 20px;
+  border: 1px solid var(--White);
+  color: var(--Black);
+  width: 250px;
+  height: 30px;
+  margin: 8px;
+}
+
+input[type=radio] {
+  border: 1px solid var(--White);
+}
+
+button {
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid var(--MidBlue);
+  background-color: var(--MidBlue);
+  color: white;
+  margin: 10px;
+}
+
+select {
+  border-radius: 5px;
+  border: 1px solid var(--White);
+  color: var(--Black);
+  margin: 10px;
+}
+
+.formNameContainer {
+  margin: auto;
+  width: 50vw;
+  vertical-align: center;
+  border-radius: 20px;
+  background-color: var(--BabyBlue);
+  padding: 2% 5%;
+}
+
+.singleQuestionContainer {
+  margin-bottom: 40px;
+}
+
+.questionNumber {
+  font-size: 20px;
+}
+
+.formTitle {
+  font-size: 50px;
+}
+

@@ -142,7 +142,7 @@ export default function CreateFormPage() {
     }
 
     return (
-        <div>
+        <div className="formNameContainer">
             { !submittedForm ? (
             <div>
                 <h1>Form Creation</h1>
@@ -187,12 +187,13 @@ export default function CreateFormPage() {
             </div>
             ) : ( 
             <div>
+                <h1>Form Creation</h1>
                 <div>
                     {questions.length === 0 && <p>No questions have been created yet. Please pick a question type and press Add</p>}
 
                     {questions.map((q, i) => (
-                        <div>
-                            <span>
+                        <div className="singleQuestionContainer">
+                            <span className="questionNumber">
                                 Question {i + 1}
                             </span>
                             <QuestionField mode="edit" question = {q} onChange={updated => updateQuestion(i, updated)}></QuestionField>

@@ -55,11 +55,11 @@ export default function ViewForm() {
     return (
         <>
         { confirmId ? (
-            <>
+            <div className="formNameContainer">
             <h1 className="formTitle">{name}</h1>
             {questions.map((q, i) => (
-                <div>
-                    <span>
+                <div className="singleQuestionContainer">
+                    <span className="questionNumber">
                         Question {i + 1}
                     </span>
                     <QuestionField mode="answer" question = {q} onAnswer={updated => updateAnswer(i)}></QuestionField>
@@ -69,10 +69,11 @@ export default function ViewForm() {
             <button type="submit" className="button">Submit</button>
             <button className="button" onClick={resetForm}>Reset</button>
 
-            </>
+            </div>
         ) : (
-            <div>
-                <p>Please enter an id.</p>
+            <div className="formNameContainer">
+                <h1>View Forms</h1>
+                <p className="questionNumber">Please enter an id.</p>
                 <label>
                     ID
                     <input 
