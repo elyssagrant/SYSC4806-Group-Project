@@ -43,7 +43,7 @@ public class PieChartGenerator extends ChartGenerator{
 
         // Get question of interest from survey
         MultipleChoiceQuestion question = null;
-        for (Question q : survey.getQuestions()) {
+        for (Question q : survey.getQuestions().values()) {
             if (q.getId() == questionId) {
                 question = (MultipleChoiceQuestion) q;
                 break;

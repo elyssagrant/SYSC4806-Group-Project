@@ -75,7 +75,7 @@ public class HistogramGenerator extends ChartGenerator {
 
         // Get question of interest from survey
         NumberRangeQuestion question = null;
-        for (Question q : survey.getQuestions()) {
+        for (Question q : survey.getQuestions().values()) {
             if (q.getId() == questionId) {
                 question = (NumberRangeQuestion) q;
                 break;
