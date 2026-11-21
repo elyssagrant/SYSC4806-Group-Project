@@ -45,7 +45,7 @@ public class SurveyResponseController {
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow(); // load survey from database
             model.addAttribute("survey", survey);
-            Question[] questions = survey.getQuestions().values().toArray(new Question[0]);
+            Question[] questions = survey.getQuestions().toArray(new Question[0]);
             response = new SerializedSurvey(survey.getTitle(), survey.getVersion(), questions);
         } catch (Exception e) {
             System.out.println("There was an error sending the survey: " + e.getMessage());
@@ -80,7 +80,7 @@ public class SurveyResponseController {
                  * The id of the response needs to be null when saved. The response's given Id will thus
                  * be the ID of the question it belongs to.
                  */
-                Question question = survey.getQuestions().get(response.getId());
+                Question question = survey.getQuestionMap().get(response.getId());
                 response.setId(null);
 
                 //Check to ensure the response is well-formed

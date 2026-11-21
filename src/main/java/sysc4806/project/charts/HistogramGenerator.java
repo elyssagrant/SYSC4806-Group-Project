@@ -74,24 +74,18 @@ public class HistogramGenerator extends ChartGenerator {
                 .orElseThrow(() -> new IllegalArgumentException("Survey not found"));
 
         // Get question of interest from survey
-        NumberRangeQuestion question = null;
-        for (Question q : survey.getQuestions().values()) {
-            if (q.getId() == questionId) {
-                question = (NumberRangeQuestion) q;
-                break;
-            }
-        }
+        Question question = survey.getQuestionMap().get(questionId);
 
         // Create dataset of responses
-        if(question != null) {
-            this.title = question.getQuestionText();
+        if(question != null && question instanceof NumberRangeQuestion numberRangeQuestion) {
+            this.title = numberRangeQuestion.getQuestionText();
 
             // Break data range into sub-ranges
-            ArrayList<int[]> subRanges = this.getSubRanges(question.getLowerBound(),
-                    question.getUpperBound());
+            ArrayList<int[]> subRanges = this.getSubRanges(numberRangeQuestion.getLowerBound(),
+                    numberRangeQuestion.getUpperBound());
 
             // Add count each response value within each subrange
-            ArrayList<NumberRangeResponse> responses = new ArrayList<>(question.getResponses());
+            ArrayList<NumberRangeResponse> responses = new ArrayList<>(numberRangeQuestion.getResponses());
             ArrayList<Integer> responseCount = new ArrayList<>();
 
             for (int[] sr : subRanges) {
