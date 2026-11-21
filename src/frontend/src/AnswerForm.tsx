@@ -32,6 +32,7 @@ export default function ViewForm() {
         setConfirmId(true)
     }
 
+
     function updateAnswer(index: number, update: Response) {
         if (update === undefined) return;
         setAnswers(old => old.map((a, i) => i === index ? {...a, response: update} : a))
