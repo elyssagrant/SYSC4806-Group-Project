@@ -4,7 +4,7 @@
  */
 
 import { questionsEqual } from "./surveyComponents/componentTypes";
-import { Form, Question } from "./types"
+import { Answer, Form, Question } from "./types"
 
 export function getId(): string | null {
     const cookies = document.cookie.split('; ');
@@ -155,6 +155,30 @@ export async function deleteForm(id: string): Promise<void> {
                 throw new Error(`${data.message}`)
         }
     } catch (err: any) {
-        throw new Error(err.message)
+        throw new Error(err.message || "Unknown error")
+    }
+}
+
+export async function answerForm(id: string, version: number, answers: Answer[]): Promise<void> {
+    const response = await fetch('/survey/${id}', {
+        method: 'POST',
+        body: JSON.stringify({
+            version: version,
+            answers: answers
+        })
+    })
+
+    try {
+        const status = await response.status;
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const data = await response.json().catch(() => ({}));
+                throw new Error(`${data.message}`);
+        }
+
+    } catch (err: any) {
+        throw new Error(err.message || "Unknown error")
     }
 }
