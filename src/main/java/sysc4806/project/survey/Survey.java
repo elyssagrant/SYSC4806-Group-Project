@@ -25,22 +25,36 @@ public class Survey {
         so do the owned questions.
         The join column adds a foreign key to the questions
     */
+
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @ElementCollection
-    @CollectionTable(name="surveyQuestions", joinColumns=@JoinColumn(name = "survey_id"))
-    private Map<Integer, Question> questions;
+    @JoinColumn(name = "response_id")
+    private List<Question> questions;
+
+    // This is a read-only map that allows us to do operations in O(1) instead of iterating through a list
+    // It gets loaded whenever we take something out of the database
+    @Transient 
+    private Map<Integer, Question> questionMap;
 
     public Survey(){
-        questions = new HashMap<>();
+        questionMap = new HashMap<>();
         isOpen = false;
         title = "";
         version = 0;
     }
 
     public Survey(String title){
-        questions = new HashMap<>();
+        questionMap = new HashMap<>();
         isOpen = false;
         this.title = title;
+    }
+
+    @PostLoad 
+    private void buildMap() {
+        questionMap = new HashMap<>();
+        for (Question q : questions) {
+            questionMap.put(q.getId(), q);
+        }
     }
 
     // *** GETTERS ***
@@ -57,7 +71,11 @@ public class Survey {
         return isOpen;
     }
 
-    public Map<Integer, Question> getQuestions() {
+    public Map<Integer, Question> getQuestionMap() {
+        return questionMap;
+    }
+
+    public List<Question> getQuestions() {
         return questions;
     }
 
@@ -79,30 +97,34 @@ public class Survey {
         this.isOpen = isOpen;
     }
 
-    public void setQuestions(Map<Integer, Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
     // *** ADDITIONAL METHODS ***
 
     public void addQuestion(Question question) {
-        this.questions.put(question.getId(), question);
+        this.questions.add(question);
     }
 
-    // The reason I have to replace each field individually is because 
+    // The reason I have to replace each field individually is because
     // doing a create and delete at the same time throws errors
     public void replaceQuestion(Question question) {
-        if(!questions.containsKey(question.getId())){
-            throw new IllegalArgumentException("No question with given id present in survey");
+        Question replacedQuestion = this.questionMap.get(question.getId());
+        if (replacedQuestion == null) {
+            throw new IllegalArgumentException(
+                        "No question with id " + question.getId() + "in survey " + this.id);
         }
-        this.questions.put(question.getId(), question);
+        replacedQuestion.copy(question);
     }
 
     public void deleteQuestion(Question question) {
-        Question result = this.questions.remove(question.getId());
-        if (result == null) {
-            throw new IllegalArgumentException("No question with given id " + question.getId() + " present in survey");
+        Question deletedQuestion = this.questionMap.get(question.getId());
+        if (deletedQuestion == null) {
+             new IllegalArgumentException(
+                        "No question with id " + question.getId() + "in survey " + this.id);
         }
+        this.questions.removeIf(q -> Objects.equals(q.getId(), question.getId()));
     }
 
     // Should be called on making an edit to the survey.

@@ -42,20 +42,14 @@ public class PieChartGenerator extends ChartGenerator{
                 .orElseThrow(() -> new IllegalArgumentException("Survey not found"));
 
         // Get question of interest from survey
-        MultipleChoiceQuestion question = null;
-        for (Question q : survey.getQuestions().values()) {
-            if (q.getId() == questionId) {
-                question = (MultipleChoiceQuestion) q;
-                break;
-            }
-        }
+        Question question = survey.getQuestionMap().get(questionId);
 
         // Create dataset of responses
-        if(question != null) {
-            this.title = question.getQuestionText();
+        if (question != null && question instanceof MultipleChoiceQuestion multipleChoiceQuestion) {
+            this.title = multipleChoiceQuestion.getQuestionText();
 
             // Count instances of each response
-            ArrayList<MultipleChoiceResponse> responses =  new ArrayList<>(question.getResponses());
+            ArrayList<MultipleChoiceResponse> responses =  new ArrayList<>(multipleChoiceQuestion.getResponses());
             HashMap<String, Integer> responseCount = new HashMap<>();
             for (MultipleChoiceResponse r : responses) {
                 responseCount.put(r.getResponse().toString(), responseCount.getOrDefault(r.getResponse(), 0) + 1);
