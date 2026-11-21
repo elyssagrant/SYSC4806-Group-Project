@@ -36,3 +36,21 @@ export interface Form {
     questions: Question[]
 }
 
+
+export type Answer = MultipleChoiceResponse | NumberRangeResponse | TextQuestionResponse
+
+export interface MultipleChoiceResponse {
+    type: 'MultipleChoice'
+    response: number
+}
+
+export interface NumberRangeResponse {
+    type: 'NumberRange'
+    response: number
+}
+
+export interface TextQuestionResponse {
+    type: 'Text'
+    response: string
+
+}

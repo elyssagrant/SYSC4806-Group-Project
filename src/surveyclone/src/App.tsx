@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import CreateFormPage from './CreateFormPage'
-import ViewForm from './ViewForm'
+import ViewForm from './AnswerForm'
 import './App.css';
 import Sidebar from './otherComponents/Sidebar';
 
