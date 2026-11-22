@@ -160,11 +160,12 @@ export async function deleteForm(id: string): Promise<void> {
 }
 
 export async function answerForm(id: string, version: number, answers: Answer[]): Promise<void> {
-    const response = await fetch('/survey/${id}', {
+    const response = await fetch(`/survey/${id}`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             version: version,
-            answers: answers
+            responses: answers
         })
     })
 

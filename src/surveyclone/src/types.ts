@@ -37,20 +37,8 @@ export interface Form {
 }
 
 
-export type Answer = MultipleChoiceResponse | NumberRangeResponse | TextQuestionResponse
-
-export interface MultipleChoiceResponse {
-    type: 'MultipleChoice'
-    response: number
-}
-
-export interface NumberRangeResponse {
-    type: 'NumberRange'
-    response: number
-}
-
-export interface TextQuestionResponse {
-    type: 'Text'
-    response: string
-
+export interface Answer {
+    id: number
+    type: string
+    response: number | string
 }
