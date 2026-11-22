@@ -54,6 +54,32 @@ public class SurveyCreationControllerTest {
                 .isCreated();
     }
 
+    @Test
+    void deleteQuestion_validCall() {
+        Survey miniSurvey = new Survey("Test");
+        miniSurvey.setId(1);
+        miniSurvey.setQuestions(new ArrayList<>());
+        miniSurvey.setIsOpen(true);
+        miniSurvey.incrementVersion();
+        TextQuestion q = new TextQuestion("What is the most important thing to remember?");
+        q.setId(1);
+        miniSurvey.addQuestion(q);
+
+        when(repo.save(any())).thenAnswer(i -> i.getArguments()[0]);
+        when(repo.findById(any())).thenReturn(Optional.of(miniSurvey));
+
+        ArrayList<Question> deleteQuestions = new ArrayList<>();
+        q.setQuestionText("Nobody expects the Spanish Inquisition!");
+        deleteQuestions.add(q);
+        SurveyCreationController.QuestionChanges changes = new SurveyCreationController.QuestionChanges(1, new ArrayList<>(), new ArrayList<>(), deleteQuestions);
+
+        restTestClient.post().uri("/survey/1/questions")
+                .body(changes)
+                .exchange()
+                .expectStatus()
+                .isCreated();
+    }
+
     private static Survey createSurvey() {
         Survey survey = new Survey("Spam!");
         survey.setId(1);
