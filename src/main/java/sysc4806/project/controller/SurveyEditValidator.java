@@ -50,9 +50,6 @@ public class SurveyEditValidator {
     }
 
     public static String checkResponse(Question question, Response response) {
-        if (response.getId() == null) {
-            return "Missing id";
-        }
         if (response instanceof TextResponse textResponse) {
             if(textResponse.getResponse() == null) {
                 return "Missing response";

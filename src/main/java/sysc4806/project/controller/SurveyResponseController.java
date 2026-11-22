@@ -40,7 +40,7 @@ public class SurveyResponseController {
 
     // Show the survey with the given ID
     @GetMapping("/{id}")
-    public ResponseEntity<SerializedSurvey> showSurvey(@PathVariable Integer id, Model model) {
+    public ResponseEntity<SerializedSurvey> showSurvey(@PathVariable("id") Integer id, Model model) {
     SerializedSurvey response;
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow(); // load survey from database
@@ -63,13 +63,12 @@ public class SurveyResponseController {
     // Submit responses for a survey with a given id
     @PostMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> submitResponse(@PathVariable Integer id,
+    public ResponseEntity<Map<String, String>> submitResponse(@PathVariable("id") Integer id,
                                                @RequestBody ResponseRecord responses,
                                                Model model) {
-        Map<Question, String> errors = new HashMap<>();
+        Map<String, String> errors = new HashMap<>();
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow();
-
             // Validate version - if the numbers are not the same, then the edit is invalid
             if (survey.getVersion() != responses.version()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "Invalid form version: An edit may have already been made during this session."));
@@ -80,13 +79,16 @@ public class SurveyResponseController {
                  * The id of the response needs to be null when saved. The response's given Id will thus
                  * be the ID of the question it belongs to.
                  */
-                Question question = survey.getQuestionMap().get(response.getId());
+                Question question = survey.findQuestionById(response.getId());
+                if(question == null){
+                    throw new IllegalStateException("Cannot find related question for given response ID");
+                }
                 response.setId(null);
 
                 //Check to ensure the response is well-formed
                 String error = SurveyEditValidator.checkResponse(question, response);
                 if(error != null) {
-                    errors.put(question, error);
+                    errors.put(question.getId().toString(), error);
                     continue;
                 }
 
@@ -101,6 +103,12 @@ public class SurveyResponseController {
                     throw new IllegalArgumentException("No suitable question format found");
                 }
             }
+
+            if(!errors.isEmpty()) {
+                errors.put("message", "Some responses were not properly formatted");
+                return ResponseEntity.unprocessableContent().body(errors);
+            }
+
             //Save the survey with the new responses
             surveyRepo.save(survey);
         }catch (ClassCastException e) {

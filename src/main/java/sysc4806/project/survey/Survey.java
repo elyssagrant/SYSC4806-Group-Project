@@ -47,6 +47,7 @@ public class Survey {
         questionMap = new HashMap<>();
         isOpen = false;
         this.title = title;
+        version = 0;
     }
 
     @PostLoad 
@@ -130,6 +131,15 @@ public class Survey {
     // Should be called on making an edit to the survey.
     public void incrementVersion() {
         this.version++;
+    }
+
+    public Question findQuestionById(Integer id) {
+        for(Question question: questions) {
+            if(Objects.equals(question.getId(), id)){
+                return question;
+            }
+        }
+        return null;
     }
 
 }
