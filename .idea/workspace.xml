@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25db4258-eb8d-495a-8f5b-d00c31cab968" name="Changes" comment="docs: add public and private markers for class UML,">
+      <change afterPath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/controller/SurveyCreationControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyCreationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyCreationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyEditValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyEditValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyResponseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyResponseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/Survey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/Survey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sysc4806/project/survey/responses/Response.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/controller/SurveyResponseControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sysc4806/project/survey/controller/SurveyResponseControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,21 +163,6 @@
           <url>file://$PROJECT_DIR$/untitled/src/main/java/Unknown/Main.java</url>
           <line>13</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyResponseController.java</url>
-          <line>68</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyResponseController.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/sysc4806/project/controller/SurveyResponseController.java</url>
-          <line>79</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
