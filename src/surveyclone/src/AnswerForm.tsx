@@ -1,45 +1,71 @@
 import { useEffect, useState } from "react"
-import { getId, viewForm } from "./formEndpoints";
-import { Form, Question } from "./types";
+import { answerForm, getId, viewForm } from "./formEndpoints";
+import { Answer, Form, Question } from "./types";
 import QuestionField from "./surveyComponents/QuestionField";
+import { checkAnswer, Response } from "./surveyComponents/componentTypes";
 
 export default function ViewForm() {
     const [id, setId] = useState('');
     const [confirmId, setConfirmId] = useState(false);
-    const [fetchError, setFetchError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [message, setMessage] = useState('');
+    const [questionErrors, setQuestionErrors] = useState<Record<number, string>>({});
+    const [formSubmitError, setFormSubmitError] = useState(false);
+    const [version, setVersion] = useState(0);
 
     const [name, setName] = useState("");
     const [questions, setQuestions] = useState<Question[]>([]);
+    const [answers, setAnswers] = useState<Answer[]>([]);
 
     async function getForm() {
         try {
             const form: Form = await viewForm(id); 
             setName(form.name);
-            setQuestions(form.questions);     
-
+            setQuestions(form.questions);
+            setVersion(form.version)
+            setAnswers(form.questions.map(q => ({ id: q.id, type: q.type, response: "" })));
         } catch (err: any) {
-            setErrorMessage("There was an error retrieving the form: " + err.message)
-            setFetchError(true)
+            setMessage("There was an error retrieving the form: " + err.message)
+            setFormSubmitError(true)
             return;
         }
         setConfirmId(true)
     }
 
-    function updateAnswer(index: number) {
-        // setQuestions(q => q.map((q,i) => (i == index ? answer: q)));
+    function updateAnswer(index: number, update: Response) {
+        if (update === undefined) return;
+        setAnswers(old => old.map((a, i) => i === index ? {...a, response: update} : a))
     }
 
-    // function submitAnswer() {
-    // }
+    async function submitAnswer() {
+        // First go through every question and validate the answer
+        const errors: Record<number, string> = {};
+        questions.forEach((q, i) => {
+                const a = answers[i];
+                const message = a ? checkAnswer(q, a) : "No response given";
+                if (message) errors[q.id] = message;   
+        });
+
+        if (Object.keys(errors).length !== 0) {
+            // Set the question errors and return
+            setFormSubmitError(true);
+            setQuestionErrors(errors);
+            setMessage("Some responses are invalid. Please fix before saving again.");
+            return;
+        }
+
+        // Once answers hvae have been validated locally, move on
+        answerForm(id, version, Object.values(answers))
+    }
 
     function resetForm() {
         setName("");
         setQuestions([]);
-        setErrorMessage("");
+        setMessage("");
         setConfirmId(false);
-        setFetchError(false);
+        setFormSubmitError(false);
         setId("");
+        setQuestionErrors([])
+        setAnswers([])
     }
 
 
@@ -62,11 +88,14 @@ export default function ViewForm() {
                     <span className="questionNumber">
                         Question {i + 1}
                     </span>
-                    <QuestionField mode="answer" question = {q} onAnswer={updated => updateAnswer(i)}></QuestionField>
+                    <QuestionField mode="answer" value = {answers[i].response} question = {q} onAnswer={(value: Response) => {
+                        updateAnswer(i, value)
+                    }}></QuestionField>
+                    {questionErrors[q.id] && <p>{questionErrors[q.id]}</p>}
                 </div>
 
             ))}
-            <button type="submit" className="button">Submit</button>
+            <button type="submit" className="button" onClick={submitAnswer}>Submit</button>
             <button className="button" onClick={resetForm}>Reset</button>
 
             </div>
@@ -84,7 +113,7 @@ export default function ViewForm() {
                     />
                 </label>
                 <button className="button" onClick={getForm}>Find Form</button>
-                {fetchError && <p className="errorText">${errorMessage}</p>}
+                {formSubmitError && <p className="errorText">${message}</p>}
             </div>
         )
         }
