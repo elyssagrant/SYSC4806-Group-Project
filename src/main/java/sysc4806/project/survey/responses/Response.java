@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = NumberRangeResponse.class, name = "NumberRange"),
         @JsonSubTypes.Type(value = TextResponse.class, name = "Text"),
-        @JsonSubTypes.Type(value = TextResponse.class, name = "MultipleChoice")
+        @JsonSubTypes.Type(value = MultipleChoiceResponse.class, name = "MultipleChoice")
 })
 public interface Response {
     Integer getId();
