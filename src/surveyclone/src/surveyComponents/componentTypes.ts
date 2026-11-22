@@ -5,7 +5,9 @@
 import { Answer, MultipleChoiceQuestion, NumberRangeQuestion, Question } from '../types'
 
 // Contains a question, and then which mode it is in. If answer, contain the answer
-export type FieldProps<Q extends Question> = { mode: 'edit'; question: Q; onChange: (question: Q) => void } | { mode: 'answer'; question: Q; value?: Answer; onAnswer: (value: Answer) => void }
+export type FieldProps<Q extends Question> = { mode: 'edit'; question: Q; onChange: (question: Q) => void } | { mode: 'answer'; question: Q; value?: Response; onAnswer: (value: Response) => void }
+
+export type Response = string | number | undefined
 
 // Options in the dropdown
 export const QUESTION_TYPES: {
@@ -72,4 +74,41 @@ export function questionsEqual(a: Question, b: Question): boolean {
                 && a.choices.every((c, i) => c === q.choices[i]);
         }
     }
+}
+
+// Checks a given answer to see if it matches with it's corresponding question
+export function checkAnswer(q: Question, a: Answer): string | null {
+    if (a.type !== q.type) return "Question and Answer types do not correspond";
+
+    switch (a.type) {
+        case 'Text': {
+            if (a.response == null) {
+                return "Response is null";
+            }
+            break;
+        }
+        case 'MultipleChoice': {
+            if (a.response == null) {
+                return "Response is null";
+            }
+            const mc = (q as MultipleChoiceQuestion)
+            if (mc.choices.length >= (a.response as number)) {
+                return "Response does not exist";
+            }
+            break;
+        }
+        case 'NumberRange': {
+            if (a.response == null) {
+                return "Response is null";
+            }
+            const nr = (q as NumberRangeQuestion);
+            if ((a.response as number) < nr.lowerBound || (a.response as number) > nr.upperBound) {
+                return "Response is out of bounds";
+            }
+            break;
+        }
+        default: return "Response type does not exist";
+    }
+
+    return null;
 }
