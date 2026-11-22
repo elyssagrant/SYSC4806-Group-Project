@@ -6,8 +6,19 @@ import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTe
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.client.RestTestClient;
+import sysc4806.project.controller.SurveyCreationController;
 import sysc4806.project.survey.Survey;
 import sysc4806.project.survey.SurveyRepository;
+import sysc4806.project.survey.questions.MultipleChoiceQuestion;
+import sysc4806.project.survey.questions.NumberRangeQuestion;
+import sysc4806.project.survey.questions.Question;
+import sysc4806.project.survey.questions.TextQuestion;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureRestTestClient
@@ -26,16 +37,51 @@ public class SurveyCreationControllerTest {
     }
 
     @Test
-    void createForm() {
+    void addQuestion_validCall() {
+        when(repo.save(any())).thenAnswer(i -> i.getArguments()[0]);
+        when(repo.findById(any())).thenReturn(Optional.of(createSurvey()));
 
-    }
+        ArrayList<Question> newQuestions = new ArrayList<>();
+        TextQuestion newQ = new TextQuestion("What is your favourite type of spam?");
+        newQ.setId(8);
+        newQuestions.add(newQ);
+        SurveyCreationController.QuestionChanges changes = new SurveyCreationController.QuestionChanges(1, newQuestions, new ArrayList<>(), new ArrayList<>());
 
-    @Test
-    void addQuestion() {
-
+        restTestClient.post().uri("/survey/1/questions")
+                .body(changes)
+                .exchange()
+                .expectStatus()
+                .isCreated();
     }
 
     private static Survey createSurvey() {
-        return new Survey("Spam spam bacon eggs and spam");
+        Survey survey = new Survey("Spam!");
+        survey.setId(1);
+        survey.setQuestions(new ArrayList<>());
+        survey.setIsOpen(true);
+        survey.incrementVersion();
+        TextQuestion question1 = new TextQuestion("What you got, then?");
+        question1.setId(1);
+        NumberRangeQuestion question2 = new NumberRangeQuestion("How many spam would you like?");
+        question2.setId(2);
+        question2.setLowerBound(1);
+        question2.setUpperBound(1000);
+        MultipleChoiceQuestion question3 = new MultipleChoiceQuestion("What are you getting?");
+        ArrayList<String> choices = new ArrayList<>();
+        choices.add("Egg and bacon");
+        choices.add("Egg, sausage and bacon");
+        choices.add("Egg and spam");
+        choices.add("Egg, bacon and spam");
+        choices.add("Egg, bacon, sausage and spam");
+        choices.add("Spam, bacon, sausage and spam");
+        choices.add("Spam, egg, spam, spam, bacon and spam");
+        choices.add("Spam, spam, spam, egg and spam");
+        choices.add("Spam, spam, spam, spam, baked beans, spam, spam, spam, spam");
+        question3.setChoices(choices);
+        question3.setId(3);
+        survey.addQuestion(question1);
+        survey.addQuestion(question2);
+        survey.addQuestion(question3);
+        return survey;
     }
 }
