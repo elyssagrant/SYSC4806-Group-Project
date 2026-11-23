@@ -9,9 +9,8 @@ import LandingPage from "./LandingPage";
 function App() {
   return (
     <BrowserRouter>
-      <Banner/>
-
       <div className="App">
+        <Banner/>
         <Routes>
           <Route path='/' element={<LandingPage/>}></Route>
           <Route path='/createform' element={<CreateFormPage/>}></Route>
