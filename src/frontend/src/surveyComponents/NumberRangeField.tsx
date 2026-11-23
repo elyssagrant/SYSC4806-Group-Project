@@ -1,11 +1,17 @@
 import { FieldProps } from "./componentTypes";
 import { NumberRangeQuestion } from "../types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>) {
     const { question } = props;
     const { lowerBound, upperBound } = question;
-    const [sliderValue, setSliderValue] = useState("" + Math.floor((upperBound + lowerBound)/2));
+    const [sliderValue, setSliderValue] = useState(Math.floor((upperBound + lowerBound)/2));
+
+    useEffect(() => {
+        if (props.mode === 'answer') {
+            props.onAnswer(sliderValue);
+        }
+    });
 
     if (props.mode === 'edit') {
         return (
@@ -40,7 +46,7 @@ export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>)
         )
     } else {
         const sliderChange = (value: string) => {
-            setSliderValue(value)
+            setSliderValue(Number(value))
             props.onAnswer(value);
         }
 
