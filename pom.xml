@@ -99,7 +99,7 @@
 
                 <configuration>
                     <nodeVersion>v24.22.2</nodeVersion>
-                    <workingDirectory>src/surveyclone</workingDirectory>
+                    <workingDirectory>src/frontend</workingDirectory>
                     <installDirectory>${project.build.directory}</installDirectory>
                 </configuration>
 
@@ -147,7 +147,7 @@
                             <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/src/surveyclone/build</directory>
+                                    <directory>${project.basedir}/src/frontend/build</directory>
                                     <filtering>false</filtering>
                                 </resource>
                             </resources>
