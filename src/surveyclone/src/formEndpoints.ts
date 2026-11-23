@@ -7,19 +7,12 @@ import { questionsEqual } from "./surveyComponents/componentTypes";
 import { Answer, Form, Question } from "./types"
 
 export function getId(): string | null {
-    const cookies = document.cookie.split('; ');
-    for (const cookie of cookies) {
-        if (cookie.startsWith("id=")) {
-            return decodeURIComponent(cookie.substring(3))
-        }
-    }
-    return null;
+    return localStorage.getItem("id");
 }
 
 export function storeId(id: string) {
-    document.cookie = `id=${id}`;
+    localStorage.setItem('id', id);
 }
-
 
 /**
  * Sends the create form request. Takes a name (of the form)
