@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 import { answerForm, getId, viewForm } from "./formEndpoints";
 import { Answer, Form, Question } from "./types";
 import QuestionField from "./surveyComponents/QuestionField";
-import { checkAnswer, convertMCStringToMCIndex, Response } from "./surveyComponents/componentTypes";
+import { checkAnswer, convertMCIndexToMCString, convertMCStringToMCIndex, Response } from "./surveyComponents/componentTypes";
 
 export default function ViewForm() {
     const [id, setId] = useState('');
     const [confirmId, setConfirmId] = useState(false);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState("");
     const [questionErrors, setQuestionErrors] = useState<Record<number, string>>({});
     const [formSubmitError, setFormSubmitError] = useState(false);
     const [hasMessage, setHasMessage] = useState(false);
@@ -25,7 +25,7 @@ export default function ViewForm() {
             setVersion(form.version)
             setAnswers(form.questions.map(q => ({ id: q.id, type: q.type, response: "" })));
         } catch (err: any) {
-            setMessage("There was an error retrieving the form: " + err.message)
+            setMessage(err.message)
             setFormSubmitError(true)
             return;
         }
@@ -38,12 +38,17 @@ export default function ViewForm() {
     }
 
     async function submitAnswer() {
+        resetErrors()
+
         // First go through every question and validate the answer
         const errors: Record<number, string> = {};
         questions.forEach((q, i) => {
                 const a = answers[i];
                 const message = a ? checkAnswer(q, a) : "No response given";
-                if (message) errors[q.id] = message;   
+                if (message) {
+                    console.log("An error was found on question " + i + ": " + message);
+                    errors[q.id] = message;
+                } 
         });
 
         if (Object.keys(errors).length !== 0) {
@@ -58,11 +63,11 @@ export default function ViewForm() {
         try {
             convertMCStringToMCIndex(questions, answers);
             await answerForm(id, version, Object.values(answers));
-            setMessage("Form Submitted");
+            convertMCIndexToMCString(questions, answers);
             setHasMessage(true);
         } catch (error: any) {
             setFormSubmitError(true);
-            setMessage(error.message);
+            setMessage("Error: " + error);
         }
     }
 
@@ -73,9 +78,16 @@ export default function ViewForm() {
         setConfirmId(false);
         setFormSubmitError(false);
         setId("");
-        setQuestionErrors([])
+        setQuestionErrors({})
         setAnswers([])
         setHasMessage(false);
+    }
+
+    function resetErrors() {
+        setFormSubmitError(false);
+        setHasMessage(false);
+        setMessage("");
+        setQuestionErrors({})
     }
 
 
@@ -105,8 +117,8 @@ export default function ViewForm() {
                 </div>
 
             ))}
-            {formSubmitError && <p className="errorText">${message}</p>}
-            {hasMessage && <p className="messageText">${message}</p>}
+            {formSubmitError && <p className="errorText">{message}</p>}
+            {hasMessage && <p className="messageText">{message}</p>}
 
             <button type="submit" className="button" onClick={submitAnswer}>Submit</button>
             <button className="button" onClick={resetForm}>Reset</button>
@@ -126,8 +138,8 @@ export default function ViewForm() {
                     />
                 </label>
                 <button className="button" onClick={getForm}>Find Form</button>
-                {formSubmitError && <p className="errorText">${message}</p>}
-                {hasMessage && <p className="messageText">${message}</p>}
+                {formSubmitError && <p className="errorText">{message}</p>}
+                {hasMessage && <p className="messageText">{message}</p>}
             </div>
         )
         }
