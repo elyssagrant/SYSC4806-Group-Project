@@ -153,19 +153,24 @@ export async function deleteForm(id: string): Promise<void> {
 }
 
 export async function answerForm(id: string, version: number, answers: Answer[]): Promise<void> {
-    const response = await fetch(`/survey/${id}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            version: version,
-            responses: answers
+    let response: Response
+    try {
+        response = await fetch(`/survey/${id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                version: version,
+                responses: answers
+            })
         })
-    })
+    } catch (error: any) {
+        throw Error("There was a problem posting the answer to the server");
+    }
 
     try {
-        const status = await response.status;
+        const status = response.status;
         switch (status) {
-            case 200:
+            case 202:
                 break;
             default:
                 const data = await response.json().catch(() => ({}));
