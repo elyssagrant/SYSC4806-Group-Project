@@ -18,6 +18,7 @@ export default function CreateFormPage() {
     const [selectedEditType, setSelectedEditType] = useState<EDIT_TYPES>(EDIT_TYPES.Create)
     const [submittedForm, setSubmittedForm] = useState(false);
     const [formSubmitError, setFormSubmitError] = useState(false);
+    const [hasMessage, setHasMessage] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
 
     // The list of questions on the remote end.
@@ -47,7 +48,7 @@ export default function CreateFormPage() {
                 setVersion(form.version)
                 storeId(id);
             } catch (err: any) {
-                setMessage("There was an error retrieving the form: " + err.message)
+                setMessage(err.message)
                 setFormSubmitError(true)
                 return;
             }
@@ -113,6 +114,8 @@ export default function CreateFormPage() {
             // Because all questions are assigned an id on the back-end. that means we need to refetch the form.
             setSelectedEditType(EDIT_TYPES.Edit);
             await getOrDeleteForm();
+            setMessage("Form Alteration Successful.");
+            setHasMessage(true);
         } catch(error: any) {
             if (error instanceof FormRequestError) {
                 setQuestionErrors(error.questionErrors);
@@ -129,6 +132,7 @@ export default function CreateFormPage() {
     function resetErrors() {
         setQuestionErrors({});
         setFormSubmitError(false);
+        setHasMessage(false);
         setMessage("")
     }
 
@@ -184,13 +188,13 @@ export default function CreateFormPage() {
                 )
                 }
                 {formSubmitError && <p>{message}</p>}
+                {hasMessage && <p>{message}</p>}
             </div>
             ) : ( 
             <div>
                 <h1>Form Creation</h1>
                 <div>
                     {questions.length === 0 && <p>No questions have been created yet. Please pick a question type and press Add</p>}
-
                     {questions.map((q, i) => (
                         <div className="singleQuestionContainer">
                             <span className="questionNumber">
@@ -200,7 +204,6 @@ export default function CreateFormPage() {
                             <button type="button" onClick={() => deleteQuestion(i)}>Delete</button>
                             {questionErrors[q.id] && <p>{questionErrors[q.id]}</p>}
                         </div>
-
                     ))}
                 </div>
                 <select value={selectedType} onChange={e => setSelectedType(e.target.value as Question['type'])}>
@@ -214,6 +217,7 @@ export default function CreateFormPage() {
                 <button type="submit" onClick={saveForm}>Save</button>
                 <button type="button" onClick={resetPage}>Reset</button>
                 {formSubmitError && <p>{message}</p>}
+                {hasMessage && <p>{message}</p>}
             </div>
             )}
         </div>
