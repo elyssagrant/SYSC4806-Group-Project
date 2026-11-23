@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>) {
     const { question } = props;
     const { lowerBound, upperBound } = question;
-    const [sliderValue, setSliderValue] = useState("" + (upperBound + lowerBound)/2);
+    const [sliderValue, setSliderValue] = useState("" + Math.floor((upperBound + lowerBound)/2));
 
     if (props.mode === 'edit') {
         return (
