@@ -112,3 +112,18 @@ export function checkAnswer(q: Question, a: Answer): string | null {
 
     return null;
 }
+
+// Function to convert multiple choice string answers to their index
+// Note - the errors in this function should never be thrown. There are question specific checks for this before.
+export function convertMCStringToMCIndex(questions: Question[], answers: Answer[]): void {
+    if (questions.length != answers.length) {throw new Error("Questions and Answers lengths are not equal.");}
+    answers.filter((a, i) => {
+        if (a.type === 'MultipleChoice') {
+            const index = (questions[i] as MultipleChoiceQuestion).choices.indexOf((a.response as string))
+            if (index < 0) {
+                throw new Error("A multiple choice answer that does not eixst has been selected.");
+            }
+            a.response = index; // Set the answer to index of the choice instead of the string response
+        }
+    });
+}

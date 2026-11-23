@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { answerForm, getId, viewForm } from "./formEndpoints";
 import { Answer, Form, Question } from "./types";
 import QuestionField from "./surveyComponents/QuestionField";
-import { checkAnswer, Response } from "./surveyComponents/componentTypes";
+import { checkAnswer, convertMCStringToMCIndex, Response } from "./surveyComponents/componentTypes";
 
 export default function ViewForm() {
     const [id, setId] = useState('');
@@ -10,6 +10,7 @@ export default function ViewForm() {
     const [message, setMessage] = useState('');
     const [questionErrors, setQuestionErrors] = useState<Record<number, string>>({});
     const [formSubmitError, setFormSubmitError] = useState(false);
+    const [hasMessage, setHasMessage] = useState(false);
     const [version, setVersion] = useState(0);
 
     const [name, setName] = useState("");
@@ -54,7 +55,15 @@ export default function ViewForm() {
         }
 
         // Once answers hvae have been validated locally, move on
-        answerForm(id, version, Object.values(answers))
+        try {
+            convertMCStringToMCIndex(questions, answers);
+            await answerForm(id, version, Object.values(answers));
+            setMessage("Form Submitted");
+            setHasMessage(true);
+        } catch (error: any) {
+            setFormSubmitError(true);
+            setMessage(error.message);
+        }
     }
 
     function resetForm() {
@@ -66,6 +75,7 @@ export default function ViewForm() {
         setId("");
         setQuestionErrors([])
         setAnswers([])
+        setHasMessage(false);
     }
 
 
@@ -95,6 +105,9 @@ export default function ViewForm() {
                 </div>
 
             ))}
+            {formSubmitError && <p className="errorText">${message}</p>}
+            {hasMessage && <p className="messageText">${message}</p>}
+
             <button type="submit" className="button" onClick={submitAnswer}>Submit</button>
             <button className="button" onClick={resetForm}>Reset</button>
 
@@ -114,6 +127,7 @@ export default function ViewForm() {
                 </label>
                 <button className="button" onClick={getForm}>Find Form</button>
                 {formSubmitError && <p className="errorText">${message}</p>}
+                {hasMessage && <p className="messageText">${message}</p>}
             </div>
         )
         }
