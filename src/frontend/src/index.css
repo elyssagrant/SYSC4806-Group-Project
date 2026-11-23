@@ -70,11 +70,14 @@ select {
   color: var(--White);
   font-size: 80px;
   justify-self: center;
+  margin: 0;
+  padding: 7vh;
 }
 
 .SubHeader {
   color: var(--White);
   font-size: 30px;
+  margin: 0;
   justify-self: center;
 }
 
