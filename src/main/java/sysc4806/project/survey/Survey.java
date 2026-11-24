@@ -1,7 +1,7 @@
 package sysc4806.project.survey;
 
+import java.time.Instant;
 import java.util.*;
-
 import jakarta.persistence.*;
 import sysc4806.project.survey.questions.Question;
 
@@ -19,14 +19,13 @@ public class Survey {
     // This value is used to guard against invalid edits.
     private int version;
 
+    private final Instant creationDate;
 
     /**
         This makes sure that all questions inside this list are persisted, and that if the survey gets removed,
         so do the owned questions.
         The join column adds a foreign key to the questions
     */
-
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "response_id")
     private List<Question> questions;
@@ -41,6 +40,7 @@ public class Survey {
         isOpen = false;
         title = "";
         version = 0;
+        creationDate = Instant.now();
     }
 
     public Survey(String title){
@@ -48,6 +48,7 @@ public class Survey {
         isOpen = false;
         this.title = title;
         version = 0;
+        creationDate = Instant.now();
     }
 
     @PostLoad 
