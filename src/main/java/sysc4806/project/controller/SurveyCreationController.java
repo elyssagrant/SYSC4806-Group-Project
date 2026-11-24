@@ -69,7 +69,7 @@ public class SurveyCreationController {
     @PostMapping("/{id}/questions")
     @ResponseBody
     public ResponseEntity<Map<String, String>> addQuestionToSurvey(
-            @PathVariable Integer id,
+            @PathVariable("id") Integer id,
             @RequestBody QuestionChanges changes) {
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow();  // load survey from database
