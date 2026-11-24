@@ -1,0 +1,56 @@
+package sysc4806.project.accounts;
+
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import sysc4806.project.survey.Survey;
+
+@Entity 
+public class Account {
+
+    @Id 
+    @GeneratedValue 
+    private int id;
+
+    private String username;
+    private String password;
+
+    @OneToMany(mappedBy = "account")
+    private List<Survey> ownedSurveys;
+
+    Account() {
+        username = "";
+        password = "";
+    }
+
+    /* Getters */
+    
+    public int getId() {
+        return id;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    /* Setters */
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}

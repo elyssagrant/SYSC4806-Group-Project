@@ -4,6 +4,7 @@ import java.util.*;
 
 import jakarta.persistence.*;
 import sysc4806.project.survey.questions.Question;
+import sysc4806.project.accounts.Account;
 
 @Entity
 public class Survey {
@@ -19,6 +20,10 @@ public class Survey {
     // This value is used to guard against invalid edits.
     private int version;
 
+    // The owner of the account - lazy means the owner won't be loaded until we access it in the code
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "account_id")
+    private Account owner;
 
     /**
         This makes sure that all questions inside this list are persisted, and that if the survey gets removed,
