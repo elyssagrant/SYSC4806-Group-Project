@@ -1,5 +1,18 @@
+.questionInput {
+}
+
+.questionLabel {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.multipleChoiceOption {
+    justify-content: left;
+}
+
 .formField {
-    
+    justify-content: left;
+
 }
 
 .fieldLabel {

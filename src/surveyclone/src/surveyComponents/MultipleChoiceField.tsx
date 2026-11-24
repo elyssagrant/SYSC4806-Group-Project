@@ -33,15 +33,17 @@ export default function MultipleChoiceField( props: FieldProps<MultipleChoiceQue
                     />
                     {
                         question.choices.map((choice, i) => (
-                            <label className="multipleChoiceOption">
-                                <input
-                                    type="text"
-                                    value={choice}
-                                    placeholder={`Option ${i + 1}`}
-                                    onChange={(e) => updateChoice(i, e.target.value)}
-                                />
-                                <button type="button" onClick={(() => removeChoice(i))}>Remove</button>
-                            </label>
+                            <div>
+                                <label className="multipleChoiceOption">
+                                    <input
+                                        type="text"
+                                        value={choice}
+                                        placeholder={`Option ${i + 1}`}
+                                        onChange={(e) => updateChoice(i, e.target.value)}
+                                    />
+                                    <button type="button" onClick={(() => removeChoice(i))}>Remove</button>
+                                </label>
+                            </div>
                         ))
                     }
                     <button type="button" onClick={(() => addChoice())}>Add Choice</button>
@@ -57,17 +59,19 @@ export default function MultipleChoiceField( props: FieldProps<MultipleChoiceQue
             <div className="formField">
                 <p className="questionLabel">{question.questionText}</p>
                 { question.choices.map((choice, i) => (
-                    <label className="multipleChoiceOption">
-                        {choice}
-                        <input
-                            type="radio"
-                            name={groupName}
-                            value={choice}
-                            checked={value === choice}
-                            onChange={() => onAnswer(choice)}
-                            
-                        />
-                    </label>
+                    <div>
+                        <label className="multipleChoiceOption">
+                            <input
+                                type="radio"
+                                name={groupName}
+                                value={choice}
+                                checked={value === choice}
+                                onChange={() => onAnswer(choice)}
+
+                            />
+                            {choice}
+                        </label>
+                    </div>
                 ))
                     
                 }
