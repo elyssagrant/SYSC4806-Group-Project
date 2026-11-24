@@ -10,6 +10,10 @@ import sysc4806.project.survey.SurveyRepository;
 import sysc4806.project.survey.questions.*;
 import sysc4806.project.survey.responses.TextResponse;
 
+/**
+ * Takes a survey and returns a list of QuestionResult objects which contain data
+ * about the question along with the results of that question.
+ */
 @Service
 public class SurveyResultsGenerator {
 
@@ -19,6 +23,15 @@ public class SurveyResultsGenerator {
         this.surveyRepository = surveyRepository;
     }
 
+    /**
+     * Takes a survey via surveyId. It then runs a for loop to generate a chart for each MCQ and NRQ, and a
+     * list of answers for each text question. It adds the charts/list of answers to a QuestionResult object along
+     * with the question id (Integer), question type (type), question text (String), result chart (chart), and
+     * a list of text responses for text questions (ArrayList<String>).
+     *
+     * @param surveyId id of the desired survey to generate results for
+     * @return list of QuestionResult objects which contain the results and additional data for each question
+     */
     public List<QuestionResult> generateResults(Integer surveyId) {
         Survey survey = surveyRepository.findById(surveyId).orElseThrow(
                 () -> new IllegalArgumentException("Can not find survey with id: " + surveyId));
