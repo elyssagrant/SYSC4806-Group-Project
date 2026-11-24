@@ -122,7 +122,7 @@ public class Survey {
     public void deleteQuestion(Question question) {
         Question deletedQuestion = this.questionMap.get(question.getId());
         if (deletedQuestion == null) {
-             new IllegalArgumentException(
+             throw new IllegalArgumentException(
                         "No question with id " + question.getId() + "in survey " + this.id);
         }
         this.questions.removeIf(q -> Objects.equals(q.getId(), question.getId()));

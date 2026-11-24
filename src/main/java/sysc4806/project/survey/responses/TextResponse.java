@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class TextResponse implements Response {
+public class TextResponse implements Response{
 
     @Id
     @GeneratedValue

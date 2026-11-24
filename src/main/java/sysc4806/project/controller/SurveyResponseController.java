@@ -70,6 +70,9 @@ public class SurveyResponseController {
         try {
             Survey survey = surveyRepo.findById(id).orElseThrow();
             // Validate version - if the numbers are not the same, then the edit is invalid
+            if(!survey.getIsOpen()){
+                return ResponseEntity.badRequest().body(Map.of("message", "Cannot submit responses, as survey is closed"));
+            }
             if (survey.getVersion() != responses.version()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", "Invalid form version: An edit may have already been made during this session."));
             }

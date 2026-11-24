@@ -18,3 +18,4 @@ public interface Response {
     Integer getId();
     void setId(Integer id);
 }
+

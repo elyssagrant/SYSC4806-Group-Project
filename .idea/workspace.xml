@@ -55,6 +55,9 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "JAR Application.miniSurveyMonkey-1.0-SNAPSHOT.jar.executor": "Run",
     "Maven.miniSurveyMonkey [deploy].executor": "Run",
+    "JAR Application.miniSurveyMonkey-1.0-SNAPSHOT.jar.executor": "Run",
+    "JUnit.SurveyCreationControllerTest.executor": "Run",
+    "JUnit.SurveyResponseControllerTest.executor": "Run",
     "Maven.miniSurveyMonkey [package].executor": "Run",
     "Maven.miniSurveyMonkey [verify].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -93,6 +96,13 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Elyss\\OneDrive\\Documents\\School\\Software Validation\\Labs\\Lab 3\\SYSC4806-Group-Project\\src\\surveyclone\\node_modules\\typescript\\lib&quot;
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Elyss/OneDrive/Documents/School/Software Validation/Labs/Lab 3/SYSC4806-Group-Project/untitled/src/main/java/Unknown/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "ts.external.directory.path": "C:\\Users\\Elyss\\OneDrive\\Documents\\School\\Software Validation\\Labs\\Lab 3\\SYSC4806-Group-Project\\src\\surveyclone\\node_modules\\typescript\\lib"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -108,6 +118,22 @@
       <recent name="" />
       <recent name="sysc4806.project.survey.responses" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="sysc4806.project.survey.controller" />
+      <recent name="" />
+      <recent name="sysc4806.project.survey.responses" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="miniSurveyMonkey-1.0-SNAPSHOT.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/miniSurveyMonkey-1.0-SNAPSHOT.jar" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JAR Application.miniSurveyMonkey-1.0-SNAPSHOT.jar" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="RunManager">
     <configuration name="miniSurveyMonkey-1.0-SNAPSHOT.jar" type="JarApplication" temporary="true">

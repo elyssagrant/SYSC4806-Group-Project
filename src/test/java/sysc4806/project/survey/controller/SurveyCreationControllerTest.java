@@ -1,6 +1,7 @@
 package sysc4806.project.survey.controller;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,20 +57,18 @@ public class SurveyCreationControllerTest {
 
     @Test
     void deleteQuestion_validCall() {
-        Survey miniSurvey = new Survey("Test");
-        miniSurvey.setId(1);
-        miniSurvey.setQuestions(new ArrayList<>());
-        miniSurvey.setIsOpen(true);
-        miniSurvey.incrementVersion();
+        Survey miniSurvey = Mockito.mock(Survey.class);
+        when(miniSurvey.getId()).thenReturn(1);
+        when(miniSurvey.getIsOpen()).thenReturn(true);
+        when(miniSurvey.getVersion()).thenReturn(1);
         TextQuestion q = new TextQuestion("What is the most important thing to remember?");
         q.setId(1);
-        miniSurvey.addQuestion(q);
+        Mockito.doNothing().when(miniSurvey).deleteQuestion(q);
 
         when(repo.save(any())).thenAnswer(i -> i.getArguments()[0]);
         when(repo.findById(any())).thenReturn(Optional.of(miniSurvey));
 
         ArrayList<Question> deleteQuestions = new ArrayList<>();
-        q.setQuestionText("Nobody expects the Spanish Inquisition!");
         deleteQuestions.add(q);
         SurveyCreationController.QuestionChanges changes = new SurveyCreationController.QuestionChanges(1, new ArrayList<>(), new ArrayList<>(), deleteQuestions);
 
