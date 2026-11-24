@@ -7,6 +7,8 @@ import sysc4806.project.survey.questions.NumberRangeQuestion;
 import sysc4806.project.survey.questions.Question;
 
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 /**
  * MetricsGenerator organizes the metics of an entire survey
@@ -24,23 +26,24 @@ public class MetricsGenerator {
      * @param surveyId The survey of interest's ID
      * @return list of charts (each represented as byte[])
      */
-    public ArrayList<byte[]> generateMetrics(int surveyId) {
+    public List<String> generateMetrics(int surveyId) {
         // Query survey repo for survey of interest
         Survey survey = surveyRepository.findById(surveyId)
                 .orElseThrow(() -> new IllegalArgumentException("Survey not found"));
 
         // Initialize local variables
-        ArrayList<byte[]> metrics = new ArrayList<>();
+        List<String> metrics = new ArrayList<>();
         PieChartGenerator pieChartGenerator = new PieChartGenerator();
         HistogramGenerator histogramGenerator = new HistogramGenerator();
 
-        // Generate chart for each question
+        // Generate encoded chart for each question
         for(Question q : survey.getQuestions()) {
             if(q instanceof MultipleChoiceQuestion) {
-                metrics.add(pieChartGenerator.generateChart(q));
+                byte[] chart = pieChartGenerator.generateChart(q);
+                metrics.add(Base64.getEncoder().encodeToString(chart));
             }else if(q instanceof NumberRangeQuestion) {
-                metrics.add(histogramGenerator.generateChart(q));
-            }
+                byte[] chart = histogramGenerator.generateChart(q);
+                metrics.add(Base64.getEncoder().encodeToString(chart));            }
         }
 
         return metrics;

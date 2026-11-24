@@ -4,6 +4,7 @@ import CreateFormPage from './CreateFormPage'
 import ViewForm from './ViewForm'
 import './App.css';
 import Sidebar from './otherComponents/Sidebar';
+import MetricsPage from './MetricsPage'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='/'></Route>
           <Route path='/createform' element={<CreateFormPage/>}></Route>
           <Route path='/viewform' element={<ViewForm/>}></Route>
+          <Route path='/metrics' element={<MetricsPage/>}></Route>
           <Route path='*' element={<h1>Not Found</h1>}></Route>
         </Routes>
 

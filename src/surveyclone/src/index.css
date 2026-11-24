@@ -79,3 +79,28 @@ select {
   font-size: 50px;
 }
 
+.allChartsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.singleChartContainer {
+  margin-bottom: 15px;
+  width: 50vw;
+  vertical-align: center;
+  border-radius: 20px;
+  background-color: var(--BabyBlue);
+  padding: 2% 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metricsChart {
+  width: 400px;
+  height: auto;
+  border: 1px solid black;
+  border-radius: 8px;
+}
