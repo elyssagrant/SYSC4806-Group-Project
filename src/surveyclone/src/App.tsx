@@ -4,6 +4,7 @@ import CreateFormPage from './CreateFormPage'
 import ViewForm from './ViewForm'
 import './App.css';
 import Sidebar from './otherComponents/Sidebar';
+import LandingPage from "./LandingPage";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
 
       <div className="App">
         <Routes>
-          <Route path='/'></Route>
+          <Route path='/' element={<LandingPage/>}></Route>
           <Route path='/createform' element={<CreateFormPage/>}></Route>
           <Route path='/viewform' element={<ViewForm/>}></Route>
           <Route path='*' element={<h1>Not Found</h1>}></Route>
