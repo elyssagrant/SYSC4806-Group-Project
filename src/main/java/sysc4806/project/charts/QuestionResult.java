@@ -2,6 +2,10 @@ package sysc4806.project.charts;
 
 import java.util.List;
 
+/**
+ * Used to store the results of a single question from a closed survey. Contains a byte array image for NRQ and MCQ,
+ * and list of text responses for text questions.
+ */
 public class QuestionResult {
     private final Integer questionId;
     private final String type;
