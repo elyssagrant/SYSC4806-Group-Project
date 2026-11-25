@@ -19,3 +19,13 @@ Survey creation Controllers (https://github.com/elyssagrant/SYSC4806-Group-Proje
 ## Persistable Database Schema
 ![img.png](temp_database_schema.png)
 
+## Project Kanban
+Link to Kanban board: https://github.com/users/elyssagrant/projects/3
+
+## Local Deployment Instructions
+1. Clone Waveform's Git repository onto local machine
+2. Open project in IntelliJ
+3. Build the project by double-clicking the 'package' option from the Maven toolbar (Found at 'Waveform' > 'Lifecycle' > 'package')
+4. Navigate to the project's /target directory
+5. Right-click on the 'Waveform-1.0-SNAPSHOT.jar' file and select 'Run'
+6. Navigate to http://localhost:8080 from browser to access the locally deployed Waveform webapp
