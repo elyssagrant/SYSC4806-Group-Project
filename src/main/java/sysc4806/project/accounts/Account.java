@@ -2,10 +2,7 @@ package sysc4806.project.accounts;
 
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import sysc4806.project.survey.Survey;
 
 @Entity 
@@ -15,13 +12,15 @@ public class Account {
     @GeneratedValue 
     private int id;
 
+    @Column(unique = true, nullable = false, length = 30)
     private String username;
+    @Column(nullable = false, length = 30)
     private String password;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany
     private List<Survey> ownedSurveys;
 
-    Account() {
+    public Account() {
         username = "";
         password = "";
     }
