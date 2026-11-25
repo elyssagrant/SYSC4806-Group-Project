@@ -8,6 +8,7 @@ export default function Banner() {
             <NavLink className="tab" to="/">Home</NavLink>
             <NavLink className="tab" to="/createform">Create Form</NavLink>
             <NavLink className="tab" to="/viewform" >View Form</NavLink>
+            <NavLink className="tab" to="/metrics" >Metrics</NavLink>
         </nav>
     </div>
     )

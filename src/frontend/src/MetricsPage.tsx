@@ -28,13 +28,13 @@ export default function Metrics() {
         setConfirmId(true);
     }
 
-    function resetMetrics() {
-        setResults([]);
-        setErrorMessage("");
-        setConfirmId(false);
-        setFetchError(false);
-        setId("");
-    }
+    // function resetMetrics() {
+    //     setResults([]);
+    //     setErrorMessage("");
+    //     setConfirmId(false);
+    //     setFetchError(false);
+    //     setId("");
+    // }
 
     return (
         <div className="allResultsContainer">
