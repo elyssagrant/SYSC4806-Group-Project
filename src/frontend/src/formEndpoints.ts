@@ -4,22 +4,15 @@
  */
 
 import { questionsEqual } from "./surveyComponents/componentTypes";
-import { Form, Question } from "./types"
+import { Answer, Form, Question } from "./types"
 
 export function getId(): string | null {
-    const cookies = document.cookie.split('; ');
-    for (const cookie of cookies) {
-        if (cookie.startsWith("id=")) {
-            return decodeURIComponent(cookie.substring(3))
-        }
-    }
-    return null;
+    return localStorage.getItem("id");
 }
 
 export function storeId(id: string) {
-    document.cookie = `id=${id}`;
+    localStorage.setItem('id', id);
 }
-
 
 /**
  * Sends the create form request. Takes a name (of the form)
@@ -155,6 +148,36 @@ export async function deleteForm(id: string): Promise<void> {
                 throw new Error(`${data.message}`)
         }
     } catch (err: any) {
-        throw new Error(err.message)
+        throw new Error(err.message || "Unknown error")
+    }
+}
+
+export async function answerForm(id: string, version: number, answers: Answer[]): Promise<void> {
+    let response: Response
+    try {
+        response = await fetch(`/survey/${id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                version: version,
+                responses: answers
+            })
+        })
+    } catch (error: any) {
+        throw Error("There was a problem posting the answer to the server");
+    }
+
+    try {
+        const status = response.status;
+        switch (status) {
+            case 202:
+                break;
+            default:
+                const data = await response.json().catch(() => ({}));
+                throw new Error(`${data.message}`);
+        }
+
+    } catch (err: any) {
+        throw new Error(err.message || "Unknown error")
     }
 }
