@@ -2,12 +2,12 @@
  * Argument types that are shared between survey components.
  * Needed to tell whether they are being rendered in edit or answer mode.
  */
-import { MultipleChoiceQuestion, NumberRangeQuestion, Question } from '../types'
+import { Answer, MultipleChoiceQuestion, NumberRangeQuestion, Question } from '../types'
 
-export type Answer = string | number
+export type Response = string | number
 
 // Contains a question, and then which mode it is in. If answer, contain the answer
-export type FieldProps<Q extends Question> = { mode: 'edit'; question: Q; onChange: (question: Q) => void } | { mode: 'answer'; question: Q; value?: Answer; onAnswer: (value: Answer) => void }
+export type FieldProps<Q extends Question> = { mode: 'edit'; question: Q; onChange: (question: Q) => void } | { mode: 'answer'; question: Q; value?: Response; onAnswer: (value: Response) => void }
 
 // Options in the dropdown
 export const QUESTION_TYPES: {
@@ -74,4 +74,73 @@ export function questionsEqual(a: Question, b: Question): boolean {
                 && a.choices.every((c, i) => c === q.choices[i]);
         }
     }
+}
+
+// Checks a given answer to see if it matches with it's corresponding question
+export function checkAnswer(q: Question, a: Answer): string | null {
+    if (a.type !== q.type) return "Question and Answer types do not correspond";
+
+    switch (a.type) {
+        case 'Text': {
+            if (a.response == null) {
+                return "Response is null";
+            }
+            break;
+        }
+        case 'MultipleChoice': {
+            if (a.response == null) {
+                return "Response is null";
+            }
+            const mc = (q as MultipleChoiceQuestion)
+            if (mc.choices.length >= (a.response as number)) {
+                return "Response does not exist";
+            }
+            break;
+        }
+        case 'NumberRange': {
+            if (a.response == null) {
+                return "Response is null";
+            }
+            const nr = (q as NumberRangeQuestion);
+            if ((a.response as number) < nr.lowerBound || (a.response as number) > nr.upperBound) {
+                return "Response is out of bounds";
+            }
+            break;
+        }
+        default: return "Response type does not exist";
+    }
+
+    return null;
+}
+
+// Function to convert multiple choice string answers to their index
+// Note - the errors in this function should never be thrown. There are question specific checks for this before.
+export function convertMCStringToMCIndex(questions: Question[], answers: Answer[]): void {
+    if (questions.length !== answers.length) {throw new Error("Questions and Answers lengths are not equal.");}
+    answers.forEach((a, i) => {
+        if (a.type === 'MultipleChoice') {
+            const index = (questions[i] as MultipleChoiceQuestion).choices.indexOf((a.response as string))
+            if (index < 0) {
+                throw new Error("A multiple choice answer that does not exist has been selected.");
+            }
+            a.response = index; // Set the answer to index of the choice instead of the string response
+        }
+    });
+}
+
+// Function to convert multiple choice index answers to string answers
+// This is so that the form doesn't have an invalid answer after pressing submit,
+// It may come in handy when looking an answers
+export function convertMCIndexToMCString(questions: Question[], answers: Answer[]): void {
+    if (questions.length !== answers.length) { throw new Error("Questions and Answers lengths are not equal."); }
+    answers.forEach((a, i) => {
+        if (a.type === 'MultipleChoice') {
+            try {
+                const choice = (questions[i] as MultipleChoiceQuestion).choices[a.response as number]
+                a.response = choice;// Set the answer to string of the choice instead of the index response
+            } catch (error: any) {
+                throw new Error("A multiple choice answer that does not exist has been selected.");
+            }
+        }
+    });
 }

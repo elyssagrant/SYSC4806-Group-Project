@@ -18,6 +18,7 @@
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <h2.version>2.5.252</h2.version>
     </properties>
     <dependencies>
         <dependency>
