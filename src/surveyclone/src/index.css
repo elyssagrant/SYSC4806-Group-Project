@@ -58,6 +58,40 @@ select {
   margin: 10px;
 }
 
+.TopHeader {
+  color: var(--White);
+  font-size: 80px;
+  justify-self: center;
+}
+
+.SubHeader {
+  color: var(--White);
+  font-size: 30px;
+  justify-self: center;
+}
+
+.frontPageAdvertising {
+  display:flex;
+  gap: 40px;
+  margin: 30px;
+  background-color: var(--BabyBlue);
+  border-radius: 20px;
+  padding: 2% 5%;
+}
+
+#customizationAd{
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--White);
+}
+
+.advertisingTextGroup {
+  background-color: var(--BabyBlue);
+  border-radius: 20px;
+  padding: 2% 5%;
+  justify-content: right;
+}
+
 .formNameContainer {
   margin: auto;
   width: 50vw;
@@ -77,6 +111,13 @@ select {
 
 .formTitle {
   font-size: 50px;
+}
+
+.tab {
+  color: var(--White);
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .allChartsContainer {

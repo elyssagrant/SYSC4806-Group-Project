@@ -11,7 +11,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import sysc4806.project.survey.Survey;
 import sysc4806.project.survey.SurveyRepository;
-import sysc4806.project.survey.questions.MultipleChoiceQuestion;
 import sysc4806.project.survey.questions.NumberRangeQuestion;
 import sysc4806.project.survey.questions.Question;
 import sysc4806.project.survey.responses.NumberRangeResponse;
@@ -25,10 +24,12 @@ public class HistogramGenerator extends ChartGenerator {
     private static final int NUM_CATEGORIES = 3;
     private String title;
     private final DefaultCategoryDataset dataset;
+    private final SurveyRepository surveyRepository;
 
-    public HistogramGenerator() {
-        this.dataset = new DefaultCategoryDataset();
-        this.title = "";
+    public HistogramGenerator(SurveyRepository surveyRepository) {
+        this.surveyRepository = surveyRepository;
+        title = "";
+        dataset = new DefaultCategoryDataset();
     }
 
     /**
@@ -48,7 +49,6 @@ public class HistogramGenerator extends ChartGenerator {
         for(int i = 0; i < NUM_CATEGORIES; i++) {
             int end = start + subRangeSize - 1;
 
-            // Increment to redistribute remainder
             if(remainder > 0) {
                 end++;
                 remainder--;
@@ -64,21 +64,27 @@ public class HistogramGenerator extends ChartGenerator {
     /**
      * Analyzes information from question entry in survey repo to
      * extract histogram title and sub-ranges.
-     * @param question The question of interest
+     * @param surveyId The survey of interest's ID
+     * @param questionId The question of interest's ID
      */
-    private void extractChartDetails(NumberRangeQuestion question) {
-        // Ensure dataset is clear of any previous question's data
-        this.dataset.clear();
+    private void extractChartDetails(Integer surveyId, Integer questionId) {
+
+        // Query survey repo for survey of interest
+        Survey survey = surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new IllegalArgumentException("Survey not found"));
+
+        // Get question of interest from survey
+        Question question = survey.getQuestionMap().get(questionId);
 
         // Create dataset of responses
-        if(question != null) {
-            this.title = question.getQuestionText();
+        if(question != null && question instanceof NumberRangeQuestion numberRangeQuestion) {
+            this.title = numberRangeQuestion.getQuestionText();
 
             // Break data range into sub-ranges
-            ArrayList<int[]> subRanges = this.getSubRanges(question.getLowerBound(),
-                    question.getUpperBound());
+            ArrayList<int[]> subRanges = this.getSubRanges(numberRangeQuestion.getLowerBound(),
+                    numberRangeQuestion.getUpperBound());
 
-            // Count responses within each subrange
+            // Add count each response value within each subrange
             ArrayList<NumberRangeResponse> responses = new ArrayList<>(question.getResponses());
             ArrayList<Integer> responseCount = new ArrayList<>();
 
@@ -107,22 +113,14 @@ public class HistogramGenerator extends ChartGenerator {
      * Generates a pie chart representation for a particular
      * question's responses.
      *
-     * @param question The question of interest
+     * @param surveyId The survey of interest's ID number
+     * @param questionId The question of interest's ID number
      */
     @Override
-    public byte[] generateChart(Question question) {
-
-        // Cast to range question
-        NumberRangeQuestion nrq;
-
-        if(question instanceof NumberRangeQuestion) {
-            nrq = (NumberRangeQuestion) question;
-        } else {
-            return null;
-        }
+    public byte[] generateChart(Integer surveyId, Integer questionId) {
 
         // Get dataset for chart
-        extractChartDetails(nrq);
+        extractChartDetails(surveyId, questionId);
 
         // Generate chart
         JFreeChart chart = ChartFactory.createBarChart(

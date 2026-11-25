@@ -9,6 +9,10 @@ import sysc4806.project.survey.questions.Question;
 import sysc4806.project.survey.questions.NumberRangeQuestion;
 import sysc4806.project.survey.questions.TextQuestion;
 import sysc4806.project.survey.questions.MultipleChoiceQuestion;
+import sysc4806.project.survey.responses.MultipleChoiceResponse;
+import sysc4806.project.survey.responses.NumberRangeResponse;
+import sysc4806.project.survey.responses.Response;
+import sysc4806.project.survey.responses.TextResponse;
 
 
 public class SurveyEditValidator {
@@ -41,6 +45,26 @@ public class SurveyEditValidator {
             }
         } else {
             return "Unknown Question Type";
+        }
+        return null;
+    }
+
+    public static String checkResponse(Question question, Response response) {
+        if (response instanceof TextResponse textResponse) {
+            if(textResponse.getResponse() == null) {
+                return "Missing response";
+            }
+        } else if(response instanceof NumberRangeResponse numberResponse) {
+            NumberRangeQuestion numberQuestion = (NumberRangeQuestion) question;
+            if(numberResponse.getResponse() > numberQuestion.getUpperBound()
+            || numberResponse.getResponse() < numberQuestion.getLowerBound()) {
+                return "Response outside of allowed range";
+            }
+        } else if(response instanceof MultipleChoiceResponse mcqResponse) {
+            MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+            if(mcqResponse.getResponse() > mcq.getChoices().size() || mcqResponse.getResponse() < 0) {
+                return "Invalid multiple choice selection";
+            }
         }
         return null;
     }

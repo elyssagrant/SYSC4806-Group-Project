@@ -22,58 +22,58 @@ import java.util.Map;
 public class PieChartGenerator extends ChartGenerator{
 
     private String title;
-    private DefaultPieDataset<String> dataset;
+    private final DefaultPieDataset<String> dataset;
+    private final SurveyRepository surveyRepository;
 
-    public PieChartGenerator() {
-        this.dataset = new DefaultPieDataset<>();
-        this.title = "";
+    public PieChartGenerator(SurveyRepository surveyRepository) {
+        this.surveyRepository = surveyRepository;
+        title = "";
+        dataset = new DefaultPieDataset<String>();
     }
 
     /**
      * Analyzes information from question entry in survey repo to
      * extract pie chart title and frequencies.
      */
-    private void extractChartDetails(MultipleChoiceQuestion question) {
-        // Ensure dataset is clear of any previous question's data
-        this.dataset.clear();
+    private void extractChartDetails(Integer surveyId, Integer questionId) {
+
+        // Query survey repo for survey of interest
+        Survey survey = surveyRepository.findById(surveyId)
+                .orElseThrow(() -> new IllegalArgumentException("Survey not found"));
+
+        // Get question of interest from survey
+        Question question = survey.getQuestionMap().get(questionId);
 
         // Create dataset of responses
-        this.title = question.getQuestionText();
+        if (question != null && question instanceof MultipleChoiceQuestion multipleChoiceQuestion) {
+            this.title = multipleChoiceQuestion.getQuestionText();
 
-        // Count instances of each response
-        ArrayList<MultipleChoiceResponse> responses =  new ArrayList<>(question.getResponses());
-        HashMap<String, Integer> responseCount = new HashMap<>();
-        for (MultipleChoiceResponse r : responses) {
-            responseCount.put(r.getResponse().toString(), responseCount.getOrDefault(r.getResponse(), 0) + 1);
+            // Count instances of each response
+            ArrayList<MultipleChoiceResponse> responses =  new ArrayList<>(multipleChoiceQuestion.getResponses());
+            HashMap<String, Integer> responseCount = new HashMap<>();
+            for (MultipleChoiceResponse r : responses) {
+                responseCount.put(r.getResponse().toString(), responseCount.getOrDefault(r.getResponse(), 0) + 1);
+            }
+
+            // Add responses and corresponding counts to dataset
+            for(Map.Entry<String, Integer> entry : responseCount.entrySet()) {
+                this.dataset.setValue(entry.getKey(), entry.getValue());
+            }
         }
-
-        // Add responses and corresponding counts to dataset
-        for(Map.Entry<String, Integer> entry : responseCount.entrySet()) {
-            this.dataset.setValue(entry.getKey(), entry.getValue());
-        }
-
     }
 
     /**
      * Generates a pie chart representation for a particular
      * question's responses.
      *
-     * @param question The question of interest
+     * @param surveyId The survey of interest's ID number
+     * @param questionId The question of interest's ID number
      */
     @Override
-    public byte[] generateChart(Question question) {
-
-        // Cast to multiple choice question
-        MultipleChoiceQuestion mcq;
-
-        if(question instanceof MultipleChoiceQuestion) {
-            mcq = (MultipleChoiceQuestion) question;
-        } else {
-            return null;
-        }
+    public byte[] generateChart(Integer surveyId, Integer questionId) {
 
         // Get dataset for chart
-        extractChartDetails(mcq);
+        extractChartDetails(surveyId, questionId);
 
         //Generate chart
         JFreeChart chart = ChartFactory.createPieChart(
@@ -96,7 +96,6 @@ public class PieChartGenerator extends ChartGenerator{
         }
 
         return output.toByteArray();
-
     }
 
 }
