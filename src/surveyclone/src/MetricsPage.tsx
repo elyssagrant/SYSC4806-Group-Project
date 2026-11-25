@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { getMetrics } from "./metricsEndpoints";
+import * as ep from "./metricsEndpoints";
+import {Result} from "./types";
 
 export default function Metrics() {
     const [id, setId] = useState("");
     const [confirmId, setConfirmId] = useState(false);
     const [fetchError, setFetchError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-
-    const [charts, setCharts] = useState<string[]>([]);
+    const [results, setResults] = useState<Result[]>([]);
 
     async function generateMetrics() {
         try {
-            const metrics: string[] = await getMetrics(id);
+            const metrics: Result[] = await ep.getMetrics(id);
 
-            setCharts(metrics);
+            setResults(metrics);
             setFetchError(false);
             setErrorMessage("");
 
@@ -29,7 +29,7 @@ export default function Metrics() {
     }
 
     function resetMetrics() {
-        setCharts([]);
+        setResults([]);
         setErrorMessage("");
         setConfirmId(false);
         setFetchError(false);
@@ -37,24 +37,43 @@ export default function Metrics() {
     }
 
     return (
-        <>
+        <div className="allResultsContainer">
             {confirmId ? (
-                <div className="allChartsContainer">
-                    {charts.map((c, i) => (
-                        <div className="singleChartContainer">
+                <>
+                <div className="metricsTitle">
+                    Metrics for survey id # {id}
+                </div>
+                    {results.map((r, i) => (
+                        <div className="singleResultContainer">
 
-                        <span className="chartNumber">
-                            Chart {i + 1}
-                        </span>
+                        <div className="metricsSubTitle">
+                            Results for Question id# {ep.getId(r)}
+                        </div>
 
-                        <img
-                            src={`data:image/png;base64,${c}`}
-                            alt={`Chart for question ${i + 1} PNG`}
-                            className="metricsChart"
-                        />
+                            {(ep.isMultipleChoice(r) || ep.isNumberRange(r)) ? (
+                                <img
+                                    src={`data:image/png;base64,${ep.getChart(r)}`}
+                                    alt={`Chart for question ${i + 1} PNG`}
+                                    className="metricsChart"
+                                />
+
+                            ) : ep.isText(r) ? (
+                                <div>
+                                <div className="metricsSubTitle">
+                                    Question: "{ep.getQuestionText(r)}"
+                                </div>
+
+                                {ep.getTextResponses(r).map((text, i) => (
+                                    <div className="textResponseBoby">
+                                        {text}
+                                    </div>
+                                ))}
+                                </div>
+                            ) : null}
+
                         </div>
                     ))}
-                </div>
+                </>
             ) : (
                 <div className="formNameContainer">
                     <h1>View Survey Metrics</h1>
@@ -73,6 +92,6 @@ export default function Metrics() {
                 </div>
             )
             }
-        </>
+        </div>
     );
 }

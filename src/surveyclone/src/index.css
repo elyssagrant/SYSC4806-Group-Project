@@ -120,14 +120,14 @@ select {
   font-weight: bold;
 }
 
-.allChartsContainer {
+.allResultsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.singleChartContainer {
+.singleResultContainer {
   margin-bottom: 15px;
   width: 50vw;
   vertical-align: center;
@@ -145,3 +145,18 @@ select {
   border: 1px solid black;
   border-radius: 8px;
 }
+.metricsTitle {
+  font-size: 40px;
+  font-weight: bold;
+  align-items: center;
+}
+.metricsSubTitle {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.textResponseBody {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+

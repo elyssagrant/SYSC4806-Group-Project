@@ -85,7 +85,7 @@ public class HistogramGenerator extends ChartGenerator {
                     numberRangeQuestion.getUpperBound());
 
             // Add count each response value within each subrange
-            ArrayList<NumberRangeResponse> responses = new ArrayList<>(question.getResponses());
+            ArrayList<NumberRangeResponse> responses = new ArrayList<>(numberRangeQuestion.getResponses());
             ArrayList<Integer> responseCount = new ArrayList<>();
 
             for (int[] sr : subRanges) {
