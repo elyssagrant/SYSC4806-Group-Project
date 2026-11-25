@@ -3,6 +3,7 @@
   --Black: black;
   --MidBlue: cornflowerblue;
   --BabyBlue: lightblue;
+  --DeepBlue: blue
 }
 
 body {
@@ -58,15 +59,25 @@ select {
   margin: 10px;
 }
 
+.top-div {
+  width: 100%;
+  padding: 0;
+  background-color: var(--BabyBlue);
+  margin: 0;
+}
+
 .TopHeader {
   color: var(--White);
   font-size: 80px;
   justify-self: center;
+  margin: 0;
+  padding: 7vh;
 }
 
 .SubHeader {
   color: var(--White);
   font-size: 30px;
+  margin: 0;
   justify-self: center;
 }
 

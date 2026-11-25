@@ -3,15 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import CreateFormPage from './CreateFormPage'
 import ViewForm from './ViewForm'
 import './App.css';
-import Sidebar from './otherComponents/Sidebar';
+import Banner from './otherComponents/Banner';
 import LandingPage from "./LandingPage";
 
 function App() {
   return (
     <BrowserRouter>
-      <Sidebar/>
-
       <div className="App">
+        <Banner/>
         <Routes>
           <Route path='/' element={<LandingPage/>}></Route>
           <Route path='/createform' element={<CreateFormPage/>}></Route>
