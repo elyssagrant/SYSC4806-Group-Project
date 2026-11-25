@@ -2,12 +2,12 @@
  * Argument types that are shared between survey components.
  * Needed to tell whether they are being rendered in edit or answer mode.
  */
-import { Answer, MultipleChoiceQuestion, NumberRangeQuestion, Question } from '../types'
+import { MultipleChoiceQuestion, NumberRangeQuestion, Question } from '../types'
+
+export type Answer = string | number
 
 // Contains a question, and then which mode it is in. If answer, contain the answer
-export type FieldProps<Q extends Question> = { mode: 'edit'; question: Q; onChange: (question: Q) => void } | { mode: 'answer'; question: Q; value?: Response; onAnswer: (value: Response) => void }
-
-export type Response = string | number | undefined
+export type FieldProps<Q extends Question> = { mode: 'edit'; question: Q; onChange: (question: Q) => void } | { mode: 'answer'; question: Q; value?: Answer; onAnswer: (value: Answer) => void }
 
 // Options in the dropdown
 export const QUESTION_TYPES: {
