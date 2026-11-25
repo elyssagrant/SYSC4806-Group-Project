@@ -11,7 +11,7 @@ export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>)
         if (props.mode === 'answer') {
             props.onAnswer(sliderValue);
         }
-    });
+    }, []);
 
     if (props.mode === 'edit') {
         return (
