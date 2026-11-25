@@ -1,18 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import CreateFormPage from './CreateFormPage'
-import ViewForm from './ViewForm'
+import ViewForm from './AnswerForm'
 import './App.css';
-import Sidebar from './otherComponents/Sidebar';
+import Banner from './otherComponents/Banner';
 import MetricsPage from './MetricsPage'
 import LandingPage from "./LandingPage";
 
 function App() {
   return (
     <BrowserRouter>
-      <Sidebar/>
-
       <div className="App">
+        <Banner/>
         <Routes>
           <Route path='/' element={<LandingPage/>}></Route>
           <Route path='/createform' element={<CreateFormPage/>}></Route>

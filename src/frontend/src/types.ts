@@ -43,3 +43,9 @@ export interface Result {
     chart: string;
     textResponses: string[];
 }
+
+export interface Answer {
+    id: number
+    type: string
+    response: number | string
+}
