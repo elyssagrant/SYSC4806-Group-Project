@@ -1,6 +1,7 @@
 package sysc4806.project.charts;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -42,12 +43,12 @@ public class SurveyResultsGenerator {
             // number range questions
             if (q instanceof NumberRangeQuestion nrq) {
                 byte[] chart = new HistogramGenerator(surveyRepository).generateChart(surveyId, nrq.getId());
-                results.add(new QuestionResult(nrq.getId(), "NumberRange", nrq.getQuestionText(), chart, null));
+                results.add(new QuestionResult(nrq.getId(), "NumberRange", nrq.getQuestionText(), Base64.getEncoder().encodeToString(chart), null));
 
                 // multiple choice questions
             } else if (q instanceof MultipleChoiceQuestion mcq) {
                 byte[] chart = new PieChartGenerator(surveyRepository).generateChart(surveyId, mcq.getId());
-                results.add(new QuestionResult(mcq.getId(), "MultipleChoice", mcq.getQuestionText(), chart, null));
+                results.add(new QuestionResult(mcq.getId(), "MultipleChoice", mcq.getQuestionText(), Base64.getEncoder().encodeToString(chart), null));
 
                 // test questions
             } else if (q instanceof TextQuestion txtq) {

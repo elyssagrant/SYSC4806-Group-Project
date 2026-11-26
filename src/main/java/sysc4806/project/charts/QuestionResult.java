@@ -10,11 +10,11 @@ public class QuestionResult {
     private final Integer questionId;
     private final String type;
     private final String questionText;
-    private final byte[] chart;
+    private final String chart;
     private final List<String> textResponses;
 
     public QuestionResult(Integer questionId, String type, String questionText,
-                          byte[] chart, List<String> textResponses) {
+                          String chart, List<String> textResponses) {
         this.questionId = questionId;
         this.type = type;
         this.questionText = questionText;
@@ -34,7 +34,7 @@ public class QuestionResult {
         return questionText;
     }
 
-    public byte[] getChart() {
+    public String getChart() {
         return chart;
     }
 
