@@ -8,10 +8,14 @@ export default function NumberRangeField(props: FieldProps<NumberRangeQuestion>)
     const [sliderValue, setSliderValue] = useState(Math.floor((upperBound + lowerBound)/2));
 
     useEffect(() => {
+        loadAnswer()
+    }, []);
+
+    function loadAnswer() {
         if (props.mode === 'answer') {
             props.onAnswer(sliderValue);
         }
-    }, []);
+    }
 
     if (props.mode === 'edit') {
         return (
