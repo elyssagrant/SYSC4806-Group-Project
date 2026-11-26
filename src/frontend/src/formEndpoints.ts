@@ -4,7 +4,7 @@
  */
 
 import { questionsEqual } from "./surveyComponents/componentTypes";
-import { Form, Question } from "./types"
+import { Form, Question, SurveySummary } from "./types"
 
 export function getId(): string | null {
     const cookies = document.cookie.split('; ');
@@ -157,4 +157,10 @@ export async function deleteForm(id: string): Promise<void> {
     } catch (err: any) {
         throw new Error(err.message)
     }
+}
+
+export async function getSurveys(): Promise<SurveySummary[]> {
+    const response = await fetch('/survey');
+    if (!response.ok) throw new Error('Could not load surveys');
+    return response.json();
 }

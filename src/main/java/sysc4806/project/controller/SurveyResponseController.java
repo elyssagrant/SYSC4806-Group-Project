@@ -121,6 +121,17 @@ public class SurveyResponseController {
         }
         return ResponseEntity.accepted().body(null);
     }
+
+    @GetMapping
+    public ResponseEntity<List<SurveySummary>> listSurveys() {
+        List<SurveySummary> summaries = new ArrayList<>();
+        for (Survey survey : surveyRepo.findAll()) {
+            List<Question> questions = survey.getQuestions();
+            int responses = questions.isEmpty() ? 0 : questions.getFirst().getNumberOfResponses();
+            summaries.add(new SurveySummary(survey.getId(), survey.getTitle(), responses));
+        }
+        return ResponseEntity.ok(summaries);
+    }
 }
 
 

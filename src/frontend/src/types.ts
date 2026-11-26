@@ -36,3 +36,10 @@ export interface Form {
     questions: Question[]
 }
 
+export interface SurveySummary {
+    id: number
+    title: string
+    isOpen: boolean
+    numberOfResponses: number
+    numberOfQuestions: number
+}

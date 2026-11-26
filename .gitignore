@@ -38,3 +38,7 @@ target
 .idea 
 # For VSCode related settigns
 .vscode
+
+# Dependencies and build output (any folder)
+node_modules/
+build/
