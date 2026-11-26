@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { getId, viewForm } from "./formEndpoints";
-import { Form, Question } from "./types";
+import { Form, Question, SurveySummary } from "./types";
 import QuestionField from "./surveyComponents/QuestionField";
+import DiscoveryTable from "./otherComponents/DiscoveryTable";
 
 export default function ViewForm() {
     const [id, setId] = useState('');
@@ -11,6 +12,8 @@ export default function ViewForm() {
 
     const [name, setName] = useState("");
     const [questions, setQuestions] = useState<Question[]>([]);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [discoveryData, setDiscoveryData] = useState<SurveySummary[]>([]);
 
     async function getForm() {
         try {
@@ -42,6 +45,13 @@ export default function ViewForm() {
         setId("");
     }
 
+    function tableLoad() {
+
+    }
+
+    function onPageChange(pageNum: number) {
+        setPageNumber(pageNum)
+    }
 
     useEffect(() => {
         // If the user has created a form previously and saved
@@ -73,6 +83,8 @@ export default function ViewForm() {
         ) : (
             <div className="formNameContainer">
                 <h1>View Forms</h1>
+                <DiscoveryTable pageSize={10} onLoad={tableLoad} onPageChange={onPageChange} data={discoveryData} ></DiscoveryTable>
+                
                 <p className="questionNumber">Please enter an id.</p>
                 <label>
                     ID

@@ -4,7 +4,7 @@ interface DiscoveryRowProps {
     data: SurveySummary
 }
 
-export default function DiscoveryRow({ data }:DiscoveryRowProps) {
+export default function DiscoveryRow({ data }: DiscoveryRowProps) {
     return (
         <tr>
             <td>{data.id}</td> 
