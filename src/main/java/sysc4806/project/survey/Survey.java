@@ -145,6 +145,12 @@ public class Survey {
 
     // get the number of responses for survey
     public Integer getNumberOfResponses(){
+
+        // make sure the survey has questions first to avoid errors
+        if (questions.isEmpty()) {
+            return 0;
+        }
+
         Integer expectedResponses = questions.getFirst().getNumberOfResponses();
         // make sure that the number of responses is not somehow negative
         if (expectedResponses < 0) {

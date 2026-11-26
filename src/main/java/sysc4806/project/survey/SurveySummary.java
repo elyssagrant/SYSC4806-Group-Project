@@ -1,3 +1,5 @@
+package sysc4806.project.survey;
+
 import java.util.List;
 import jakarta.persistence.*;
 
