@@ -91,4 +91,8 @@ public class MultipleChoiceQuestion extends Question {
         this.setChoices(mc.getChoices());
         this.setQuestionText(mc.getQuestionText());
     }
+
+    public Integer getNumberOfResponses() {
+        return responses.size();
+    }
 }

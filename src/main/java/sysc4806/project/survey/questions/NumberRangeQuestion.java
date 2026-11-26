@@ -117,4 +117,8 @@ public class NumberRangeQuestion extends Question {
         this.setLowerBound(nr.getLowerBound());
         this.setUpperBound(nr.getUpperBound());
     }
+
+    public Integer getNumberOfResponses() {
+        return responses.size();
+    }
 }

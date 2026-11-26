@@ -78,4 +78,8 @@ public class TextQuestion extends Question {
         }
         this.setQuestionText(t.getQuestionText());
     }
+
+    public Integer getNumberOfResponses() {
+        return responses.size();
+    }
 }

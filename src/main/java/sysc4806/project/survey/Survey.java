@@ -143,4 +143,24 @@ public class Survey {
         return null;
     }
 
+    // get the number of responses for survey
+    public Integer getNumberOfResponses(){
+        Integer expectedResponses = questions.getFirst().getNumberOfResponses();
+        // make sure that the number of responses is not somehow negative
+        if (expectedResponses < 0) {
+            throw new IllegalStateException("Response count is negative: " + expectedResponses);
+        }
+
+        // check that the rest of the questions have the same number of responses
+        for (int i = 1; i < questions.size(); i++) {
+            int actualResponses = questions.get(i).getNumberOfResponses();
+            if (actualResponses != expectedResponses) {
+                throw new IllegalStateException(
+                        "Question " + (i + 1) + " has " + actualResponses
+                                + " responses, but question 1 has " + expectedResponses + ".");
+            }
+        }
+
+        return expectedResponses;
+    }
 }
