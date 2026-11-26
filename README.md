@@ -6,12 +6,13 @@ This repository contains the Group Project for SYSC 4806, Software Engineering L
 The team will be implementing the Mini-SurveyMonkey concept, with Spring Feature Toggling.
 
 ## State of the Project
-Implementing the early stages of the project:
+Implementing core functionality and stylized front end:
 Azure deployment (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/2): Complete
 Integrate CI (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/3): Complete
-Create Survey-creation Frontend (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/7): In progress
-Create persistable entities (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/4, https://github.com/elyssagrant/SYSC4806-Group-Project/issues/5, https://github.com/elyssagrant/SYSC4806-Group-Project/issues/8): In progress
-Survey creation Controllers (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/14): In Review
+Implement landing page and other frontend improvements (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/57): Complete
+Metrics Page to organize charts and survey results (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/58): Complete
+Submitting answers to surveys (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/48, https://github.com/elyssagrant/SYSC4806-Group-Project/issues/60): Complete
+Implementing toggle feature (https://github.com/elyssagrant/SYSC4806-Group-Project/issues/27): In Progress
 
 ## Model Class Diagram
 ![uml_class_diagram.png](plantUML/rendered/java-class-diagram.svg)
