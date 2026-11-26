@@ -64,6 +64,7 @@ export default function ViewForm() {
             convertMCStringToMCIndex(questions, answers);
             await answerForm(id, version, Object.values(answers));
             convertMCIndexToMCString(questions, answers);
+            setMessage("Form submitted successfully.")
             setHasMessage(true);
         } catch (error: any) {
             setFormSubmitError(true);
