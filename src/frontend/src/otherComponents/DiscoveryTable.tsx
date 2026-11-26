@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { Form } from "../types";
+import { SurveySummary } from "../types";
 import DiscoveryRow from "./DiscoveryRow";
 
 
 interface DiscoveryTableProps {
     pageSize: number // The total number of entries that can exist in the table at a time.
-    data: Form[] // What the table renders
+    data: SurveySummary[] // What the table renders
     // We implement the page system on the backend as well. This sends another request with a new page number.
     // When the page number is changed - the component's parent should send the appropriate fetch (owned forms vs discovery) and modify the data prop based on input
     onPageChange: (pageNumber: number) => void 
@@ -26,20 +26,21 @@ export default function DiscoveryTable(props: DiscoveryTableProps) {
     // causes the useEffect function to call again. We're using it to load the initial contents of the table.
     useEffect(() => {
         props.onLoad();
-    })
+    }, [])
 
     return (
         <div className="survey-table-div">
             <table className="survey-table">
                 <thead>
-                    <th>Name</th>
-                    <th>Author</th> 
-                    <th>Answers</th>
-                    <th>Created</th>
+                    <th>ID</th>
+                    <th>Title</th> 
+                    <th>Open?</th>
+                    <th>Responses</th>
+                    <th>Questions</th>
                 </thead>
                 <tbody>
-                    {data.map((form) => (
-                        <DiscoveryRow data={form}></DiscoveryRow>
+                    {data.map((SurveySummary) => (
+                        <DiscoveryRow data={SurveySummary}></DiscoveryRow>
                     ))}
                 </tbody>
             </table>
