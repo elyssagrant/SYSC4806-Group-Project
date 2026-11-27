@@ -184,11 +184,17 @@ export async function answerForm(id: string, version: number, answers: Answer[])
  * This is a request to check if a user is logged in or not
  */
 export async function loggedIn(): Promise<boolean> {
-    const sessionId = cookieStore.get("JSESSIONID")
-    if (!sessionId) {
-        return false;
-    }
+    const response = await fetch("/user/auth")
 
-    const response = await fetch("/")
-    return true;
+    try {
+        const status = response.status;
+        switch (status) {
+            case 200:
+                return true;
+            default:
+                return false;
+        }
+    } catch(error: any) {
+        throw new Error(error.message || "Unknown error")
+    }
 }
