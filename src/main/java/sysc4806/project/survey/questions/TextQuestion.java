@@ -10,10 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import org.springframework.stereotype.Component;
 import sysc4806.project.survey.responses.TextResponse;
+import sysc4806.project.FeatureToggling.TextToggle;
 
 @Entity
-public class TextQuestion extends Question {
+@Component("originalText")
+public class TextQuestion extends Question implements TextToggle {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "response_id")
@@ -77,5 +80,10 @@ public class TextQuestion extends Question {
                     "Expected MultipleChoiceQuestion, got " + question.getClass().getSimpleName());
         }
         this.setQuestionText(t.getQuestionText());
+    }
+
+    @Override
+    public void execute() {
+
     }
 }

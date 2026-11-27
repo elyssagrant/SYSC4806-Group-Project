@@ -22,8 +22,9 @@ public class FF4jConfig {
 
         ff4j.autoCreate(true);
 
-        ff4j.createFeature("NumberRangeDecimal", false );
-
+        ff4j.createFeature("numberRange", false );
+        ff4j.createFeature("multipleChoice, false");
+        ff4j.createFeature("text", false);
         return ff4j;
     }
 }

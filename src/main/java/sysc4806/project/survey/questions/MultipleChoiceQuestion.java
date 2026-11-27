@@ -10,10 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import org.springframework.stereotype.Component;
 import sysc4806.project.survey.responses.MultipleChoiceResponse;
+import sysc4806.project.FeatureToggling.MultipleChoiceToggle;
 
+@Component("originalMultipleChoice")
 @Entity
-public class MultipleChoiceQuestion extends Question {
+public class MultipleChoiceQuestion extends Question implements MultipleChoiceToggle {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "response_id")
@@ -90,5 +93,10 @@ public class MultipleChoiceQuestion extends Question {
         }
         this.setChoices(mc.getChoices());
         this.setQuestionText(mc.getQuestionText());
+    }
+
+    @Override
+    public void execute() {
+
     }
 }

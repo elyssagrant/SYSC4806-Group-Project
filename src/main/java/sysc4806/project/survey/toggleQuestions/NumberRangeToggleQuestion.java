@@ -1,31 +1,57 @@
 package sysc4806.project.survey.toggleQuestions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import org.springframework.stereotype.Component;
 import sysc4806.project.survey.questions.Question;
 import sysc4806.project.survey.responses.NumberRangeResponse;
-import java.util.ArrayList;
+import sysc4806.project.FeatureToggling.NumberRangeToggle;
 
-public class NumberRangeToggleQuestion implements Question, NumberRangeToggle{
+@Component("newNumberRange")
+@Entity
+public class NumberRangeToggleQuestion extends Question implements NumberRangeToggle{
 
-    private ArrayList<NumberRangeResponse> responses;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "response_id")
+    private List<NumberRangeResponse> responses;
+
     private String questionText;
-    private Integer id;
-    private int[] range;
 
-    private final int MAXRANGEARRAYSIZE = 2;
-    private final int UPPERBOUNDINDEX = 1;
-    private final int LOWERBOUNDINDEX = 0;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private double lowerBound;
+    private double upperBound;
 
     //*** Constructors ***
 
     public NumberRangeToggleQuestion(){
         responses = new ArrayList<>();
-        range = new int[MAXRANGEARRAYSIZE];
+        lowerBound = 0.0;
+        upperBound = 0.0;
         questionText = "";
     }
 
     public NumberRangeToggleQuestion(String questionText){
         responses = new ArrayList<>();
-        range = new int[MAXRANGEARRAYSIZE];
+        lowerBound = 0.0;
+        upperBound = 0.0;
+        this.questionText = questionText;
+    }
+
+    public NumberRangeToggleQuestion(String questionText, double upperBound, double lowerBound) {
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
         this.questionText = questionText;
     }
 
@@ -35,20 +61,16 @@ public class NumberRangeToggleQuestion implements Question, NumberRangeToggle{
         return questionText;
     }
 
-    public ArrayList<NumberRangeResponse> getResponses(){
+    public List<NumberRangeResponse> getResponses(){
         return responses;
     }
 
-    public NumberRangeResponse getResponseFromIndex(int index){
-        return responses.get(index);
+    public Double getLowerBound(){
+        return lowerBound;
     }
 
-    public int getLowerBound(){
-        return range[LOWERBOUNDINDEX];
-    }
-
-    public int getUpperBound(){
-        return range[UPPERBOUNDINDEX];
+    public Double getUpperBound(){
+        return upperBound;
     }
 
     public Integer getId(){
@@ -69,12 +91,12 @@ public class NumberRangeToggleQuestion implements Question, NumberRangeToggle{
         this.id = newId;
     }
 
-    public void setUpperBound(int newUpperBound){
-        this.range[UPPERBOUNDINDEX] = newUpperBound;
+    public void setUpperBound(Double newUpperBound){
+        this.upperBound = newUpperBound;
     }
 
-    public void setLowerBound(int newLowerBound){
-        this.range[LOWERBOUNDINDEX] = newLowerBound;
+    public void setLowerBound(Double newLowerBound){
+        this.lowerBound = newLowerBound;
     }
 
     // *** Additional Methods ***
@@ -83,8 +105,26 @@ public class NumberRangeToggleQuestion implements Question, NumberRangeToggle{
         responses.add(response);
     }
 
+    public boolean withinRange(Double number){
+        if (number>=this.lowerBound && number<=this.upperBound){
+            return true;
+        }
+        return false;
+    }
+
+    public void copy(Question question) {
+        if (!(question instanceof sysc4806.project.survey.toggleQuestions.NumberRangeToggleQuestion nr)) {
+            throw new IllegalArgumentException(
+                    "Expected NumberRangeToggleQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setQuestionText(nr.getQuestionText());
+        this.setLowerBound(nr.getLowerBound());
+        this.setUpperBound(nr.getUpperBound());
+    }
+
     @Override
     public void execute() {
 
     }
+
 }
