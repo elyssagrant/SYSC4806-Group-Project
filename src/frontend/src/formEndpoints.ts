@@ -184,13 +184,16 @@ export async function answerForm(id: string, version: number, answers: Answer[])
  * This is a request to check if a user is logged in or not
  */
 export async function loggedIn(): Promise<boolean> {
-    const response = await fetch("/user/auth")
+    const response = await fetch(`/user/auth`, {
+        method: 'GET'
+    })
 
     try {
         const status = response.status;
+        const result = await response.json();
         switch (status) {
             case 200:
-                return true;
+                return result;
             default:
                 return false;
         }

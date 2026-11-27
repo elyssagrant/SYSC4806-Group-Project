@@ -41,10 +41,11 @@ public class AccountController {
     }
 
     // Check if the user is logged in - used by react to render the logged in pages
-    @GetMapping("/user/auth")
-    public ResponseEntity<Void> userExists(@AuthenticationPrincipal AccountDTO user) {
-        return ResponseEntity.ok().build();
+    @GetMapping("/auth")
+    public ResponseEntity<Boolean> userExists(@AuthenticationPrincipal AccountDTO user) {
+        if (user == null) {
+            return ResponseEntity.ok().body(false)   ;
+        }
+        return ResponseEntity.ok().body(true);
     }
-
-
 }

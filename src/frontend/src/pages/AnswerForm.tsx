@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { answerForm, getId, viewForm } from "./formEndpoints";
-import { Answer, Form, Question } from "./types";
-import QuestionField from "./surveyComponents/QuestionField";
-import { checkAnswer, convertMCIndexToMCString, convertMCStringToMCIndex, Response } from "./surveyComponents/componentTypes";
+import { answerForm, getId, viewForm } from "../formEndpoints";
+import { Answer, Form, Question } from "../types";
+import QuestionField from "../surveyComponents/QuestionField";
+import { checkAnswer, convertMCIndexToMCString, convertMCStringToMCIndex, Response } from "../surveyComponents/componentTypes";
 
 export default function ViewForm() {
     const [id, setId] = useState('');

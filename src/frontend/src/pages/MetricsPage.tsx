@@ -1,6 +1,6 @@
 import { useState } from "react";
-import * as ep from "./metricsEndpoints";
-import {Result} from "./types";
+import * as ep from "../metricsEndpoints";
+import {Result} from "../types";
 
 export default function Metrics() {
     const [id, setId] = useState("");

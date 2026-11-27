@@ -1,4 +1,4 @@
-import barGraph from './images/barGraph.png'
+import barGraph from '../images/barGraph.png'
 import Wave from 'react-wavify'
 
 export default function LandingPage() {

@@ -32,7 +32,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/survey").authenticated()
                         .requestMatchers(HttpMethod.GET, "/survey/owned").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/user/auth").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/survey/{id}/metrics").authenticated()
                         .anyRequest().permitAll() // Decided to make this permit all by default,
                         // This means we don't have to worry about resources that we haven't added here
                         // Only add here if there is a new authenticated endpoint/resource

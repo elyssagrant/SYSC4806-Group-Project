@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { checkQuestion, newQuestion, QUESTION_TYPES } from "./surveyComponents/componentTypes";
-import { Form, Question } from './types';
-import QuestionField from "./surveyComponents/QuestionField";
-import { saveToForm, createForm, getId, storeId, viewForm, FormRequestError, deleteForm } from "./formEndpoints";
+import { checkQuestion, newQuestion, QUESTION_TYPES } from "../surveyComponents/componentTypes";
+import { Form, Question } from '../types';
+import QuestionField from "../surveyComponents/QuestionField";
+import { saveToForm, createForm, getId, storeId, viewForm, FormRequestError, deleteForm } from "../formEndpoints";
 
 //Edit modes to select for the dropdown.
 enum EDIT_TYPES {
