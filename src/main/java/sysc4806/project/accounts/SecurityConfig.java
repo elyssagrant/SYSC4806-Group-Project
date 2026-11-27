@@ -32,6 +32,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/survey").authenticated()
                         .requestMatchers(HttpMethod.GET, "/survey/owned").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/user/auth").authenticated()
                         .anyRequest().permitAll() // Decided to make this permit all by default,
                         // This means we don't have to worry about resources that we haven't added here
                         // Only add here if there is a new authenticated endpoint/resource
@@ -46,16 +47,4 @@ public class SecurityConfig {
                 ).logout(logout -> logout.permitAll());
         return http.build();
     }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(userDetails);
-    }
-
 }

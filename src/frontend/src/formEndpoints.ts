@@ -65,8 +65,6 @@ async function formError(response: Response): Promise<FormRequestError> {
                 }
             }
         }
-
-
         const message = data.message;
         return new FormRequestError(response.status, message, questionErrors)
     } catch (err) {
@@ -180,4 +178,17 @@ export async function answerForm(id: string, version: number, answers: Answer[])
     } catch (err: any) {
         throw new Error(err.message || "Unknown error")
     }
+}
+
+/**
+ * This is a request to check if a user is logged in or not
+ */
+export async function loggedIn(): Promise<boolean> {
+    const sessionId = cookieStore.get("JSESSIONID")
+    if (!sessionId) {
+        return false;
+    }
+
+    const response = await fetch("/")
+    return true;
 }
