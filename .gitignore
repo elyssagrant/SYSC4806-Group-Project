@@ -15,6 +15,7 @@
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/workspace.xml
 *.iws
 *.iml
 *.ipr
@@ -35,6 +36,6 @@ replay_pid*
 
 target
 # For IntelliJ specific settings
-.idea 
+.idea
 # For VSCode related settigns
 .vscode

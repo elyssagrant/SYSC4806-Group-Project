@@ -10,10 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import org.springframework.stereotype.Component;
 import sysc4806.project.survey.responses.NumberRangeResponse;
+import sysc4806.project.FeatureToggling.NumberRangeToggle;
 
+@Component("originalNumberRange")
 @Entity
-public class NumberRangeQuestion extends Question {
+public class NumberRangeQuestion extends Question implements NumberRangeToggle{
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -116,5 +119,10 @@ public class NumberRangeQuestion extends Question {
         this.setQuestionText(nr.getQuestionText());
         this.setLowerBound(nr.getLowerBound());
         this.setUpperBound(nr.getUpperBound());
+    }
+
+    @Override
+    public void execute() {
+
     }
 }
