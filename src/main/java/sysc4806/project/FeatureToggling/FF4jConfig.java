@@ -22,6 +22,8 @@ public class FF4jConfig {
 
         ff4j.autoCreate(true);
 
+        ff4j.createFeature("NumberRangeDecimal", false );
+
         return ff4j;
     }
 }

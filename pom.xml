@@ -72,6 +72,12 @@
             <version>${ff4j.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.ff4j</groupId>
+            <artifactId>ff4j-aop</artifactId>
+            <version>${ff4j.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
