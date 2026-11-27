@@ -1,14 +1,21 @@
 package sysc4806.project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.ff4j.FF4j;
 
+@Controller
+@RequestMapping("/{id}")
 public class ToggleController {
 
+    @Autowired
     private final FF4j ff4j;
+
 
     public ToggleController(FF4j ff4j) {
         this.ff4j = ff4j;
+
     }
 
 
