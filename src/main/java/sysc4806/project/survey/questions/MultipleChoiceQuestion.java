@@ -1,28 +1,43 @@
 package sysc4806.project.survey.questions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import sysc4806.project.survey.responses.MultipleChoiceResponse;
 
-import java.util.*;
+@Entity
+public class MultipleChoiceQuestion extends Question {
 
-public class MultipleChoiceQuestion implements Question {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "response_id")
+    private List<MultipleChoiceResponse> responses;
 
 
-    private ArrayList<MultipleChoiceResponse> responses;
-    private ArrayList<String> answerOptions;
+    private ArrayList<String> choices;
     private String questionText;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     //*** Constructors ***
 
     public MultipleChoiceQuestion(){
         responses = new ArrayList<>();
-        answerOptions = new ArrayList<>();
+        choices = new ArrayList<>();
         questionText = "";
     }
 
     public MultipleChoiceQuestion(String questionText){
         responses = new ArrayList<>();
-        answerOptions = new ArrayList<>();
+        choices = new ArrayList<>();
         this.questionText = questionText;
     }
 
@@ -32,16 +47,12 @@ public class MultipleChoiceQuestion implements Question {
         return questionText;
     }
 
-    public ArrayList<MultipleChoiceResponse> getResponses(){
+    public List<MultipleChoiceResponse> getResponses(){
         return responses;
     }
 
-    public MultipleChoiceResponse getResponseFromIndex(int index){
-        return responses.get(index);
-    }
-
-    public ArrayList<String> getAnswerOptions(){
-        return answerOptions;
+    public ArrayList<String> getChoices(){
+        return choices;
     }
 
     public Integer getId(){
@@ -58,8 +69,8 @@ public class MultipleChoiceQuestion implements Question {
         this.questionText = newQuestionText;
     }
 
-    public void setAnswerOptions(ArrayList<String> newAnswerOptions){
-        this.answerOptions = newAnswerOptions;
+    public void setChoices(ArrayList<String> newChoices){
+        this.choices = newChoices;
     }
 
     public void setId(Integer newId){
@@ -72,5 +83,12 @@ public class MultipleChoiceQuestion implements Question {
         responses.add(response);
     }
 
-
+    public void copy(Question question) {
+        if (!(question instanceof MultipleChoiceQuestion mc)) {
+            throw new IllegalArgumentException(
+                    "Expected MultipleChoiceQuestion, got " + question.getClass().getSimpleName());
+        }
+        this.setChoices(mc.getChoices());
+        this.setQuestionText(mc.getQuestionText());
+    }
 }
