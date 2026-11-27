@@ -4,6 +4,7 @@ import CreateFormPage from './CreateFormPage'
 import ViewForm from './AnswerForm'
 import './App.css';
 import Banner from './otherComponents/Banner';
+import MetricsPage from './MetricsPage'
 import LandingPage from "./LandingPage";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<LandingPage/>}></Route>
           <Route path='/createform' element={<CreateFormPage/>}></Route>
           <Route path='/viewform' element={<ViewForm/>}></Route>
+          <Route path='/metrics' element={<MetricsPage/>}></Route>
           <Route path='*' element={<h1>Not Found</h1>}></Route>
         </Routes>
 

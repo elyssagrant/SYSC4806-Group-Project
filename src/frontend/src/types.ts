@@ -36,6 +36,13 @@ export interface Form {
     questions: Question[]
 }
 
+export interface Result {
+    questionId: number;
+    type: string;
+    questionText: string;
+    chart: string;
+    textResponses: string[];
+}
 
 export interface Answer {
     id: number
